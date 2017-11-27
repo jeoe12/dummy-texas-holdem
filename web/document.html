@@ -9,18 +9,8 @@
     <meta name="description" content="dummy">
     <meta name="author" content="dummy team">
     <title>THE Document</title>
-    <link rel="stylesheet" href="js/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../js/public/bower_components/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="style/document.css">
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?0506ffafb810f2d8dab03ec838bb0e05";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+    <link rel="stylesheet" href="./js/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style/document.css">
 
 </head>
 <body>
@@ -36,7 +26,6 @@
                             <li class="active"><a href="#">文档</a></li>
                             <li><a href="#" onclick="setGame();">直播</a></li>
                             <li><a href="#" onclick="setPlayer();">游戏</a></li>
-                            <li><a href="players.html">玩家管理</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -52,8 +41,6 @@
                 <li style="cursor: pointer;"><a data-target="#api_doc" data-toggle="tab">开发规范</a></li>
                 <li style="cursor: pointer;"><a data-target="#example" data-toggle="tab">实用工具</a></li>
                 <li style="cursor: pointer;"><a data-target="#faq" data-toggle="tab">FAQ</a></li>
-                <li style="cursor: pointer;"><a data-target="#release_note" data-toggle="tab">更新日志</a></li>
-                <li style="cursor: pointer;"><a data-target="#thank_list" data-toggle="tab">Thank List</a></li>
             </ul>
 
             <div class="tab-content" style="margin-top: 40px; margin-bottom: 80px;">
@@ -1066,182 +1053,6 @@
                     </p>
                     <br>
                 </div>
-                <div class="tab-pane" id="release_note">
-                    <div>
-                        <h4>V1.4.1 (2017-11-01)</h4>
-                        合并了一些为EC2017添加的功能<br>
-                        其它UI和流程微调
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.4.0 (2017-10-27)</h4>
-                        区分人类和AI玩家<br>
-                        游戏背景更新<br>
-                        允许在游戏过程中结束游戏(不是停止)<br>
-                        修复人类玩家一开始看不到手牌的bug<br>
-                        修复raise和bet次数统计不正确的bug<br>
-                        修复reload次数显示不正确bug<br>
-                        其它UI和流程微调
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.3.3 (2017-10-26)</h4>
-                        试图解决CPU耗尽的偶现问题<br>
-                        试图解决玩家位置显示错乱的偶现问题<br>
-                        加入了游戏音效<br>
-                        UI微调<br>
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.3.2 (2017-10-25)</h4>
-                        限制单个日志文件大小, 避免崩溃<br>
-                        修复了关键bug: 玩家用重复登录并退出时可以踢掉同名玩家<br>
-                        修复了关键bug: 由楼上的bug引起的LiveUI中玩家消失和指令错乱问题<br>
-                        修复了Round Clear时对Straight牌型显示错误的问题<br>
-                        更正了同为Flush牌型的比牌方式, 目前修改为只在Flush内部比较高牌<br>
-                        修复了导入玩家时出现table重复以及排名查询时找不到table的问题<br>
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.3.1 (2017-10-24)</h4>
-                        修改了日志机制, 并减少了无用的日志<br>
-                        游戏中有玩家退出时, 刷新Live UI不会丢失玩家了<br>
-                        其它bug修复
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.3.0 (2017-10-23)</h4>
-                        修正了后台一些引起异常的逻辑<br>
-                        Live 和 玩家 UI 现在在刷新的时候不会卡住了<br>
-                        增加总成绩看板和游戏状态跟踪页面<br>
-                        UI优化<br>
-                        其它bug修复
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.2.2 (2017-10-20)</h4>
-                        Round Clear时将玩家没有reload的筹码也计入排名<br>
-                        解除了开局时误发手牌信息的bug<br>
-                        增加了正式比赛全局排名和展示功能<br>
-                        一些性能优化<br>
-                        其它bug修复
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.2.1 (2017-10-18)</h4>
-                        游戏中的玩家名采用散列报文和前端交互, 详情请参考文档中关于 __join 指令的说明和 FAQ<br>
-                        UI更新, 在两轮之间展示玩家手牌以及筹码分配<br>
-                        增加游戏设置功能, 可以在启动游戏之前设置好各项参数, 方便调试<br>
-                        加入游戏BGM(不是正式版)<br>
-                        修改了 __action 和 __bet 指令中的 minBet 字段bug, 目前表示最小需要押注的值<br>
-                        其它bug修复
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.2.0 (2017-10-16)</h4>
-                        支持人机对战(人类玩家的UI还在进一步完善中)<br>
-                        可以看到玩家掉线的状态了(名字为灰色)<br>
-                        解决了其它桌玩家进入或退出时造成游戏UI闪烁的问题<br>
-                        其它问题修复
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.1.2 (2017-10-12)</h4>
-                        进一步修复了服务器上的异常<br>
-                        __show_action中能看到当前奖池中的总筹码<br>
-                        UI微调<br>
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.1.1 (2017-10-11)</h4>
-                        修复了服务器上的一些crash和通信时序错误<br>
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.1.0 (2017-10-07)</h4>
-                        全新UI<br>
-                        其它bug修复<br>
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.0.5 (2017-09-30)</h4>
-                        修改了 __action 和 __bet 指令格式, 去掉了 gameBet 字段, 将玩家的下注信息统一放到了 players 信息列表中<br>
-                        修复了浮点数筹码引起的筹码错乱问题<br>
-                        修复了Web socket关闭引起的crash问题<br>
-                        UI微调<br>
-                        文档补充, 梳理了德州扑克基本规则以及FAQ
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.0.4 (2017-09-28)</h4>
-                        修改了bet(任意注)规则, 在一回合中可以随时下注, 详情请参考 __action 命令<br>
-                        修改了命令交互, 玩家可以随时收到牌桌上其它玩家的bet(本回合下注)以及roundBet(本轮前几回合总共下注)的注额信息<br>
-                        增加了网页版的机器人模拟器(dummy AI), 用户可以自行启动并通过浏览器调试信息追踪服务器交互指令格式<br>
-                        在UI面板上可以显示玩家本轮历史总注额<br>
-                        在UI面板上可以退出游戏(然后可以重新开始)<br>
-                        其它系统bug修复
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.0.3 (2017-09-27)</h4>
-                        修正了一些异常操作引起的crash<br>
-                        dealer和大、小盲注的位置及数额将反馈到玩家和观众前端, 请注意看文档更新<br>
-                        目前服务器等待玩家超时时间暂时设置为1min(正式比赛时会调整为2s), 方便部分测试玩家手动发送指令<br>
-                        第一轮游戏开始时也会有__new_round通知了
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.0.2 (2017-09-25)</h4>
-                        修正了小, 大盲注每一圈翻倍的bug<br>
-                        修正了因 game logger 打开文件太多引起崩溃的bug, 1.0.2版本暂时不提供日志下载功能<br>
-                        修正了allin相关的一些规则上的bug<br>
-                        修改了测试版UI, 允许guest端随时接入, 修改了UI上的若干显示信息<br>
-                        其它系统bug修复<br>
-                        新增了游戏昵称概念(正式比赛时用)<br>
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.0.1 (2017-09-20)</h4>
-                        更新了比赛规则, 允许一局多圈制, 每圈盲注翻倍, 允许玩家在每轮结束之后索取筹码(reload)<br>
-                        加入了 __round_end 指令, 用于在每轮结束之后告知玩家牌桌状态<br>
-                        加入了 __start_reload 和 __reload 指令, 用于让玩家索取筹码<br>
-                        添加了游戏日志功能, 内测期间玩家可以下载指定桌的当天比赛后台日志用于 debug<br>
-                        更新了 js, Python 示例代码<br>
-                        修正 bug 若干<br>
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.0.0 (2017-09-15)</h4>
-                        发布了javascript, python和java example
-                    </div>
-                    <br>
-                    <div>
-                        <h4>V1.0.0 (2017-09-14)</h4>
-                        dummy V1.0.0上线
-                    </div>
-                </div>
-                <div class="tab-pane" id="thank_list">
-                    <a style="text-decoration: none;"><h4><strong>制作组</strong></h4></a>
-                    <div>
-                        <p>Director: Franson Fang</p>
-                        <p>Programmer: Strawmanbobi, JiePing Yang</p>
-                        <p>Design: Teresa Wu</p>
-                    </div>
-                    <br>
-                    <a style="text-decoration: none;"><h4><strong>特别感谢</strong></h4></a>
-                    <div>
-                        <p>Andy Du</p>
-                        <p>Ace Luo</p>
-                        <p>Luffy Huang</p>
-                        <p>Toby Zhang</p>
-                        <p>Joseph D Wang</p>
-                        <p>David Z Zhang</p>
-                        <p>Boris Xiao</p>
-                        <p>Richard Tai</p>
-                        <p>Orange Change</p>
-                        <p>...</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -1369,12 +1180,11 @@
     </div>
 </body>
 
-<script src="../../js/public/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="../../js/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../js/public/bower_components/bootstrap/js/modal.js"></script>
-<script src="../../js/public/bower_components/select2/dist/js/select2.min.js"></script>
-<script src="../../js/public/bower_components/bootstrap/js/alert.js"></script>
-<script src="js/utils/md5.js"></script>
-<script src="js/platform/basic.js"></script>
-<script src="js/platform/document.js"></script>
+<script src="./js/public/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="./js/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./js/public/bower_components/bootstrap/js/modal.js"></script>
+<script src="./js/public/bower_components/bootstrap/js/alert.js"></script>
+<script src="./js/utils/md5.js"></script>
+<script src="./js/platform/basic.js"></script>
+<script src="./js/platform/document.js"></script>
 </html>
