@@ -4,6 +4,7 @@
  */
 
 // initialize RUNTIME env
+require('./configuration/constants');
 var systemConfig = require('./configuration/system_configs');
 systemConfig.setupEnvironment();
 
