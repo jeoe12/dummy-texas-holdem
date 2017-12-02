@@ -31,11 +31,13 @@
         <div class="site-wrapper-inner">
             <div class="cover-container">
                 <div class="inner cover">
-                    <h1 class="cover-heading" style="margin-top: 24px;">德州扑克AI对战平台</h1>
+                    <h1 class="cover-heading">德州扑克AI对战平台</h1>
 
-                    <p class="lead" style="margin-top: 40px;">
-                        <a href="document.html" class="btn btn-lg btn-default">开发文档</a>
-                    </p>
+                    <hr>
+                    <p>游戏大厅</p>
+
+                    <div id="board_list">
+                    </div>
                 </div>
                 <div class="mastfoot" style="color: #FFFFFF;">
                     <div class="inner">
@@ -52,15 +54,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
-                    <span class="modal-title">加入直播</span>
+                    <span class="modal-title">创建游戏</span>
                 </div>
                 <div class="modal-body">
                     <div>
-                        <div class="input-group">
-                            <span class="input-group-addon">游戏桌号</span>
-                            <input type="number" min="1" class="form-control" placeholder="游戏桌号" id="game_table_number" value="1">
-                        </div>
-                        <hr>
                         <p><strong>参数设置</strong></p>
                         <div class="row">
                             <div class="col-md-6">
@@ -137,7 +134,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="gotoGame();">确定</button>
+                    <button type="button" class="btn btn-danger" onclick="createGame();">确定</button>
                 </div>
             </div>
         </div>
@@ -157,6 +154,10 @@
                         <div class="input-group">
                             <span class="input-group-addon">玩家名称</span>
                             <input type="text" class="form-control" placeholder="玩家名称" id="play_player_name">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">游戏编号</span>
+                            <input type="text" class="form-control" placeholder="游戏编号" id="play_ticket">
                         </div>
                     </div>
                 </div>

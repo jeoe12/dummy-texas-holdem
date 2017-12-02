@@ -2,18 +2,44 @@
  * Created by dummy-team
  * 2017-10-12
  */
-var defaultTableNumber = localStorage.getItem('game_table');
-if (defaultTableNumber) {
-    $('#game_table_number').val(defaultTableNumber);
-    $('#play_table_number').val(defaultTableNumber);
-}
+
+var playerID = localStorage.getItem("phoneNumber");
 
 function setGame() {
     $('#goto_game_dialog').modal();
 }
 
-function gotoGame() {
-    var tableNumber = $('#game_table_number').val();
+function createGame() {
+    $.ajax({
+        url: '/api/board/create_board',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            creator: playerID,
+            gameName: "texas_holdem"
+        },
+        timeout: 20000,
+        success: function (response) {
+            if (response.status.code === 0) {
+                var board = response.entity;
+            } else if (response.status.code === 1) {
+                console.log('create board failed');
+            }
+            onBoardCreated(board);
+        },
+        error: function () {
+            console.log('create board failed');
+        }
+    });
+}
+
+function onBoardCreated(board) {
+    console.log("onBoardCreated : " + JSON.stringify(board));
+    gotoGame(board.ticket);
+}
+
+function gotoGame(boardTicket) {
+    var tableNumber = boardTicket;
     var defaultChips = $('#game_default_chips').val();
     var defaultSb = $('#game_default_sb').val();
     var defaultRoundInterval = $('#game_round_interval').val();
@@ -25,14 +51,10 @@ function gotoGame() {
     var sound = $('#game_sound').is(':checked') ? 1 : 0;
     var autoRestart = $('#auto_restart').is(':checked') ? 1 : 0;
 
-    if (null === tableNumber || isNaN(tableNumber)) {
-        return;
-    }
-    window.open('./game.html?table='+tableNumber+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
+    window.open('./game.html?tableNumber='+tableNumber+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
         '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
         '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout,
         '_blank');
-    localStorage.setItem('game_table', tableNumber);
     $('#goto_game_dialog').modal('hide');
 
 }
@@ -43,36 +65,16 @@ function setPlayer() {
 
 function gotoPlay() {
     var playerName = $('#play_player_name').val();
-    var tableNumber;
-    if (null === playerName) {
+    // ticket of the board
+    var tableNumber = $('#play_ticket').val();
+    if (null === playerName || null === tableNumber) {
         return;
     }
-    // fetch table number by player name
-    $.ajax({
-        url: '/player/get_table_by_player',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            playerName: playerName
-        },
-        timeout: 20000,
-        success: function (response) {
-            if (response.status.code === 0) {
-                tableNumber = response.entity;
-                joinGame(tableNumber, playerName);
-            } else if (response.status.code === 1) {
-                console.log('player does not exist ?');
-            }
-        },
-        error: function () {
-            console.log('player does not exist ?');
-        }
-    });
+    joinGame(tableNumber, playerName);
 }
 
 function joinGame(tableNumber, playerName) {
     window.open('./game.html?table=' + tableNumber + '&name=' + playerName, '_blank');
     $('#play_player_name').val('');
-    localStorage.setItem('game_table', tableNumber);
     $('#goto_play_dialog').modal('hide');
 }

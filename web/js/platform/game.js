@@ -4,10 +4,9 @@
  */
 
 // data related
-var tableNumber = 0;
+var tableNumber = null;
 var playerNamePlain = '';
 var playerName = '';
-var dbPlayers = [];
 var gameBgm = 0;
 var soundEffect = 0;
 var autoStart = 0;
@@ -97,6 +96,8 @@ $(document).ready(function () {
     lostTimeout = getParameter('lostTimeout') || 10;
     danmu = getParameter('danmu') || 0;
 
+    console.log('init game, tableNumber = ' + tableNumber);
+
     if (playerNamePlain) {
         playMode = MODE_PLAYER;
         playerName = md5(playerNamePlain);
@@ -106,49 +107,13 @@ $(document).ready(function () {
         document.title = 'THE Live';
     }
     initGame();
-
 });
-
-// fetch player display name
-function initPlayerInfo() {
-    $.ajax({
-        url: '/player/list_players',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            tableNumber: tableNumber
-        },
-        timeout: 20000,
-        success: function (response) {
-            if (response.status.code === 0) {
-                dbPlayers = response.entity;
-            } else if (response.status.code === 1) {
-                console.log('list player failed, use player name as display name');
-            }
-            initWebsock();
-        },
-        error: function () {
-            console.log('list player failed, use player name as display name');
-            initWebsock();
-        }
-    });
-}
 
 // game communication with back-end
 function initWebsock() {
     // initialize web communication
     rtc.connect('ws:' + window.location.href.substring(window.location.protocol.length).split('#')[0],
         playerNamePlain, tableNumber, true, danmu);
-
-    /*
-    // use danmu relay instead
-    if (tableNumber) {
-        rtc.connectDanmu('ws://localhost:3000', tableNumber);
-        rtc.on('__message', function (message) {
-
-        });
-    }
-    */
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));
@@ -182,7 +147,7 @@ function initWebsock() {
             for (var i = 0; i < inPlayers.length; i++) {
                 var inPlayerName = inPlayers[i].playerName;
                 var isHuman = (inPlayerName === playerName);
-                var playerDisplayName = findDBPlayerNameByName(inPlayerName);
+                var playerDisplayName = inPlayerName;
                 console.log('create player ' + inPlayerName + ', displayName = ' + playerDisplayName);
                 players[i] = new Player(inPlayerName, playerDisplayName,
                     defaultChips, true, isHuman, 0, inPlayers[i].isOnline);
@@ -507,12 +472,6 @@ function initGame() {
         gameWidth = winHeight / refProportion;
     }
 
-    var canvasContent = '';
-    /*
-    if (1 === parseInt(danmu)) {
-        $('#gameContainer').css('margin-left', '200px');
-    }
-    */
     container.innerHTML = '<canvas id="gameCanvas" width="' + gameWidth + '" height="' + gameHeight + '"></canvas>';
     if (!d.createElement('canvas').getContext) {
         var s = d.createElement('div');
@@ -534,17 +493,6 @@ function initGame() {
     });
 }
 
-function initDanmuQR(danmuSize) {
-    var qrcode = new QRCode(document.getElementById("danmuqr"), {
-        text: DANMU_CLIENT + tableNumber,
-        width: danmuSize - 40,
-        height: danmuSize - 40,
-        colorDark : "#2F2F2F",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
-    });
-}
-
 function ccLoad() {
     cc.game.onStart = function () {
         //load resources
@@ -555,7 +503,7 @@ function ccLoad() {
                     gameBoard = new BoardLayer();
                     gameBoard.init();
                     this.addChild(gameBoard);
-                    initPlayerInfo();
+                    initWebsock();
                     if (1 === parseInt(gameBgm)) {
                         playBgm();
                     }
