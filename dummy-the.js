@@ -4,11 +4,12 @@
  */
 
 // initialize RUNTIME env
-require('./configuration/constants');
+require('./poem/configuration/constants');
 var systemConfig = require('./configuration/system_configs');
 systemConfig.setupEnvironment();
 
 var express = require('express');
+var bodyParser = require('body-parser');
 
 var app = module.exports = express();
 
@@ -29,5 +30,13 @@ function normalizePort(val) {
     return false;
 }
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded(
+    {
+        extended: true
+    }));
+
 app.use('/', express.static(__dirname + '/web/'));
+require('./routes');
+
 console.log('dummy texas holdem client is running, listening on port ' + httpPort);

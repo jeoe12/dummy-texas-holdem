@@ -3,7 +3,7 @@
  * 2017-09-01
  */
 
-require('./constants');
+require('../poem/configuration/constants');
 var Enums = require('../constants/enums');
 var enums = new Enums();
 
@@ -12,9 +12,15 @@ exports.setupEnvironment = function () {
     ENV = env;
     if (undefined === typeof env || null === env || "" === env || enums.APP_DEVELOPMENT_MODE === env) {
         LISTEN_PORT = "3001";
+        APP_SERVER_ADDRESS = "localhost";
+        APP_SERVER_PORT = "8080";
     } else if (enums.APP_PRODUCTION_MODE === env) {
         LISTEN_PORT = "80";
+        APP_SERVER_ADDRESS = "localhost";
+        APP_SERVER_PORT = "8080";
     } else if (enums.APP_USERDEBUG_MODE === env) {
         LISTEN_PORT = "80";
+        APP_SERVER_ADDRESS = "localhost";
+        APP_SERVER_PORT = "8080";
     }
 };

@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 function listTheBoards() {
     $.ajax({
-        url: '/api/board/list_boards',
+        url: '/board/list_boards',
         type: 'POST',
         dataType: 'json',
         data: {
