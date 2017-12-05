@@ -53,7 +53,7 @@ Request.prototype.urlizeQueryParams = function() {
     return "";
 };
 
-Request.prototype.sendGetRequest = function(options, callback) {
+Request.prototype.sendGetRequest = function(options, headers, callback) {
     var data = "";
     var httpTag = options.https ? "https://" : "http://";
     var url = httpTag + this.host + ":" + this.port + this.service +
@@ -61,8 +61,10 @@ Request.prototype.sendGetRequest = function(options, callback) {
 
     if(options.https) {
         request(
-            { method: 'GET'
-                , uri: url
+            {
+                method: 'GET',
+                uri: url,
+                headers: headers
             }, function (error, response, body) {
                 if(!error && response.statusCode == '200') {
                     callback(errorCode.SUCCESS, JSON.parse(body));
@@ -92,7 +94,7 @@ Request.prototype.sendGetRequest = function(options, callback) {
     }
 };
 
-Request.prototype.sendPostRequest = function(bodyData, callback) {
+Request.prototype.sendPostRequest = function(bodyData, headers, callback) {
     var requestData = JSON.stringify(bodyData);
     var url = this.service +
         this.urlizeQueryParams();
@@ -101,9 +103,7 @@ Request.prototype.sendPostRequest = function(bodyData, callback) {
         port: this.port,
         path: url,
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        headers: headers
     };
 
     var req = http.request(options, function(res) {

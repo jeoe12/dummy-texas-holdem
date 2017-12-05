@@ -11,6 +11,7 @@ $(document).ready(function () {
 function listTheBoards() {
     $.ajax({
         url: '/board/list_boards',
+        headers: {"phone-number": "18652006398", "token": "2f690654cd163a7c7cb9ec2f42f01318"},
         type: 'POST',
         dataType: 'json',
         data: {
@@ -21,10 +22,10 @@ function listTheBoards() {
         success: function (response) {
             if (response.status.code === 0) {
                 var boardList = response.entity;
-            } else if (response.status.code === 1) {
+                onTheBoardsListed(boardList);
+            } else {
                 console.log('list boards failed');
             }
-            onTheBoardsListed(boardList);
         },
         error: function () {
             console.log('list boards failed');
