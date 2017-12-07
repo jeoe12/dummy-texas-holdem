@@ -41,8 +41,6 @@ var MODE_LIVE = 0;
 var MODE_PLAYER = 1;
 var MODE_JUDGE = 2;
 
-var DANMU_CLIENT = 'http://irext.net:3000?table=';
-
 var gameStatus = STATUS_GAME_STANDBY;
 var gameCountDown = 0;
 var playMode = MODE_JUDGE;
@@ -112,8 +110,8 @@ $(document).ready(function () {
 // game communication with back-end
 function initWebsock() {
     // initialize web communication
-    rtc.connect('ws:' + window.location.href.substring(window.location.protocol.length).split('#')[0],
-        playerNamePlain, tableNumber, true, danmu);
+    // TODO: to pickup a idle server from cluster
+    rtc.connect('ws://localhost:8080', playerNamePlain, tableNumber, true, danmu);
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));

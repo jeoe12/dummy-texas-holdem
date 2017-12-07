@@ -3,29 +3,27 @@
  * 2017-10-12
  */
 
-var playerID = localStorage.getItem("phoneNumber");
-
 function setGame() {
     $('#goto_game_dialog').modal();
 }
 
 function createGame() {
     $.ajax({
-        url: '/api/board/create_board',
+        url: '/board/create_board',
+        headers: {"phone-number": phoneNumber, "token": token},
         type: 'POST',
         dataType: 'json',
         data: {
-            creator: playerID,
             gameName: "texas_holdem"
         },
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
                 var board = response.entity;
-            } else if (response.status.code === 1) {
+                onBoardCreated(board);
+            } else {
                 console.log('create board failed');
             }
-            onBoardCreated(board);
         },
         error: function () {
             console.log('create board failed');
@@ -34,7 +32,6 @@ function createGame() {
 }
 
 function onBoardCreated(board) {
-    console.log("onBoardCreated : " + JSON.stringify(board));
     gotoGame(board.ticket);
 }
 

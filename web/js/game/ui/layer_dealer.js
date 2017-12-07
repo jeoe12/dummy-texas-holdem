@@ -206,11 +206,11 @@ var DealerLayer = cc.LayerColor.extend({
 
     updatePlayers: function () {
         var playerIndex;
-        if (dbPlayers && this.playerLabels) {
-            for (playerIndex = 0; playerIndex < dbPlayers.length; playerIndex++) {
+        if (players && this.playerLabels) {
+            for (playerIndex = 0; playerIndex < players.length; playerIndex++) {
                 if (this.playerLabels[playerIndex]) {
-                    var playerName = dbPlayers[playerIndex].playerName;
-                    var displayName = dbPlayers[playerIndex].displayName;
+                    var playerName = players[playerIndex].playerName;
+                    var displayName = players[playerIndex].displayName;
                     this.playerLabels[playerIndex].setString(displayName);
                     var targetPlayer = findTargetPlayer(playerName);
                     JSON.stringify(' === ' + targetPlayer);

@@ -2,8 +2,16 @@
  * Created by dummy-team
  * 2017-10-12
  */
+var phoneNumber;
+var token;
 
 $(document).ready(function () {
+    // get phoneNumber and token
+    phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
+    token = getParameter('token') || localStorage.getItem('token');
+    localStorage.setItem('phoneNumber', phoneNumber);
+    localStorage.setItem('token', token);
+
     // get board list
     listTheBoards();
 });
@@ -11,7 +19,7 @@ $(document).ready(function () {
 function listTheBoards() {
     $.ajax({
         url: '/board/list_boards',
-        headers: {"phone-number": "18652006398", "token": "2f690654cd163a7c7cb9ec2f42f01318"},
+        headers: {"phone-number": phoneNumber, "token": token},
         type: 'POST',
         dataType: 'json',
         data: {

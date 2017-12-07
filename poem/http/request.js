@@ -127,7 +127,7 @@ Request.prototype.sendPostRequest = function(bodyData, headers, callback) {
         req.write(requestData);
         req.end();
     } catch(e) {
-        console.error("exception occurred in http request : " + e);
+        console.error('exception occurred in http request : ' + e);
     }
 };
 
