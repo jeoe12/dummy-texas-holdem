@@ -41,7 +41,7 @@ var SkyRTC = function () {
         socket = this.socket = new WebSocket(server);
         socket.onopen = function () {
 
-            console.log('on socket connected');
+            console.log('on socket connected, send join : ' + playerName + ', ' + password + ', ' + ticket);
 
             socket.send(JSON.stringify({
                 "eventName": "__join",
@@ -51,7 +51,7 @@ var SkyRTC = function () {
                     "ticket": ticket,
                     "isHuman": isHuman,
                     "danmu": danmu,
-                    "gameType": "texas_holdem"
+                    "gameName": "texas_holdem"
                 }
             }));
             that.emit("socket_opened", socket);
