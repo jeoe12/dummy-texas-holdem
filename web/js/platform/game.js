@@ -111,7 +111,7 @@ $(document).ready(function () {
 function initWebsock() {
     // initialize web communication
     // TODO: to pickup a idle server from cluster
-    rtc.connect('ws://localhost:8080', playerNamePlain, tableNumber, true, danmu);
+    rtc.connect('ws://localhost:8080', playerNamePlain, '', tableNumber, true, danmu);
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));

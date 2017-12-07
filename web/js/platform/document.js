@@ -12,24 +12,20 @@ function initUI() {
 }
 
 function createDummy() {
-    var playerNameArray = $('#player_name').val();
-    if (null === playerNameArray || "" === playerNameArray) {
+    var playerName = $('#player_name').val();
+    var password = $('#password').val();
+    var ticket = $('#ticket').val();
+
+    if (null === playerName || "" === password || "" === ticket) {
         return;
     }
-    var playerNames = playerNameArray.split(';');
 
-    var host = window.location.hostname;
-    var port = window.location.port;
-    if (port === '') {
-        port = '80';
-    }
-    var serverAddress = host + ':' + port;
+    password = md5(password);
+    window.open('./dummy.html?name='+playerName+'&password='+password+'&ticket='+ticket, '_blank');
 
-    for (var i = 0; i < playerNames.length; i++) {
-        var playerName = playerNames[i];
-        window.open('./dummy.html?name='+playerName+'&server='+serverAddress, '_blank');
-    }
     $('#player_name').val('');
+    $('#password').val('');
+    $('#ticket').val('');
 }
 
 function hashName() {

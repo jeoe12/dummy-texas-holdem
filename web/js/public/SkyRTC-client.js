@@ -34,7 +34,7 @@ var SkyRTC = function () {
 
     skyrtc.prototype = new EventEmitter();
 
-    skyrtc.prototype.connect = function (server, playerName, tableNumber, isHuman, danmu) {
+    skyrtc.prototype.connect = function (server, playerName, password, tableNumber, isHuman, danmu) {
         var socket,
             that = this;
 
@@ -44,10 +44,11 @@ var SkyRTC = function () {
                 "eventName": "__join",
                 "data": {
                     "playerName": playerName,
+                    "password": password,
                     "tableNumber": tableNumber,
                     "isHuman": isHuman,
                     "danmu": danmu,
-                    "gameType":"texasholdem"
+                    "gameType":"texas_holdem"
                 }
             }));
             that.emit("socket_opened", socket);

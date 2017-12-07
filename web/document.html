@@ -936,10 +936,27 @@
                     <div>
                         <h2>Dummy</h2>
                         <p>Dummy是一个人工智障, 但是他可以在你三缺一的时候来凑数, 以及帮你捕获所有的交互指令</p>
-                        <div class="input-group">
-                            <span class="input-group-addon">玩家名称</span>
-                            <input type="text"class="form-control" placeholder="玩家名称(建议填写自己申请的玩家名, Dummy可以代打, 可同时添加多个名字, 用分号隔开)" id="player_name">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon">玩家名称</span>
+                                    <input type="text" class="form-control" placeholder="注册玩家时使用的手机号" id="player_name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon">玩家密码</span>
+                                    <input type="password" class="form-control" placeholder="注册玩家时使用的密码" id="password">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon">游戏条码</span>
+                                    <input type="text" class="form-control" placeholder="要加入的游戏的Ticket" id="ticket">
+                                </div>
+                            </div>
                         </div>
+
                         <br>
                         <p><a class="btn btn-default" role="button" onclick="createDummy();">启动Dummy &raquo;</a></p>
                     </div>
