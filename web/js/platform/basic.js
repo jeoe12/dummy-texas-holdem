@@ -9,7 +9,7 @@ function setGame() {
 
 function createGame() {
     $.ajax({
-        url: '/board/create_board',
+        url: '/api/board/create_board',
         headers: {"phone-number": phoneNumber, "token": token},
         type: 'POST',
         dataType: 'json',
