@@ -10,9 +10,9 @@ var errorCode = new ErrorCode();
 var RequestSender = require('../poem/http/request.js');
 var Map = require('../poem/mem/map.js');
 
-var LIST_BOARDS_SERVICE = '/api/board/list_boards';
-var CREATE_BOARD_SERVICE = '/api/board/create_board';
-var UPDATE_BOARD_SERVICE = '/api/board/update_board';
+var LIST_BOARDS_SERVICE = '/board/list_boards';
+var CREATE_BOARD_SERVICE = '/board/create_board';
+var UPDATE_BOARD_SERVICE = '/board/update_board';
 
 exports.listBoardsWorkUnit = function (conditions, phoneNumber, token, callback) {
     // send HTTP request to engine server to list boards
