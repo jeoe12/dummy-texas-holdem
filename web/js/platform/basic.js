@@ -3,11 +3,11 @@
  * 2017-10-12
  */
 
-function setGame() {
+function setBoard() {
     $('#goto_game_dialog').modal();
 }
 
-function createGame() {
+function createBoard() {
     $.ajax({
         url: '/api/board/create_board',
         headers: {"phone-number": phoneNumber, "token": token},
@@ -48,7 +48,7 @@ function gotoGame(boardTicket) {
     var sound = $('#game_sound').is(':checked') ? 1 : 0;
     var autoRestart = $('#auto_restart').is(':checked') ? 1 : 0;
 
-    window.open('./game.html?tableNumber='+tableNumber+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
+    window.open('./game.html?table='+tableNumber+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
         '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
         '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout,
         '_blank');

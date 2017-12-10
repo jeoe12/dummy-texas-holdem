@@ -81,7 +81,9 @@ var s_o_arrow_up_disabled = './res/images/game_board/btn_up_disabled.png';
 var s_o_arrow_down = './res/images/game_board/btn_down.png';
 var s_o_arrow_down_pressed = './res/images/game_board/btn_down_pressed.png';
 var s_o_arrow_down_disabled = './res/images/game_board/btn_down_disabled.png';
-
+var s_copy_button = './res/images/game_board/copy_button.png';
+var s_copy_button_pressed = './res/images/game_board/copy_button_pressed.png';
+var s_copy_button_disabled = './res/images/game_board/copy_button_disabled.png';
 
 // poker cards
 var s_p_2C = './res/images/poker/2C.png';

@@ -195,6 +195,7 @@ var SkyRTC = function () {
         that.socket.send(JSON.stringify({
             "eventName": "__prepare_game",
             "data": {
+                "ticket": tableNumber,
                 "tableNumber": tableNumber,
                 "commandInterval": commandInterval,
                 "roundInterval": roundInterval,

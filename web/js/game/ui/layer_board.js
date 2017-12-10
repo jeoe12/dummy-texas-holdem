@@ -663,12 +663,12 @@ var BoardLayer = cc.Layer.extend({
     updateBoard: function () {
         switch (gameStatus) {
             case STATUS_GAME_STANDBY:
-                this.roundLabel.setString('BOARD ' + tableNumber + ' - GET READY');
+                this.roundLabel.setString('GET READY');
                 break;
 
             case STATUS_GAME_RUNNING:
                 // update round info
-                this.roundLabel.setString('BOARD ' + tableNumber + ' - ROUND ' + currentRound);
+                this.roundLabel.setString('ROUND ' + currentRound);
                 this.boardLabel.setString(currentRoundName + ' - raise : ' + currentRaiseCount +
                     ' bet : ' + currentBetCount);
 

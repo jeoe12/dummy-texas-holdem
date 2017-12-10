@@ -11,6 +11,8 @@ var DealerLayer = cc.LayerColor.extend({
     titleTextSize: 64,
     boardFont: 'IMPACT',
     boardTextSize: 36,
+    ticketFont: 'Tw Cen MT',
+    ticketTextSize: 14,
     nameFont: 'IMPACT',
     nameTextSize: 28,
     debug: true,
@@ -33,11 +35,13 @@ var DealerLayer = cc.LayerColor.extend({
     // labels
     titleLabel: null,
     boardLabel: null,
+    ticketLabel: null,
     playerLabels: [],
 
     // buttons
     startButton: null,
     stopButton: null,
+    copyButton: null,
 
     // menus
     controlMenu: null,
@@ -51,6 +55,8 @@ var DealerLayer = cc.LayerColor.extend({
     boardTextHeight: 40,
     nameTextHeight: 32,
     roundTextMarginBottom: 480,
+    copyButtonMarginBottom: 560,
+    ticketMarginBottom: 530,
 
     // event managers
     eventListener: null,
@@ -109,6 +115,24 @@ var DealerLayer = cc.LayerColor.extend({
             }, this);
         }
 
+        this.copyButton = new ccui.Button(s_copy_button, s_copy_button_pressed, s_copy_button_disabled);
+        this.copyButton.setAnchorPoint(0.5, 0);
+        this.copyButton.setScale(this.buttonScale * 0.5);
+        this.copyButton.setPosition((this.validWidth -
+            this.copyButton.getContentSize().width * this.buttonScale * 0.5) / 2,
+            this.copyButtonMarginBottom * this.gameScale);
+        this.addChild(this.copyButton, 2);
+        this.enableButton(this.copyButton, true);
+        this.copyButton.addTouchEventListener(function (sender, type) {
+            if (ccui.Widget.TOUCH_ENDED === type) {
+                if (STATUS_GAME_RUNNING !== gameStatus) {
+                    console.log('copy board ticket : ' + $('#board_ticket').val());
+                    $('#board_ticket').select();
+                    document.execCommand("copy");
+                }
+            }
+        }, this);
+
         // initialize title
         this.titleLabel = new cc.LabelTTF('Texas Hold\'em AI Game',
             this.titleFont, this.titleTextSize);
@@ -126,7 +150,7 @@ var DealerLayer = cc.LayerColor.extend({
         this.addChild(this.titleLabel, 2);
 
         // initialize board number
-        this.boardLabel = new cc.LabelTTF('BOARD ' + tableNumber + ' - GET READY',
+        this.boardLabel = new cc.LabelTTF('GET READY',
             this.boardFont, this.boardTextSize);
         this.boardLabel.setColor(cc.color(255, 255, 255, 255));
         this.boardLabel.setAnchorPoint(0, 0);
@@ -138,6 +162,20 @@ var DealerLayer = cc.LayerColor.extend({
         this.boardLabel.setPosition((this.validWidth - this.boardLabel.getContentSize().width * this.gameScale) / 2,
             this.roundTextMarginBottom * this.gameScale);
         this.addChild(this.boardLabel, 2);
+
+        // ticket label and copy button
+        this.ticketLabel = new cc.LabelTTF('Click to Copy Board Ticket',
+            this.ticketFont, this.ticketTextSize);
+        this.ticketLabel.setColor(cc.color(255, 255, 255, 255));
+        this.ticketLabel.setAnchorPoint(0, 0);
+        this.ticketLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        this.ticketLabel.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
+        this.ticketLabel.boundingWidth = this.boardTextWidth;
+        this.ticketLabel.boundingHeight = this.boardTextHeight;
+        this.ticketLabel.setScale(this.gameScale);
+        this.ticketLabel.setPosition((this.validWidth - this.ticketLabel.getContentSize().width * this.gameScale) / 2,
+            this.ticketMarginBottom * this.gameScale);
+        this.addChild(this.ticketLabel, 2);
 
         // initialize name labels
         var playerIndex;
@@ -207,17 +245,18 @@ var DealerLayer = cc.LayerColor.extend({
     updatePlayers: function () {
         var playerIndex;
         if (players && this.playerLabels) {
-            for (playerIndex = 0; playerIndex < players.length; playerIndex++) {
-                if (this.playerLabels[playerIndex]) {
+            for (playerIndex = 0; playerIndex < this.maxPlayerCount; playerIndex++) {
+                // clear player slot
+                this.playerLabels[playerIndex].setVisible(false);
+                if (this.playerLabels[playerIndex] && players[playerIndex]) {
                     var playerName = players[playerIndex].playerName;
                     var displayName = players[playerIndex].displayName;
                     this.playerLabels[playerIndex].setString(displayName);
                     var targetPlayer = findTargetPlayer(playerName);
-                    JSON.stringify(' === ' + targetPlayer);
+                    // console.log(' === ' + JSON.stringify(targetPlayer));
                     if (targetPlayer && true === targetPlayer.online) {
+                        this.playerLabels[playerIndex].setVisible(true);
                         this.playerLabels[playerIndex].setColor(cc.color(255, 255, 0, 255));
-                    } else {
-                        this.playerLabels[playerIndex].setColor(cc.color(128, 128, 128, 128));
                     }
                 }
                 if (playerIndex >= this.maxPlayerCount) {
@@ -262,7 +301,7 @@ var DealerLayer = cc.LayerColor.extend({
             }
 
         } else {
-            this.boardLabel.setString('BOARD ' + tableNumber + ' - GET READY');
+            this.boardLabel.setString('GET READY');
         }
     },
 

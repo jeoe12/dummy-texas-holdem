@@ -6,6 +6,7 @@
 // data related
 var tableNumber = null;
 var playerNamePlain = '';
+var password = '';
 var playerName = '';
 var gameBgm = 0;
 var soundEffect = 0;
@@ -81,7 +82,11 @@ window.onbeforeunload = function () {
 $(document).ready(function () {
     // get table number first
     tableNumber = getParameter('table');
+
+    // for human player join
     playerNamePlain = getParameter('name');
+    password = getParameter('password');
+
     autoStart = getParameter('auto') || 0;
     gameBgm = getParameter('bgm') || 0;
     soundEffect = getParameter('sound') || 0;
@@ -94,11 +99,12 @@ $(document).ready(function () {
     lostTimeout = getParameter('lostTimeout') || 10;
     danmu = getParameter('danmu') || 0;
 
-    console.log('init game, tableNumber = ' + tableNumber);
+    $('#board_ticket').val(tableNumber);
 
     if (playerNamePlain) {
         playMode = MODE_PLAYER;
         playerName = md5(playerNamePlain);
+        // TODO: fetch player name according to phoneNumber
         document.title = 'The Game';
     } else {
         playMode = MODE_JUDGE;
@@ -111,7 +117,8 @@ $(document).ready(function () {
 function initWebsock() {
     // initialize web communication
     // TODO: to pickup a idle server from cluster
-    rtc.connect('ws://localhost:8080', playerNamePlain, '', tableNumber, true, danmu);
+    console.log('guest connect to server, playerName = ' + playerNamePlain + ', tableNumber = ' + tableNumber);
+    rtc.connect('ws://localhost:8080', playerNamePlain, password, tableNumber, true, danmu);
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));
@@ -209,7 +216,7 @@ function initWebsock() {
                     if (inPlayers[i].isOnline && true === inPlayers[i].isOnline) {
                         var inPlayerName = inPlayers[i].playerName;
                         var isHuman = (inPlayerName === playerName);
-                        var playerDisplayName = findDBPlayerNameByName(inPlayerName);
+                        var playerDisplayName = inPlayerName;
                         console.log('create player ' + inPlayerName + ', displayName = ' + playerDisplayName);
                         players[i] = new Player(inPlayerName, playerDisplayName,
                             defaultChips, true, isHuman, 0, inPlayers[i].isOnline);
@@ -232,7 +239,7 @@ function initWebsock() {
         winners = data.winners;
         if (winners) {
             for (var index = 0; index < winners.length; index++) {
-                winners[index].displayName = findDBPlayerNameByName(winners[index].playerName);
+                winners[index].displayName = winners[index].playerName;
             }
             updateGame(data, true);
             gameStatus = STATUS_GAME_FINISHED;
@@ -637,7 +644,7 @@ function updateBoardPlayers(data, isNewRound, roundClear) {
         if (null === targetPlayer) {
             continue;
         }
-        targetPlayer.setDisplayName(findDBPlayerNameByName(data.players[i].playerName));
+        targetPlayer.setDisplayName(data.players[i].playerName);
         targetPlayer.setOnline(data.players[i].isOnline);
         targetPlayer.setIsHuman(data.players[i].isHuman);
         if (undefined !== data.players[i].reloadCount && null !== data.players[i].reloadCount) {
@@ -727,23 +734,6 @@ function playerOnline(playerName, playerList) {
         return false;
     }
     return true;
-}
-
-function findDBPlayerNameByName(playerName) {
-    if (dbPlayers) {
-        for (var i = 0; i < dbPlayers.length; i++) {
-            if (dbPlayers[i] && dbPlayers[i].playerName === playerName) {
-                if (dbPlayers[i].displayName) {
-                    return dbPlayers[i].displayName;
-                } else {
-                    return dbPlayers[i].playerName;
-                }
-            }
-        }
-        return playerName;
-    } else {
-        return playerName;
-    }
 }
 
 // UI helper
