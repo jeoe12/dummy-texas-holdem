@@ -2,6 +2,8 @@
  * Created by dummy-team
  * 2017-10-12
  */
+var phoneNumber;
+var token;
 
 function setBoard() {
     $('#goto_game_dialog').modal();

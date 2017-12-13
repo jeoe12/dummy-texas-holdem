@@ -2,8 +2,6 @@
  * Created by dummy-team
  * 2017-10-12
  */
-var phoneNumber;
-var token;
 
 $(document).ready(function () {
     // get phoneNumber and token
@@ -47,12 +45,21 @@ function onTheBoardsListed(boardList) {
         var boardListContent = '';
         for (var i = 0; i < boardList.length; i++) {
             boardListContent += '<div><a href="#" onclick="joinLive(\'' + boardList[i].ticket + '\');">' +
-                boardList[i].ticket + '</a></div>'
+                boardList[i].creator + ' - ' + boardList[i].ticket + '</a></div>'
         }
         $('#board_list').append(boardListContent);
     }
 }
 
 function joinLive(ticket) {
-    console.log(ticket);
+    var tableNumber = ticket;
+
+    // TODO： to remember these settings in board
+    var bgm = 1;
+    var sound = 1;
+    var autoRestart = 0;
+
+    window.open('./game.html?table='+tableNumber+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart,
+        '_blank');
+    $('#goto_game_dialog').modal('hide');
 }

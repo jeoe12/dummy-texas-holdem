@@ -4,12 +4,12 @@
  */
 
 $(document).ready(function () {
-    initUI();
+    phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
+    token = getParameter('token') || localStorage.getItem('token');
+    console.log("phoneNumber = " + phoneNumber + ", token = " + token);
+    localStorage.setItem('phoneNumber', phoneNumber);
+    localStorage.setItem('token', token);
 });
-
-function initUI() {
-    $('#server_types').select2({});
-}
 
 function createDummy() {
     var playerName = $('#player_name').val();
