@@ -27,7 +27,10 @@ $(document).ready(function () {
     password = getParameter('password');
     ticket = getParameter('ticket');
 
-    serverAddress = 'ws://localhost:8080';
+    var host = window.location.hostname;
+    var port = 8080;
+    serverAddress = 'ws://' + host + ':' + port;
+
     writeToCommands('player : ' + playerName + ', server : ' + serverAddress);
     $('#player_name').html(playerName);
     document.title = "THE Dummy " + playerName;

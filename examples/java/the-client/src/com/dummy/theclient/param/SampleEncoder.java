@@ -19,5 +19,4 @@ public class SampleEncoder implements javax.websocket.Encoder.Text<String> {
 		System.out.println("encode: " + paramT);
 		return paramT;
 	}
-
 }

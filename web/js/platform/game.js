@@ -116,9 +116,13 @@ $(document).ready(function () {
 // game communication with back-end
 function initWebsock() {
     // initialize web communication
+    var host = window.location.hostname;
+    var port = 8080;
+    var serverAddress = 'ws://' + host + ':' + port;
+
     // TODO: to pickup a idle server from cluster
     console.log('guest connect to server, playerName = ' + playerNamePlain + ', tableNumber = ' + tableNumber);
-    rtc.connect('ws://localhost:8080', playerNamePlain, password, tableNumber, true, danmu);
+    rtc.connect(serverAddress, playerNamePlain, password, tableNumber, true, danmu);
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));
