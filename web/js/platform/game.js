@@ -118,7 +118,7 @@ function initWebsock() {
     // initialize web communication
     var host = window.location.hostname;
     var port = 80;
-    var serverAddress = 'ws://' + host + ':' + port + "/game";
+    var serverAddress = 'ws://' + host + ':' + port + "/game/";
 
     // TODO: to pickup a idle server from cluster
     console.log('guest connect to server, playerName = ' + playerNamePlain + ', tableNumber = ' + tableNumber);

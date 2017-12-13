@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     var host = window.location.hostname;
     var port = 80;
-    serverAddress = 'ws://' + host + ':' + port + "/game";
+    serverAddress = 'ws://' + host + ':' + port + "/game/";
 
     writeToCommands('player : ' + playerName + ', server : ' + serverAddress);
     $('#player_name').html(playerName);
