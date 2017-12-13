@@ -28,11 +28,8 @@ $(document).ready(function () {
     ticket = getParameter('ticket');
 
     var host = window.location.hostname;
-    var port = '80';
-    if (host === 'localhost') {
-        port = '8080';
-    }
-    serverAddress = 'ws://' + host + ':' + port + "/game/";
+    var port = '8080';
+    serverAddress = 'ws://' + host + ':' + port;
 
     writeToCommands('player : ' + playerName + ', server : ' + serverAddress);
     $('#player_name').html(playerName);
