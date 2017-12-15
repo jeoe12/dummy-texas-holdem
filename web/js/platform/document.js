@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 function createDummy() {
-    var playerName = $('#player_name').val();
+    var phoneNumber = $('#phone_number').val();
     var password = $('#password').val();
     var ticket = $('#ticket').val();
 
@@ -21,7 +21,7 @@ function createDummy() {
     }
 
     password = md5(password);
-    window.open('./dummy.html?name='+playerName+'&password='+password+'&ticket='+ticket, '_blank');
+    window.open('./dummy.html?phoneNumber='+phoneNumber+'&password='+password+'&ticket='+ticket, '_blank');
 
     $('#player_name').val('');
     $('#password').val('');

@@ -50,7 +50,8 @@ function gotoGame(boardTicket) {
     var sound = $('#game_sound').is(':checked') ? 1 : 0;
     var autoRestart = $('#auto_restart').is(':checked') ? 1 : 0;
 
-    window.open('./game.html?table='+tableNumber+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
+    window.open('./game.html?phoneNumber='+phoneNumber+'&token='+token+'&table='+tableNumber+
+        '&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
         '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
         '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout,
         '_blank');

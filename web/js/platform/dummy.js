@@ -15,7 +15,7 @@ var gameStatus = 0;
 var risk = 1;
 var danger = 2;
 var rtc = SkyRTC();
-var playerName = '';
+var phoneNumber = '';
 var password = '';
 var ticket = '';
 var serverAddress = '';
@@ -23,7 +23,7 @@ var maxCommands = 500;
 var commandCount = 0;
 
 $(document).ready(function () {
-    playerName = getParameter('name');
+    phoneNumber = getParameter('phoneNumber');
     password = getParameter('password');
     ticket = getParameter('ticket');
 
@@ -34,14 +34,14 @@ $(document).ready(function () {
     }
     serverAddress = 'ws://' + host + ':' + port + "/game/";
 
-    writeToCommands('player : ' + playerName + ', server : ' + serverAddress);
-    $('#player_name').html(playerName);
-    document.title = "THE Dummy " + playerName;
+    writeToCommands('player : ' + phoneNumber + ', server : ' + serverAddress);
+    $('#player_name').html(phoneNumber);
+    document.title = "THE Dummy " + phoneNumber;
     initRTC();
 });
 
 function initRTC() {
-    rtc.connect(serverAddress, playerName, password, ticket);
+    rtc.connect(serverAddress, '', password, phoneNumber, '', ticket);
 
     rtc.on('__action', function (data) {
         writeToCommands('<<< action: ' + JSON.stringify(data, null, 4));

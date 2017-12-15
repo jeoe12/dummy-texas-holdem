@@ -5,6 +5,8 @@
 
 // data related
 var tableNumber = null;
+var phoneNumber = '';
+var token = '';
 var playerNamePlain = '';
 var password = '';
 var playerName = '';
@@ -80,6 +82,10 @@ window.onbeforeunload = function () {
 };
 
 $(document).ready(function () {
+    // initialize phoneNumber and token
+    phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
+    token = getParameter('token') || localStorage.getItem('token');
+
     // get table number first
     tableNumber = getParameter('table');
 
@@ -125,7 +131,7 @@ function initWebsock() {
 
     // TODO: to pickup a idle server from cluster
     console.log('guest connect to server, playerName = ' + playerNamePlain + ', tableNumber = ' + tableNumber);
-    rtc.connect(serverAddress, playerNamePlain, password, tableNumber, true, danmu);
+    rtc.connect(serverAddress, playerNamePlain, password, phoneNumber, token, tableNumber, true, danmu);
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));

@@ -34,7 +34,18 @@ var SkyRTC = function () {
 
     skyrtc.prototype = new EventEmitter();
 
-    skyrtc.prototype.connect = function (server, playerName, password, ticket, isHuman, danmu) {
+    /**
+     *
+     * @param server
+     * @param playerName - used for Human client join
+     * @param password
+     * @param phoneNumber - used for Live creator client join
+     * @param token - used for Live creator client join
+     * @param ticket - used for Live join
+     * @param isHuman
+     * @param danmu
+     */
+    skyrtc.prototype.connect = function (server, playerName, password, phoneNumber, token, ticket, isHuman, danmu) {
         var socket,
             that = this;
 
@@ -46,7 +57,8 @@ var SkyRTC = function () {
             socket.send(JSON.stringify({
                 "eventName": "__join",
                 "data": {
-                    "phoneNumber": playerName,
+                    "phoneNumber": phoneNumber,
+                    "token": token,
                     "password": password,
                     "ticket": ticket,
                     "isHuman": isHuman,
