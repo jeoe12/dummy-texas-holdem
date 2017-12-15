@@ -113,9 +113,10 @@ $(document).ready(function () {
         // TODO: fetch player name according to phoneNumber
         document.title = 'The Game';
     } else {
-        playMode = MODE_JUDGE;
+        playMode = MODE_LIVE;
         document.title = 'THE Live';
     }
+    isCreator();
     initGame();
 });
 
@@ -534,7 +535,13 @@ function ccLoad() {
 }
 
 // game helper
+function isCreator() {
+
+}
+
 function playBgm() {
+    // the BGM is too ugly, will change for another
+    /*
     audio1 = new Audio('./res/audio/bgm_7.mp3');
     audio1.addEventListener('ended', function() {
         this.currentTime = 0;
@@ -555,20 +562,21 @@ function playBgm() {
     }, false);
 
     audio1.play();
+    */
 }
 
 function startGame() {
-    rtc.startGame(tableNumber, commandInterval, roundInterval,
+    rtc.startGame(tableNumber, phoneNumber, token, commandInterval, roundInterval,
         defaultSb, defaultChips, reloadChance, commandTimeout, lostTimeout);
     gameStatus = STATUS_GAME_PREPARING;
 }
 
 function stopGame() {
-    rtc.stopGame(tableNumber);
+    rtc.stopGame(tableNumber, phoneNumber, token);
 }
 
 function endGame() {
-    rtc.endGame(tableNumber);
+    rtc.endGame(tableNumber, phoneNumber, token);
 }
 
 function updateGame(data, isNewRound, roundClear) {

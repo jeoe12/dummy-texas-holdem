@@ -199,7 +199,7 @@ var SkyRTC = function () {
         }));
     };
 
-    skyrtc.prototype.startGame = function(tableNumber,
+    skyrtc.prototype.startGame = function(tableNumber, phoneNumber, token,
                                           commandInterval, roundInterval,
                                           defaultSb, defaultChips, reloadChance,
                                           commandTimeout, lostTimeout) {
@@ -207,6 +207,8 @@ var SkyRTC = function () {
         that.socket.send(JSON.stringify({
             "eventName": "__prepare_game",
             "data": {
+                "phoneNumber": phoneNumber,
+                "token": token,
                 "ticket": tableNumber,
                 "tableNumber": tableNumber,
                 "commandInterval": commandInterval,
@@ -220,22 +222,26 @@ var SkyRTC = function () {
         }));
     };
 
-    skyrtc.prototype.stopGame = function(tableNumber) {
+    skyrtc.prototype.stopGame = function(tableNumber, phoneNumber, token) {
         var that = this;
         that.socket.send(JSON.stringify({
             "eventName": "__stop_game",
             "data": {
-                "tableNumber": tableNumber
+                "tableNumber": tableNumber,
+                "phoneNumber": phoneNumber,
+                "token": token
             }
         }));
     };
 
-    skyrtc.prototype.endGame = function(tableNumber) {
+    skyrtc.prototype.endGame = function(tableNumber, phoneNumber, token) {
         var that = this;
         that.socket.send(JSON.stringify({
             "eventName": "__end_game",
             "data": {
-                "tableNumber": tableNumber
+                "tableNumber": tableNumber,
+                "phoneNumber": phoneNumber,
+                "token": token
             }
         }));
     };
