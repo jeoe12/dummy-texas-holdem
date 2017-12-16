@@ -12,11 +12,11 @@ $(document).ready(function () {
 });
 
 function createDummy() {
-    var phoneNumber = $('#phone_number').val();
+    var phoneNumber = $('#player_name').val();
     var password = $('#password').val();
     var ticket = $('#ticket').val();
 
-    if (null === playerName || "" === password || "" === ticket) {
+    if (null === phoneNumber || "" === password || "" === ticket) {
         return;
     }
 
