@@ -16,7 +16,8 @@ function createBoard() {
         type: 'POST',
         dataType: 'json',
         data: {
-            gameName: "texas_holdem"
+            gameName: "texas_holdem",
+            phoneNumber: phoneNumber
         },
         timeout: 20000,
         success: function (response) {

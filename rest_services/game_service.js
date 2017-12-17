@@ -24,7 +24,7 @@ exports.listActiveBoards = function (req, res) {
 
 exports.createBoard = function (req, res) {
     var gameName = req.body.gameName;
-    var phoneNumber = req.headers["phone-number"];
+    var phoneNumber = req.body.phoneNumber || req.headers["phone-number"];
     var token = req.headers["token"];
 
     console.log("createBoardService entry");
