@@ -8,13 +8,13 @@ var BoolResponse = require('../responses/bool_response.js');
 
 var boardLogic = require('../work_units/board_logic.js');
 
-exports.listBoards = function (req, res) {
-    var conditions = req.body;
+exports.listActiveBoards = function (req, res) {
+    var gameName = req.body.gameName;
     var phoneNumber = req.headers["phone-number"];
     var token = req.headers["token"];
 
     var boardResponse = new BoardResponse();
-    boardLogic.listBoardsWorkUnit(conditions, phoneNumber, token, function(listBoardsErr, boards) {
+    boardLogic.listActiveBoardsWorkUnit(gameName, phoneNumber, token, function(listBoardsErr, boards) {
         boardResponse.status = listBoardsErr;
         boardResponse.entity = boards;
         res.send(boardResponse);

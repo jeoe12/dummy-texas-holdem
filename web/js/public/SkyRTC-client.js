@@ -143,7 +143,7 @@ var SkyRTC = function () {
             }
         }));
     };
-    skyrtc.prototype.Call = function (playerName) {
+    skyrtc.prototype.Call = function () {
         var that = this;
         that.socket.send(JSON.stringify({
             "eventName": "__action",

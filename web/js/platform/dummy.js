@@ -21,6 +21,7 @@ var ticket = '';
 var serverAddress = '';
 var maxCommands = 500;
 var commandCount = 0;
+var playerName = '';
 
 $(document).ready(function () {
     phoneNumber = getParameter('phoneNumber');
@@ -40,6 +41,8 @@ $(document).ready(function () {
     writeToCommands('player : ' + phoneNumber + ', server : ' + serverAddress);
     $('#player_name').html(phoneNumber);
     document.title = "THE Dummy " + phoneNumber;
+    playerName = phoneNumber;
+
     initRTC();
 });
 

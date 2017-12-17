@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 function listTheBoards() {
     $.ajax({
-        url: '/api/board/list_boards',
+        url: '/api/board/list_active_boards',
         headers: {"phone-number": phoneNumber, "token": token},
         type: 'POST',
         dataType: 'json',

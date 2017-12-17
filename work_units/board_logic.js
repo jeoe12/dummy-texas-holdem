@@ -10,18 +10,18 @@ var errorCode = new ErrorCode();
 var RequestSender = require('../poem/http/request.js');
 var Map = require('../poem/mem/map.js');
 
-var LIST_BOARDS_SERVICE = '/board/list_boards';
+var LIST_ACTIVE_BOARDS_SERVICE = '/board/list_active_boards';
 var CREATE_BOARD_SERVICE = '/board/create_board';
 var UPDATE_BOARD_SERVICE = '/board/update_board';
 var IS_CREAGOR_BOARD_SERVICE = '/board/is_creator_board';
 
-exports.listBoardsWorkUnit = function (conditions, phoneNumber, token, callback) {
+exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, callback) {
     // send HTTP request to engine server to list boards
     var queryParams = new Map();
     var requestSender =
         new RequestSender(APP_SERVER_ADDRESS,
             APP_SERVER_PORT,
-            LIST_BOARDS_SERVICE,
+            LIST_ACTIVE_BOARDS_SERVICE,
             queryParams);
     var headers = {
         'Content-Type': 'application/json',
@@ -29,7 +29,11 @@ exports.listBoardsWorkUnit = function (conditions, phoneNumber, token, callback)
         'token': token
     };
 
-    requestSender.sendPostRequest(conditions, headers, function (listBoardsErr, boardsResponse) {
+    var listActiveBoardsParameters = {
+        gameName: gameName
+    };
+
+    requestSender.sendPostRequest(listActiveBoardsParameters, headers, function (listBoardsErr, boardsResponse) {
         if (errorCode.SUCCESS.code === listBoardsErr &&
             JSON.parse(boardsResponse).status.code === errorCode.SUCCESS.code) {
             logger.info("list boards successfully");

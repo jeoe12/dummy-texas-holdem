@@ -50,7 +50,7 @@ function gotoGame(boardTicket) {
     var sound = $('#game_sound').is(':checked') ? 1 : 0;
     var autoRestart = $('#auto_restart').is(':checked') ? 1 : 0;
 
-    window.open('./game.html?phoneNumber='+phoneNumber+'&token='+token+'&ticket='+tableNumber+
+    window.open('./game.html?phoneNumber='+phoneNumber+'&token='+token+'&ticket='+ticket+
         '&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
         '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
         '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout,
@@ -66,15 +66,15 @@ function setPlayer() {
 function gotoPlay() {
     var playerName = $('#play_player_name').val();
     // ticket of the board
-    var tableNumber = $('#play_ticket').val();
-    if (null === playerName || null === tableNumber) {
+    var ticket = $('#play_ticket').val();
+    if (null === playerName || null === ticket) {
         return;
     }
-    joinGame(tableNumber, playerName);
+    joinGame(ticket, playerName);
 }
 
-function joinGame(tableNumber, playerName) {
-    window.open('./game.html?table=' + tableNumber + '&name=' + playerName, '_blank');
+function joinGame(ticket, playerName) {
+    window.open('./game.html?ticket=' + ticket + '&name=' + playerName, '_blank');
     $('#play_player_name').val('');
     $('#goto_play_dialog').modal('hide');
 }
