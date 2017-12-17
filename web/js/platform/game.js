@@ -130,7 +130,7 @@ function initWebsock() {
         port = '8080';
         serverAddress = 'ws://' + host + ':' + port;
     } else {
-        port = '80';
+        port = '3000';
         serverAddress = 'ws://' + host + ':' + port + '/game/';
     }
     // TODO: to pickup a idle server from cluster

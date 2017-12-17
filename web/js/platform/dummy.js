@@ -34,7 +34,7 @@ $(document).ready(function () {
         port = '8080';
         serverAddress = 'ws://' + host + ':' + port;
     } else {
-        port = '8080';
+        port = '3000';
         serverAddress = 'ws://' + host + ':' + port + '/game/';
     }
 
