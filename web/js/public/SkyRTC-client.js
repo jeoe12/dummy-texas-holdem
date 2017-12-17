@@ -51,9 +51,7 @@ var SkyRTC = function () {
 
         socket = this.socket = new WebSocket(server);
         socket.onopen = function () {
-
             console.log('on socket connected, send join : ' + playerName + ', ' + password + ', ' + ticket);
-
             socket.send(JSON.stringify({
                 "eventName": "__join",
                 "data": {
@@ -199,7 +197,7 @@ var SkyRTC = function () {
         }));
     };
 
-    skyrtc.prototype.startGame = function(tableNumber, phoneNumber, token,
+    skyrtc.prototype.startGame = function(ticket, phoneNumber, token,
                                           commandInterval, roundInterval,
                                           defaultSb, defaultChips, reloadChance,
                                           commandTimeout, lostTimeout) {
@@ -209,8 +207,9 @@ var SkyRTC = function () {
             "data": {
                 "phoneNumber": phoneNumber,
                 "token": token,
-                "ticket": tableNumber,
-                "tableNumber": tableNumber,
+                "ticket": ticket,
+                // legacy tableNumber field
+                "tableNumber": ticket,
                 "commandInterval": commandInterval,
                 "roundInterval": roundInterval,
                 "defaultSb": defaultSb,
@@ -222,24 +221,26 @@ var SkyRTC = function () {
         }));
     };
 
-    skyrtc.prototype.stopGame = function(tableNumber, phoneNumber, token) {
+    skyrtc.prototype.stopGame = function(ticket, phoneNumber, token) {
         var that = this;
         that.socket.send(JSON.stringify({
             "eventName": "__stop_game",
             "data": {
-                "tableNumber": tableNumber,
+                // legacy tableNumber field
+                "tableNumber": ticket,
                 "phoneNumber": phoneNumber,
                 "token": token
             }
         }));
     };
 
-    skyrtc.prototype.endGame = function(tableNumber, phoneNumber, token) {
+    skyrtc.prototype.endGame = function(ticket, phoneNumber, token) {
         var that = this;
         that.socket.send(JSON.stringify({
             "eventName": "__end_game",
             "data": {
-                "tableNumber": tableNumber,
+                // legacy tableNumber field
+                "tableNumber": ticket,
                 "phoneNumber": phoneNumber,
                 "token": token
             }

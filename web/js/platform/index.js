@@ -45,21 +45,19 @@ function onTheBoardsListed(boardList) {
         var boardListContent = '';
         for (var i = 0; i < boardList.length; i++) {
             boardListContent += '<div><a href="#" onclick="joinLive(\'' + boardList[i].ticket + '\');">' +
-                boardList[i].creator + ' - ' + boardList[i].ticket + '</a></div>'
+                boardList[i].creatorName + ' - ' + boardList[i].createTime + '</a></div>'
         }
         $('#board_list').append(boardListContent);
     }
 }
 
 function joinLive(ticket) {
-    var tableNumber = ticket;
-
     // TODO： to remember these settings in board
     var bgm = 1;
     var sound = 1;
     var autoRestart = 0;
 
-    window.open('./game.html?table='+tableNumber+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart,
+    window.open('./game.html?ticket='+ticket+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart,
         '_blank');
     $('#goto_game_dialog').modal('hide');
 }

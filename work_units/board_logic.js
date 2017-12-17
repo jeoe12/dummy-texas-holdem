@@ -13,6 +13,7 @@ var Map = require('../poem/mem/map.js');
 var LIST_BOARDS_SERVICE = '/board/list_boards';
 var CREATE_BOARD_SERVICE = '/board/create_board';
 var UPDATE_BOARD_SERVICE = '/board/update_board';
+var IS_CREAGOR_BOARD_SERVICE = '/board/is_creator_board';
 
 exports.listBoardsWorkUnit = function (conditions, phoneNumber, token, callback) {
     // send HTTP request to engine server to list boards
@@ -106,6 +107,40 @@ exports.updateBoardsWorkUnit = function (ticket, gameName, newBoard, phoneNumber
             callback(errorCode.SUCCESS, boards);
         } else {
             logger.error("update board failed");
+            callback(errorCode.FAILED, null);
+        }
+    });
+};
+
+exports.isCreatorBoardWorkUnit = function (ticket, phoneNumber, token, callback) {
+    // send HTTP request to engine server to confirm this is a creator board
+    var queryParams = new Map();
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            IS_CREAGOR_BOARD_SERVICE,
+            queryParams);
+
+    var headers = {
+        'Content-Type': 'application/json',
+        'phone-number': phoneNumber,
+        'token': token
+    };
+
+    var isCreatorBoardParameters = {
+        ticket: ticket,
+        token: token
+    };
+
+    requestSender.sendPostRequest(isCreatorBoardParameters, headers, function (isCreatorBoardErr, boolResponse) {
+        if (errorCode.SUCCESS.code === isCreatorBoardErr &&
+            JSON.parse(boolResponse).status.code === errorCode.SUCCESS.code) {
+            logger.info("get is creator board successfully");
+            var isCreatorBoard = JSON.parse(boolResponse).entity;
+            logger.info("response of creator board = " + JSON.stringify(isCreatorBoard));
+            callback(errorCode.SUCCESS, isCreatorBoard);
+        } else {
+            logger.error("get is creator board failed");
             callback(errorCode.FAILED, null);
         }
     });

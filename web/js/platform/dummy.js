@@ -31,8 +31,11 @@ $(document).ready(function () {
     var port = '80';
     if (host === 'localhost') {
         port = '8080';
+        serverAddress = 'ws://' + host + ':' + port;
+    } else {
+        port = '8080';
+        serverAddress = 'ws://' + host + ':' + port + '/game/';
     }
-    serverAddress = 'ws://' + host + ':' + port + "/game/";
 
     writeToCommands('player : ' + phoneNumber + ', server : ' + serverAddress);
     $('#player_name').html(phoneNumber);

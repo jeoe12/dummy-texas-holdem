@@ -4,7 +4,7 @@
  */
 
 // data related
-var tableNumber = null;
+var ticket = null;
 var phoneNumber = '';
 var token = '';
 var playerNamePlain = '';
@@ -87,7 +87,7 @@ $(document).ready(function () {
     token = getParameter('token') || localStorage.getItem('token');
 
     // get table number first
-    tableNumber = getParameter('table');
+    ticket = getParameter('ticket');
 
     // for human player join
     playerNamePlain = getParameter('name');
@@ -105,7 +105,7 @@ $(document).ready(function () {
     lostTimeout = getParameter('lostTimeout') || 10;
     danmu = getParameter('danmu') || 0;
 
-    $('#board_ticket').val(tableNumber);
+    $('#board_ticket').val(ticket);
 
     if (playerNamePlain) {
         playMode = MODE_PLAYER;
@@ -116,7 +116,7 @@ $(document).ready(function () {
         playMode = MODE_LIVE;
         document.title = 'THE Live';
     }
-    isCreator();
+    isCreator(ticket);
     initGame();
 });
 
@@ -125,14 +125,19 @@ function initWebsock() {
     // initialize web communication
     var host = window.location.hostname;
     var port = '80';
+    var serverAddress;
     if (host === 'localhost') {
         port = '8080';
+        serverAddress = 'ws://' + host + ':' + port;
+    } else {
+        port = '80';
+        serverAddress = 'ws://' + host + ':' + port + '/game/';
     }
-    var serverAddress = 'ws://' + host + ':' + port + "/game/";
-
     // TODO: to pickup a idle server from cluster
-    console.log('guest connect to server, playerName = ' + playerNamePlain + ', tableNumber = ' + tableNumber);
-    rtc.connect(serverAddress, playerNamePlain, password, phoneNumber, token, tableNumber, true, danmu);
+    console.log('guest connect to server, playerName = ' + playerNamePlain + ', ticket = ' + ticket);
+
+    // TODO: to identify human and live role
+    rtc.connect(serverAddress, playerNamePlain, password, null, token, ticket, false, danmu);
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));
@@ -535,8 +540,33 @@ function ccLoad() {
 }
 
 // game helper
-function isCreator() {
-
+function isCreator(ticket) {
+    $.ajax({
+        url: '/api/board/is_creator_board',
+        headers: {"phone-number": phoneNumber, "token": token},
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            ticket: ticket
+        },
+        timeout: 20000,
+        success: function (response) {
+            console.log("isCreatorBoard response = " + JSON.stringify(response));
+            if (response.status.code === 0) {
+                var isCreatorBoard = response.entity;
+                if (isCreatorBoard == true) {
+                    playMode = MODE_JUDGE;
+                } else {
+                    playMode = MODE_LIVE;
+                }
+            } else {
+                playMode = MODE_LIVE;
+            }
+        },
+        error: function () {
+            playMode = MODE_LIVE;
+        }
+    });
 }
 
 function playBgm() {
@@ -566,17 +596,17 @@ function playBgm() {
 }
 
 function startGame() {
-    rtc.startGame(tableNumber, phoneNumber, token, commandInterval, roundInterval,
+    rtc.startGame(ticket, phoneNumber, token, commandInterval, roundInterval,
         defaultSb, defaultChips, reloadChance, commandTimeout, lostTimeout);
     gameStatus = STATUS_GAME_PREPARING;
 }
 
 function stopGame() {
-    rtc.stopGame(tableNumber, phoneNumber, token);
+    rtc.stopGame(ticket, phoneNumber, token);
 }
 
 function endGame() {
-    rtc.endGame(tableNumber, phoneNumber, token);
+    rtc.endGame(ticket, phoneNumber, token);
 }
 
 function updateGame(data, isNewRound, roundClear) {

@@ -4,6 +4,7 @@
  */
 
 var BoardResponse = require('../responses/board_response.js');
+var BoolResponse = require('../responses/bool_response.js');
 
 var boardLogic = require('../work_units/board_logic.js');
 
@@ -48,6 +49,20 @@ exports.updateBoard = function (req, res) {
         boardResponse.status = createBoardsErr;
         boardResponse.entity = board;
         res.send(boardResponse);
+        res.end();
+    });
+};
+
+exports.isCreatorBoard = function (req, res) {
+    var ticket = req.body.ticket;
+    var phoneNumber = req.headers["phone-number"];
+    var token = req.headers["token"];
+
+    var boolResponse = new BoolResponse();
+    boardLogic.isCreatorBoardWorkUnit(ticket, phoneNumber, token, function(isCreatorBoardErr, result) {
+        boolResponse.status = isCreatorBoardErr;
+        boolResponse.entity = result;
+        res.send(boolResponse);
         res.end();
     });
 };

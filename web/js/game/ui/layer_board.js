@@ -479,6 +479,7 @@ var BoardLayer = cc.Layer.extend({
                 }
             }, this);
 
+            /*
             this.stopButton = new ccui.Button(s_stop_button, s_stop_button_pressed, s_stop_button_disabled);
             this.stopButton.setAnchorPoint(0, 0);
             this.stopButton.setScale(this.controlMenuScale);
@@ -493,6 +494,7 @@ var BoardLayer = cc.Layer.extend({
                     }
                 }
             }, this);
+            */
         }
 
         // add dealer layer on the top

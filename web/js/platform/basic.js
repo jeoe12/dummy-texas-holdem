@@ -38,7 +38,7 @@ function onBoardCreated(board) {
 }
 
 function gotoGame(boardTicket) {
-    var tableNumber = boardTicket;
+    var ticket = boardTicket;
     var defaultChips = $('#game_default_chips').val();
     var defaultSb = $('#game_default_sb').val();
     var defaultRoundInterval = $('#game_round_interval').val();
@@ -50,7 +50,7 @@ function gotoGame(boardTicket) {
     var sound = $('#game_sound').is(':checked') ? 1 : 0;
     var autoRestart = $('#auto_restart').is(':checked') ? 1 : 0;
 
-    window.open('./game.html?phoneNumber='+phoneNumber+'&token='+token+'&table='+tableNumber+
+    window.open('./game.html?phoneNumber='+phoneNumber+'&token='+token+'&ticket='+tableNumber+
         '&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
         '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
         '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout,
