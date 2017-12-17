@@ -547,7 +547,8 @@ function isCreator(ticket) {
         type: 'POST',
         dataType: 'json',
         data: {
-            ticket: ticket
+            ticket: ticket,
+            token: token
         },
         timeout: 20000,
         success: function (response) {
