@@ -1,21 +1,21 @@
 package vip.dummy.texasholdem.message;
 
-import vip.dummy.texasholdem.message.data.JoinCommand;
+import vip.dummy.texasholdem.message.data.JoinData;
 
 public class JoinMessage extends Message {
 
-    private JoinCommand data;
+    private JoinData data;
 
-    public JoinMessage(JoinCommand joinCommand) {
+    public JoinMessage(JoinData joinData) {
         super("__join");
-        this.data = joinCommand;
+        this.data = joinData;
     }
 
-    public JoinCommand getData() {
+    public JoinData getData() {
         return data;
     }
 
-    public void setData(JoinCommand data) {
+    public void setData(JoinData data) {
         this.data = data;
     }
 }

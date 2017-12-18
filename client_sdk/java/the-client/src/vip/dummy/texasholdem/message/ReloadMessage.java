@@ -1,12 +1,12 @@
 package vip.dummy.texasholdem.message;
 
-import vip.dummy.texasholdem.message.data.ReloadCommand;
+import vip.dummy.texasholdem.message.data.ReloadData;
 
 public class ReloadMessage extends Message {
 
-    private ReloadCommand data;
+    private ReloadData data;
 
-    public ReloadMessage(ReloadCommand data) {
+    public ReloadMessage(ReloadData data) {
         super("__reload");
         this.data = data;
     }
@@ -15,11 +15,11 @@ public class ReloadMessage extends Message {
         super(eventName);
     }
 
-    public ReloadCommand getData() {
+    public ReloadData getData() {
         return data;
     }
 
-    public void setData(ReloadCommand data) {
+    public void setData(ReloadData data) {
         this.data = data;
     }
 }

@@ -1,19 +1,19 @@
 package vip.dummy.texasholdem.message.data;
 
-public class JoinCommand {
+public class JoinData {
     private String phoneNumber;
     private String password;
     private String ticket;
     private String token;
 
-    public JoinCommand(String phoneNumber, String password, String ticket, String token) {
+    public JoinData(String phoneNumber, String password, String ticket, String token) {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.ticket = ticket;
         this.token = token;
     }
 
-    public JoinCommand() {
+    public JoinData() {
 
     }
 

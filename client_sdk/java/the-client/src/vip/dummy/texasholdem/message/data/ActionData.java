@@ -1,6 +1,6 @@
 package vip.dummy.texasholdem.message.data;
 
-public class ActionCommand {
+public class ActionData {
 
     // action could be one of the commands below:
     // "bet", "call", "raise", "fold", "check", "allin"
@@ -11,7 +11,7 @@ public class ActionCommand {
     // amount is needed when action is "__bet",
     private int amount;
 
-    public ActionCommand(String action, int amount) {
+    public ActionData(String action, int amount) {
         this.action = action;
         this.amount = amount;
     }

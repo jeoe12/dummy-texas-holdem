@@ -35,7 +35,7 @@ public class WebSocketClient {
 		this.session = session;
 
 		// send join message here with your name
-		// JoinCommand joinCommand = new JoinCommand("test2");
+		// JoinData joinCommand = new JoinData("test2");
 		// JoinMessage joinMessage = new JoinMessage("__join", joinCommand);
 		// String joinString = new Gson().toJson(joinMessage);
 		// send(joinString);

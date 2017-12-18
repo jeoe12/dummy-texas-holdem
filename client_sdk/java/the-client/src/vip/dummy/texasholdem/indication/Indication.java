@@ -1,10 +1,10 @@
-package vip.dummy.texasholdem.message;
+package vip.dummy.texasholdem.indication;
 
-public class Message {
+public class Indication {
 
     private String eventName;
 
-    public Message(String eventName) {
+    public Indication(String eventName) {
         this.eventName = eventName;
     }
 
