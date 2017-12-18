@@ -1,4 +1,4 @@
-package com.dummy.theclient.message;
+package vip.dummy.texasholdem.message;
 
 public class Message {
     private String eventName;

@@ -1,4 +1,4 @@
-package com.dummy.theclient;
+package vip.dummy.texasholdem;
 
 import java.io.IOException;
 
@@ -9,20 +9,22 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
-import com.dummy.theclient.message.JoinMessage;
-import com.dummy.theclient.message.data.JoinData;
-import com.dummy.theclient.param.SampleConfigurator;
-import com.dummy.theclient.param.SampleDecoder;
-import com.dummy.theclient.param.SampleEncoder;
-import com.dummy.theclient.playerai.PlayerAI;
-import com.google.gson.Gson;
+import vip.dummy.texasholdem.param.SampleConfigurator;
+import vip.dummy.texasholdem.param.SampleDecoder;
+import vip.dummy.texasholdem.param.SampleEncoder;
+import vip.dummy.texasholdem.playerai.PlayerAI;
 
+/**
+ * Created by the-engine team
+ * 2017-12-17
+ *
+ * Texas Hold'em AI client web socket interface
+ */
 @ClientEndpoint(
 		configurator = SampleConfigurator.class,
 		decoders={SampleDecoder.class},
 		encoders={SampleEncoder.class},
 		subprotocols={})
-
 public class WebSocketClient {
 
 	private Session session;
@@ -33,10 +35,10 @@ public class WebSocketClient {
 		this.session = session;
 
 		// send join message here with your name
-		JoinData joinData = new JoinData("test2");
-		JoinMessage joinMessage = new JoinMessage("__join", joinData);
-		String joinString = new Gson().toJson(joinMessage);
-		send(joinString);
+		// JoinCommand joinCommand = new JoinCommand("test2");
+		// JoinMessage joinMessage = new JoinMessage("__join", joinCommand);
+		// String joinString = new Gson().toJson(joinMessage);
+		// send(joinString);
 	}
 
 	@OnMessage
@@ -57,7 +59,7 @@ public class WebSocketClient {
     }
 
 
-	public void send(Object message) {
+	void send(Object message) {
 		this.session.getAsyncRemote().sendObject(message);
 	}
 	

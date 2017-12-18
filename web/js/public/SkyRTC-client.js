@@ -138,7 +138,6 @@ var SkyRTC = function () {
             "eventName": "__action",
             "data": {
                 "action": "bet",
-                "playerName": playerName,
                 "amount": amount
             }
         }));
@@ -148,8 +147,7 @@ var SkyRTC = function () {
         that.socket.send(JSON.stringify({
             "eventName": "__action",
             "data": {
-                "action": "call",
-                "playerName": playerName
+                "action": "call"
             }
         }));
     };
@@ -158,8 +156,7 @@ var SkyRTC = function () {
         that.socket.send(JSON.stringify({
             "eventName": "__action",
             "data": {
-                "action": "check",
-                "playerName": playerName
+                "action": "check"
             }
         }));
     };
@@ -169,8 +166,7 @@ var SkyRTC = function () {
         that.socket.send(JSON.stringify({
             "eventName": "__action",
             "data": {
-                "action": "raise",
-                "playerName": playerName
+                "action": "raise"
             }
         }));
     };
@@ -180,8 +176,7 @@ var SkyRTC = function () {
         that.socket.send(JSON.stringify({
             "eventName": "__action",
             "data": {
-                "action": "allin",
-                "playerName": playerName
+                "action": "allin"
             }
         }));
     };
@@ -191,8 +186,7 @@ var SkyRTC = function () {
         that.socket.send(JSON.stringify({
             "eventName": "__action",
             "data": {
-                "action": "fold",
-                "playerName": playerName
+                "action": "fold"
             }
         }));
     };

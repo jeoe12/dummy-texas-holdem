@@ -1,4 +1,4 @@
-package com.dummy.theclient;
+package vip.dummy.texasholdem;
 
 import java.io.IOException;
 import java.net.URI;

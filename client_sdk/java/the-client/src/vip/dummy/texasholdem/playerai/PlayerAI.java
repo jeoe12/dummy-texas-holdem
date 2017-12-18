@@ -1,6 +1,6 @@
-package com.dummy.theclient.playerai;
+package vip.dummy.texasholdem.playerai;
 
-import com.dummy.theclient.message.ActionMessage;
+import vip.dummy.texasholdem.message.ActionMessage;
 
 public class PlayerAI {
 

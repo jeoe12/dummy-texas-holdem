@@ -1,4 +1,4 @@
-package com.dummy.theclient.param;
+package vip.dummy.texasholdem.param;
 
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;

@@ -1,4 +1,4 @@
-package com.dummy.theclient.param;
+package vip.dummy.texasholdem.param;
 
 import java.util.List;
 import java.util.Map;
