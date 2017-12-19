@@ -3,17 +3,17 @@ package vip.dummy.texasholdem.indication.data;
 import vip.dummy.texasholdem.bean.Player;
 import vip.dummy.texasholdem.bean.Table;
 
-public class NewRoundData {
+public class RoundEndData {
 
     private Table table;
     private Player []players;
 
-    public NewRoundData(Table table, Player[] players) {
+    public RoundEndData(Table table, Player[] players) {
         this.table = table;
         this.players = players;
     }
 
-    public NewRoundData() {
+    public RoundEndData() {
 
     }
 

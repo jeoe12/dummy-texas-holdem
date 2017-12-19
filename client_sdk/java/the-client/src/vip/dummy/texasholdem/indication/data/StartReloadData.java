@@ -4,8 +4,8 @@ import vip.dummy.texasholdem.bean.Player;
 
 public class StartReloadData {
 
-    String tableNumber;
-    private Player[]players;
+    private String tableNumber;
+    private Player []players;
 
     public StartReloadData(String tableNumber, Player[] players) {
         this.tableNumber = tableNumber;

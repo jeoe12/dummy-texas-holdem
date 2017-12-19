@@ -1,20 +1,29 @@
 package vip.dummy.texasholdem.indication.data;
 
-import vip.dummy.texasholdem.bean.Player;
-import vip.dummy.texasholdem.bean.Table;
+import vip.dummy.texasholdem.bean.*;
 
-public class NewRoundData {
+public class ShowActionData {
 
+    private Action action;
     private Table table;
     private Player []players;
 
-    public NewRoundData(Table table, Player[] players) {
+    public ShowActionData(Action action, Table table, Player[] players) {
+        this.action = action;
         this.table = table;
         this.players = players;
     }
 
-    public NewRoundData() {
+    public ShowActionData() {
 
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
     }
 
     public Table getTable() {

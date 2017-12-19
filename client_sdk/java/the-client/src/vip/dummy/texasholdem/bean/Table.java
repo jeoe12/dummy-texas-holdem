@@ -1,23 +1,26 @@
 package vip.dummy.texasholdem.bean;
 
 public class Table {
+
     private String tableName;
     private String roundName;
     private String []board;
     private int roundCount;
     private int raiseCount;
     private int betCount;
+    private int totalBet;
     private Blind smallBlind;
     private Blind bigBlind;
 
     public Table(String tableName, String roundName, String []board, int roundCount,
-                 int raiseCount, int betCount, Blind smallBlind, Blind bigBlind) {
+                 int raiseCount, int betCount, int totalBet, Blind smallBlind, Blind bigBlind) {
         this.tableName = tableName;
         this.roundName = roundName;
         this.board = board;
         this.roundCount = roundCount;
         this.raiseCount = raiseCount;
         this.betCount = betCount;
+        this.totalBet = totalBet;
         this.smallBlind = smallBlind;
         this.bigBlind = bigBlind;
     }
@@ -72,6 +75,14 @@ public class Table {
 
     public void setBetCount(int betCount) {
         this.betCount = betCount;
+    }
+
+    public int getTotalBet() {
+        return totalBet;
+    }
+
+    public void setTotalBet(int totalBet) {
+        this.totalBet = totalBet;
     }
 
     public Blind getSmallBlind() {

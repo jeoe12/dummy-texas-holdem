@@ -6,7 +6,7 @@ import vip.dummy.texasholdem.bean.Table;
 public class DealData {
 
     private Table table;
-    private Player[]players;
+    private Player []players;
 
     public DealData(Table table, Player[] players) {
         this.table = table;

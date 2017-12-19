@@ -1,6 +1,7 @@
 package vip.dummy.texasholdem.bean;
 
 public class Blind {
+
     private String playerName;
     private int amount;
 

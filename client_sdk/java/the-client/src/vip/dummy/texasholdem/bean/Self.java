@@ -1,31 +1,31 @@
 package vip.dummy.texasholdem.bean;
 
-public class Player {
+public class Self {
 
     private String playerName;
     private int chips;
     private boolean folded;
     private boolean allIn;
     private boolean isSurvive;
-    private int reloadCount;
+    private String []cards;
     private int roundBet;
     private int bet;
-    private String []cards;
+    private int minBet;
 
-    public Player(String playerName, int chips, boolean folded, boolean allIn, boolean isSurvive,
-                  int reloadCount, int roundBet, int bet, String[] cards) {
+    public Self(String playerName, int chips, boolean folded, boolean allIn, boolean isSurvive,
+                String[] cards, int roundBet, int bet, int minBet) {
         this.playerName = playerName;
         this.chips = chips;
         this.folded = folded;
         this.allIn = allIn;
         this.isSurvive = isSurvive;
-        this.reloadCount = reloadCount;
+        this.cards = cards;
         this.roundBet = roundBet;
         this.bet = bet;
-        this.cards = cards;
+        this.minBet = minBet;
     }
 
-    public Player() {
+    public Self() {
 
     }
 
@@ -69,12 +69,12 @@ public class Player {
         isSurvive = survive;
     }
 
-    public int getReloadCount() {
-        return reloadCount;
+    public String[] getCards() {
+        return cards;
     }
 
-    public void setReloadCount(int reloadCount) {
-        this.reloadCount = reloadCount;
+    public void setCards(String[] cards) {
+        this.cards = cards;
     }
 
     public int getRoundBet() {
@@ -93,11 +93,11 @@ public class Player {
         this.bet = bet;
     }
 
-    public String[] getCards() {
-        return cards;
+    public int getMinBet() {
+        return minBet;
     }
 
-    public void setCards(String[] cards) {
-        this.cards = cards;
+    public void setMinBet(int minBet) {
+        this.minBet = minBet;
     }
 }
