@@ -29,7 +29,7 @@ $(document).ready(function () {
 
 function initRTC() {
     rtc.connect('ws://localhost:3001', plainPlayerName);
-    rtc.on('__action', function (data) {
+    rtc.on(rtc.EVENT_ACTION, function (data) {
         console.log(data);
 
         $('#userName').text('用户名:' + data.self.playerName);
@@ -48,7 +48,7 @@ function initRTC() {
         takeAction(self.cards, self.cards.concat(board), otherPlayers);
     });
 
-    rtc.on('__bet', function (data) {
+    rtc.on(rtc.EVENT_BET, function (data) {
         console.log(data);
 
         $('#msg').text('该回合轮到你首先押注,注意最小押注额');
@@ -66,12 +66,12 @@ function initRTC() {
         takeAction(self.cards, self.cards.concat(board), otherPlayers);
     });
 
-    rtc.on('__new_round', function (data) {
+    rtc.on(rtc.EVENT_NEW_ROUND, function (data) {
         playerActions = {};
         gameStatus = 0;
     });
 
-    rtc.on('__show_action', function (data) {
+    rtc.on(rtc.EVENT_SHOW_ACTION, function (data) {
         console.log('action : ' + JSON.stringify(data.action));
         var playerAction = data.action;
 
@@ -93,28 +93,28 @@ function initRTC() {
         }
     });
 
-    rtc.on('__start_reload', function (data) {
+    rtc.on(rtc.EVENT_START_RELOAD, function (data) {
         console.log('received start reload request:' + JSON.stringify(data));
         reload();
     });
 
-    rtc.on('__round_end', function(data) {
+    rtc.on(rtc.EVENT_ROUND_END, function(data) {
         console.log('received round end:' + JSON.stringify(data));
     });
 
-    rtc.on('__deal', function(data) {
+    rtc.on(rtc.EVENT_DEAL, function(data) {
         console.log('received deal:' + JSON.stringify(data));
     });
 
-    rtc.on('__new_peer_2', function(data) {
+    rtc.on(rtc.EVENT_NEW_PEER_2, function(data) {
         console.log('received new_peer_2:' + JSON.stringify(data));
     });
 
-    rtc.on('__left_2', function(data) {
+    rtc.on(rtc.EVENT_LEFT_2, function(data) {
         console.log('received __left_2:' + JSON.stringify(data));
     });
 
-    rtc.on('__game_over', function(data) {
+    rtc.on(rtc.EVENT_GAME_OVER, function(data) {
         console.log('received game over:' + JSON.stringify(data));
     });
 }

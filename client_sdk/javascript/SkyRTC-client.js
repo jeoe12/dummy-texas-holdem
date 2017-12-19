@@ -4,6 +4,18 @@
  */
 
 var SkyRTC = function () {
+    this.EVENT_ACTION = "__action";
+    this.EVENT_BET = "__bet";
+    this.EVENT_NEW_ROUND = "__new_round";
+    this.EVENT_SHOW_ACTION = "__show_action";
+    this.EVENT_START_RELOAD = "__start_reload";
+    this.EVENT_ROUND_END = "__round_end";
+    this.EVENT_DEAL = "__deal";
+    this.EVENT_NEW_PEER_2 = "__new_peer_2";
+    this.EVENT_LEFT_2 = "__left_2";
+    this.EVENT_GAME_OVER = "__game_over";
+    this.EVENT_MESSAGE = "socket_receive_message";
+
     function EventEmitter() {
         this.events = {};
     }
