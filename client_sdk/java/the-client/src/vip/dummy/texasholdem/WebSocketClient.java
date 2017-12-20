@@ -9,6 +9,10 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
+import com.google.gson.Gson;
+import vip.dummy.texasholdem.bean.Credential;
+import vip.dummy.texasholdem.message.JoinMessage;
+import vip.dummy.texasholdem.message.data.JoinData;
 import vip.dummy.texasholdem.param.SampleConfigurator;
 import vip.dummy.texasholdem.param.SampleDecoder;
 import vip.dummy.texasholdem.param.SampleEncoder;
@@ -28,6 +32,13 @@ import vip.dummy.texasholdem.playerai.PlayerAI;
 public class WebSocketClient {
 
 	private Session session;
+	private Credential credential;
+	private String ticket;
+
+	public WebSocketClient(Credential credential, String ticket) {
+	    this.credential = credential;
+	    this.ticket = ticket;
+    }
 
 	@OnOpen
 	public void onOpen(Session session) {
@@ -35,10 +46,10 @@ public class WebSocketClient {
 		this.session = session;
 
 		// send join message here with your name
-		// JoinData joinCommand = new JoinData("test2");
-		// JoinMessage joinMessage = new JoinMessage("__join", joinCommand);
-		// String joinString = new Gson().toJson(joinMessage);
-		// send(joinString);
+		JoinData joinData = new JoinData(credential.getPhoneNumber(), credential.getPassword(), ticket);
+		JoinMessage joinMessage = new JoinMessage(joinData);
+		String joinString = new Gson().toJson(joinMessage);
+		send(joinString);
 	}
 
 	@OnMessage

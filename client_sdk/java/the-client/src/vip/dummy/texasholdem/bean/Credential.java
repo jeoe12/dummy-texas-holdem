@@ -1,17 +1,16 @@
-package vip.dummy.texasholdem.message.data;
+package vip.dummy.texasholdem.bean;
 
-public class JoinData {
+public class Credential {
+
     private String phoneNumber;
     private String password;
-    private String ticket;
 
-    public JoinData(String phoneNumber, String password, String ticket) {
+    public Credential(String phoneNumber, String password) {
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.ticket = ticket;
     }
 
-    public JoinData() {
+    public Credential() {
 
     }
 
@@ -29,13 +28,5 @@ public class JoinData {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
     }
 }
