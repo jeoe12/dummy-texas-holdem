@@ -63,7 +63,6 @@ public class WebSocketClient {
 		JoinData joinData = new JoinData(credential.getPhoneNumber(), credential.getPassword(), ticket);
 		JoinMessage joinMessage = new JoinMessage(joinData);
 		String joinString = new Gson().toJson(joinMessage);
-		System.out.println("joinString = " + joinString);
 		send(joinString);
 	}
 

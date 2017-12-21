@@ -1,5 +1,6 @@
 package vip.dummy.texasholdem.playerai;
 
+import com.google.gson.Gson;
 import vip.dummy.texasholdem.IndicationCallbacks;
 import vip.dummy.texasholdem.WebSocketClient;
 import vip.dummy.texasholdem.indication.*;
@@ -31,37 +32,37 @@ public class PlayerAI implements IndicationCallbacks {
      */
     void reload() {
         ReloadMessage reloadMessage = new ReloadMessage(new ReloadData());
-        webSocketClient.send(reloadMessage);
+        webSocketClient.send(reloadMessage.toJson());
     }
 
     void call() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("call", 0));
-        webSocketClient.send(actionMessage);
+        webSocketClient.send(actionMessage.toJson());
     }
 
     void raise() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("raise", 0));
-        webSocketClient.send(actionMessage);
+        webSocketClient.send(actionMessage.toJson());
     }
 
     void fold() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("fold", 0));
-        webSocketClient.send(actionMessage);
+        webSocketClient.send(actionMessage.toJson());
     }
 
     void check() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("check", 0));
-        webSocketClient.send(actionMessage);
+        webSocketClient.send(actionMessage.toJson());
     }
 
     void bet(int amount) {
         ActionMessage actionMessage = new ActionMessage(new ActionData("bet", amount));
-        webSocketClient.send(actionMessage);
+        webSocketClient.send(actionMessage.toJson());
     }
 
     void allIn() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("allin", 0));
-        webSocketClient.send(actionMessage);
+        webSocketClient.send(actionMessage.toJson());
     }
 
     /**
@@ -89,16 +90,19 @@ public class PlayerAI implements IndicationCallbacks {
 
     @Override
     public void onAction(ActionIndication actionIndication) {
+        System.out.println("<< on action");
         nextStep();
     }
 
     @Override
     public void onBet(BetIndication betIndication) {
+        System.out.println("<< on bet");
         nextStep();
     }
 
     @Override
     public void onShowAction(ShowActionIndication showActionIndication) {
+        System.out.println("<< on deal");
         System.out.println("<< on show action");
     }
 
