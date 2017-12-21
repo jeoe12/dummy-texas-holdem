@@ -3,8 +3,6 @@ package vip.dummy.texasholdem;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import vip.dummy.texasholdem.bean.Credential;
-import vip.dummy.texasholdem.indication.NewPeerIndication;
-import vip.dummy.texasholdem.indication.NewRoundIndication;
 import vip.dummy.texasholdem.utils.MD5Util;
 
 import java.io.Console;
@@ -30,7 +28,7 @@ public class TheClient {
     private static final String HOST_ADDR = "ws://localhost:8080";
 
     public static void main(String[] args) throws DeploymentException, IOException,
-            URISyntaxException, InterruptedException {
+            URISyntaxException {
 
         // resolve user credential
         Gson gson = new Gson();
@@ -45,7 +43,7 @@ public class TheClient {
         if (null == credential.getPassword() || credential.getPassword().equals("")) {
             Console console = System.console();
             String password = "";
-            while(null == password || password.equals("")) {
+            while(password.equals("")) {
                 password =
                         new String(console.readPassword("Please enter your password: "));
             }
@@ -55,7 +53,6 @@ public class TheClient {
         }
 
         System.out.println("your login password : " + credential.getPassword());
-
         Scanner input = new Scanner(System.in);
 
         String ticket = "";
@@ -70,12 +67,16 @@ public class TheClient {
         container.connectToServer(client,
                 new URI(HOST_ADDR));
 
-        while(true) {
-            try {
-
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

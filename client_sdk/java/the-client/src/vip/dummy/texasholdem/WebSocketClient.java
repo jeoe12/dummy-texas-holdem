@@ -36,6 +36,8 @@ public class WebSocketClient {
 	private Credential credential;
 	private String ticket;
 
+    private PlayerAI playerAI;
+
 	private static final String NEW_PEER = "__new_peer";
 	private static final String NEW_ROUND = "__new_round";
     private static final String START_RELOAD = "__start_reload";
@@ -49,6 +51,7 @@ public class WebSocketClient {
 	WebSocketClient(Credential credential, String ticket) {
 	    this.credential = credential;
 	    this.ticket = ticket;
+	    this.playerAI = new PlayerAI(this);
     }
 
 	@OnOpen
@@ -75,7 +78,7 @@ public class WebSocketClient {
                  * __new_peer
                  */
                 NewPeerIndication newPeerIndication = new Gson().fromJson(message, NewPeerIndication.class);
-                PlayerAI.getInstance().onNewPeer(newPeerIndication);
+                playerAI.onNewPeer(newPeerIndication);
                 break;
 
             case NEW_ROUND:
@@ -83,7 +86,7 @@ public class WebSocketClient {
                  * __new_round
                  */
                 NewRoundIndication newRoundIndication = new Gson().fromJson(message, NewRoundIndication.class);
-                PlayerAI.getInstance().onNewRound(newRoundIndication);
+                playerAI.onNewRound(newRoundIndication);
                 break;
 
             case START_RELOAD:
@@ -91,7 +94,7 @@ public class WebSocketClient {
                  * __start_reload
                  */
                 StartReloadIndication startReloadIndication = new Gson().fromJson(message, StartReloadIndication.class);
-                PlayerAI.getInstance().onStartReload(startReloadIndication);
+                playerAI.onStartReload(startReloadIndication);
                 break;
 
             case DEAL:
@@ -99,7 +102,7 @@ public class WebSocketClient {
                  * __deal
                  */
                 DealIndication dealIndication = new Gson().fromJson(message, DealIndication.class);
-                PlayerAI.getInstance().onDeal(dealIndication);
+                playerAI.onDeal(dealIndication);
                 break;
 
             case ACTION:
@@ -107,7 +110,7 @@ public class WebSocketClient {
                  * __action
                  */
                 ActionIndication actionIndication = new Gson().fromJson(message, ActionIndication.class);
-                PlayerAI.getInstance().onAction(actionIndication);
+                playerAI.onAction(actionIndication);
                 break;
 
             case BET:
@@ -115,7 +118,7 @@ public class WebSocketClient {
                  * __bet
                  */
                 BetIndication betIndication = new Gson().fromJson(message, BetIndication.class);
-                PlayerAI.getInstance().onBet(betIndication);
+                playerAI.onBet(betIndication);
                 break;
 
             case SHOW_ACTION:
@@ -123,7 +126,7 @@ public class WebSocketClient {
                  * __show_action
                  */
                 ShowActionIndication showActionIndication = new Gson().fromJson(message, ShowActionIndication.class);
-                PlayerAI.getInstance().onShowAction(showActionIndication);
+                playerAI.onShowAction(showActionIndication);
                 break;
 
             case ROUND_END:
@@ -131,7 +134,7 @@ public class WebSocketClient {
                  * __round_end
                  */
                 RoundEndIndication roundEndIndication = new Gson().fromJson(message, RoundEndIndication.class);
-                PlayerAI.getInstance().onRoundEnd(roundEndIndication);
+                playerAI.onRoundEnd(roundEndIndication);
                 break;
 
             case GAME_OVER:
@@ -139,7 +142,7 @@ public class WebSocketClient {
                  * __game_over
                  */
                 GameOverIndication gameOverIndication = new Gson().fromJson(message, GameOverIndication.class);
-                PlayerAI.getInstance().onGameOver(gameOverIndication);
+                playerAI.onGameOver(gameOverIndication);
                 break;
 
             default:
@@ -157,7 +160,7 @@ public class WebSocketClient {
         t.printStackTrace();
     }
 
-	void send(Object message) {
+	public void send(Object message) {
 		this.session.getAsyncRemote().sendObject(message);
 	}
 	
