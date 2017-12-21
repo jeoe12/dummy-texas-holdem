@@ -69,7 +69,6 @@ public class WebSocketClient {
 
 	@OnMessage
 	public void onMessage(String message) {
-		System.out.println("received message: " + message);
 		// parse message for player AI
         Indication indication = new Gson().fromJson(message, Indication.class);
         switch(indication.getEventName()) {

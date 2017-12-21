@@ -29,37 +29,37 @@ public class PlayerAI implements IndicationCallbacks {
     /**
      *  TexasHoldem actions
      */
-    public void reload() {
+    void reload() {
         ReloadMessage reloadMessage = new ReloadMessage(new ReloadData());
         webSocketClient.send(reloadMessage);
     }
 
-    public void call() {
+    void call() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("call", 0));
         webSocketClient.send(actionMessage);
     }
 
-    public void raise() {
+    void raise() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("raise", 0));
         webSocketClient.send(actionMessage);
     }
 
-    public void fold() {
+    void fold() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("fold", 0));
         webSocketClient.send(actionMessage);
     }
 
-    public void check() {
+    void check() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("check", 0));
         webSocketClient.send(actionMessage);
     }
 
-    public void bet(int amount) {
+    void bet(int amount) {
         ActionMessage actionMessage = new ActionMessage(new ActionData("bet", amount));
         webSocketClient.send(actionMessage);
     }
 
-    public void allIn() {
+    void allIn() {
         ActionMessage actionMessage = new ActionMessage(new ActionData("allin", 0));
         webSocketClient.send(actionMessage);
     }
@@ -69,22 +69,22 @@ public class PlayerAI implements IndicationCallbacks {
      */
     @Override
     public void onNewPeer(NewPeerIndication newPeerIndication) {
-
+        System.out.println("<< on new peer joined");
     }
 
     @Override
     public void onNewRound(NewRoundIndication newRoundIndication) {
-
+        System.out.println("<< on new round");
     }
 
     @Override
     public void onStartReload(StartReloadIndication startReloadIndication) {
-
+        System.out.println("<< on reload indication");
     }
 
     @Override
     public void onDeal(DealIndication dealIndication) {
-
+        System.out.println("<< on deal");
     }
 
     @Override
@@ -99,16 +99,16 @@ public class PlayerAI implements IndicationCallbacks {
 
     @Override
     public void onShowAction(ShowActionIndication showActionIndication) {
-
+        System.out.println("<< on show action");
     }
 
     @Override
     public void onRoundEnd(RoundEndIndication roundEndIndication) {
-
+        System.out.println("<< on round end");
     }
 
     @Override
     public void onGameOver(GameOverIndication gameOverIndication) {
-
+        System.out.println("<< on game over");
     }
 }
