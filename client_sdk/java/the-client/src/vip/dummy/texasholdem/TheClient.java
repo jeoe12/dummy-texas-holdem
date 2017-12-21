@@ -3,12 +3,13 @@ package vip.dummy.texasholdem;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import vip.dummy.texasholdem.bean.Credential;
+import vip.dummy.texasholdem.indication.NewPeerIndication;
+import vip.dummy.texasholdem.indication.NewRoundIndication;
 import vip.dummy.texasholdem.utils.MD5Util;
 
 import java.io.Console;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Scanner;

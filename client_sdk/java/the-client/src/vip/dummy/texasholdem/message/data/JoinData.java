@@ -4,15 +4,17 @@ public class JoinData {
     private String phoneNumber;
     private String password;
     private String ticket;
+    private String gameName;
 
     public JoinData(String phoneNumber, String password, String ticket) {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.ticket = ticket;
+        this.gameName = "texas_holdem";
     }
 
     public JoinData() {
-
+        this.gameName = "texas_holdem";
     }
 
     public String getPhoneNumber() {

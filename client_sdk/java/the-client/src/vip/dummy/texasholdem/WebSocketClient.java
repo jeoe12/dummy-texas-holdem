@@ -11,6 +11,7 @@ import javax.websocket.Session;
 
 import com.google.gson.Gson;
 import vip.dummy.texasholdem.bean.Credential;
+import vip.dummy.texasholdem.indication.*;
 import vip.dummy.texasholdem.message.JoinMessage;
 import vip.dummy.texasholdem.message.data.JoinData;
 import vip.dummy.texasholdem.param.SampleConfigurator;
@@ -35,7 +36,17 @@ public class WebSocketClient {
 	private Credential credential;
 	private String ticket;
 
-	public WebSocketClient(Credential credential, String ticket) {
+	private static final String NEW_PEER = "__new_peer";
+	private static final String NEW_ROUND = "__new_round";
+    private static final String START_RELOAD = "__start_reload";
+	private static final String DEAL = "__deal";
+	private static final String ACTION = "__action";
+	private static final String BET = "__bet";
+	private static final String SHOW_ACTION = "__show_action";
+	private static final String ROUND_END = "__round_end";
+	private static final String GAME_OVER = "__game_over";
+
+	WebSocketClient(Credential credential, String ticket) {
 	    this.credential = credential;
 	    this.ticket = ticket;
     }
@@ -49,14 +60,91 @@ public class WebSocketClient {
 		JoinData joinData = new JoinData(credential.getPhoneNumber(), credential.getPassword(), ticket);
 		JoinMessage joinMessage = new JoinMessage(joinData);
 		String joinString = new Gson().toJson(joinMessage);
+		System.out.println("joinString = " + joinString);
 		send(joinString);
 	}
 
 	@OnMessage
 	public void onMessage(String message) {
 		System.out.println("received message: " + message);
-		// your player AI
-        PlayerAI.getInstance().nextStep(message);
+		// parse message for player AI
+        Indication indication = new Gson().fromJson(message, Indication.class);
+        switch(indication.getEventName()) {
+            case NEW_PEER:
+                /*
+                 * __new_peer
+                 */
+                NewPeerIndication newPeerIndication = new Gson().fromJson(message, NewPeerIndication.class);
+                PlayerAI.getInstance().onNewPeer(newPeerIndication);
+                break;
+
+            case NEW_ROUND:
+                /*
+                 * __new_round
+                 */
+                NewRoundIndication newRoundIndication = new Gson().fromJson(message, NewRoundIndication.class);
+                PlayerAI.getInstance().onNewRound(newRoundIndication);
+                break;
+
+            case START_RELOAD:
+                /*
+                 * __start_reload
+                 */
+                StartReloadIndication startReloadIndication = new Gson().fromJson(message, StartReloadIndication.class);
+                PlayerAI.getInstance().onStartReload(startReloadIndication);
+                break;
+
+            case DEAL:
+                /*
+                 * __deal
+                 */
+                DealIndication dealIndication = new Gson().fromJson(message, DealIndication.class);
+                PlayerAI.getInstance().onDeal(dealIndication);
+                break;
+
+            case ACTION:
+                /*
+                 * __action
+                 */
+                ActionIndication actionIndication = new Gson().fromJson(message, ActionIndication.class);
+                PlayerAI.getInstance().onAction(actionIndication);
+                break;
+
+            case BET:
+                /*
+                 * __bet
+                 */
+                BetIndication betIndication = new Gson().fromJson(message, BetIndication.class);
+                PlayerAI.getInstance().onBet(betIndication);
+                break;
+
+            case SHOW_ACTION:
+                /*
+                 * __show_action
+                 */
+                ShowActionIndication showActionIndication = new Gson().fromJson(message, ShowActionIndication.class);
+                PlayerAI.getInstance().onShowAction(showActionIndication);
+                break;
+
+            case ROUND_END:
+                /*
+                 * __round_end
+                 */
+                RoundEndIndication roundEndIndication = new Gson().fromJson(message, RoundEndIndication.class);
+                PlayerAI.getInstance().onRoundEnd(roundEndIndication);
+                break;
+
+            case GAME_OVER:
+                /*
+                 * __game_over
+                 */
+                GameOverIndication gameOverIndication = new Gson().fromJson(message, GameOverIndication.class);
+                PlayerAI.getInstance().onGameOver(gameOverIndication);
+                break;
+
+            default:
+                break;
+        }
     }
 
 	@OnClose
@@ -68,7 +156,6 @@ public class WebSocketClient {
     public void onError(Session session, Throwable t) {
         t.printStackTrace();
     }
-
 
 	void send(Object message) {
 		this.session.getAsyncRemote().sendObject(message);
