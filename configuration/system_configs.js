@@ -15,11 +15,11 @@ exports.setupEnvironment = function () {
         APP_SERVER_ADDRESS = "localhost";
         APP_SERVER_PORT = "8080";
     } else if (enums.APP_PRODUCTION_MODE === env) {
-        LISTEN_PORT = "80";
+        LISTEN_PORT = "3001";
         APP_SERVER_ADDRESS = "localhost";
         APP_SERVER_PORT = "8080";
     } else if (enums.APP_USERDEBUG_MODE === env) {
-        LISTEN_PORT = "80";
+        LISTEN_PORT = "3001";
         APP_SERVER_ADDRESS = "localhost";
         APP_SERVER_PORT = "8080";
     }
