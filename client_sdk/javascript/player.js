@@ -16,19 +16,18 @@ var risk = 1;
 var danger = 2;
 
 var rtc = SkyRTC();
-var plainPlayerName = '';
-var playerName = '';
+
 
 $(document).ready(function () {
-    plainPlayerName = getParameter('name');
-    playerName = MD5(plainPlayerName);
-    console.log('player : ' + playerName);
-    $('#player_name').html(playerName);
     initRTC();
 });
 
 function initRTC() {
-    rtc.connect('ws://localhost:3001', plainPlayerName);
+    rtc.PHONE_NUMBER = "18362966233";
+    rtc.PASSWORD = "123";
+    rtc.SERVER_ADDRESS = "ws://localhost:3001";
+    rtc.TICKET = "sfdfdfds";
+    rtc.connect();
     rtc.on(rtc.EVENT_ACTION, function (data) {
         console.log(data);
 
