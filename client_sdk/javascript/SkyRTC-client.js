@@ -15,6 +15,10 @@ var SkyRTC = function () {
     this.EVENT_LEFT_2 = "__left_2";
     this.EVENT_GAME_OVER = "__game_over";
     this.EVENT_MESSAGE = "socket_receive_message";
+    this.PHONE_NUMBER = "";
+    this.PASSWORD = "";
+    this.TICKET = "";
+    this.SERVER_ADDRESS = "";
 
     function EventEmitter() {
         this.events = {};
@@ -45,16 +49,18 @@ var SkyRTC = function () {
     skyrtc.prototype = new EventEmitter();
 
 
-    skyrtc.prototype.connect = function (server, param) {
+    skyrtc.prototype.connect = function () {
         var socket,
             that = this;
 
-        socket = this.socket = new WebSocket(server);
+        socket = this.socket = new WebSocket(that.SERVER_ADDRESS);
         socket.onopen = function () {
             socket.send(JSON.stringify({
                 "eventName": "__join",
                 "data": {
-                    "playerName": param
+                    "phoneNumber": that.PHONE_NUMBER,
+                    "password": that.PASSWORD,
+                    "ticket": that.TICKET
                 }
             }));
             that.emit("socket_opened", socket);
