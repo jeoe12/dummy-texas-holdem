@@ -11,7 +11,7 @@ $(document).ready(function () {
     localStorage.setItem('token', token);
 
     // get board list
-    listTheBoards();
+    // listTheBoards();
 });
 
 function listTheBoards() {

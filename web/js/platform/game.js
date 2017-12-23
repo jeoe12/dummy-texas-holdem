@@ -571,29 +571,20 @@ function isCreator(ticket) {
 }
 
 function playBgm() {
-    // the BGM is too ugly, will change for another
-    /*
-    audio1 = new Audio('./res/audio/bgm_7.mp3');
+    audio1 = new Audio('./res/audio/bgm.mp3');
     audio1.addEventListener('ended', function() {
         this.currentTime = 0;
         this.pause();
         audio2.play();
     }, false);
-    audio2 = new Audio('./res/audio/bgm_6.mp3');
+    audio2 = new Audio('./res/audio/bgm.mp3');
     audio2.addEventListener('ended', function() {
-        this.currentTime = 0;
-        this.pause();
-        audio3.play();
-    }, false);
-    audio3 = new Audio('./res/audio/bgm_5.mp3');
-    audio3.addEventListener('ended', function() {
         this.currentTime = 0;
         this.pause();
         audio1.play();
     }, false);
 
     audio1.play();
-    */
 }
 
 function startGame() {
