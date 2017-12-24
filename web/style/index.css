@@ -47,7 +47,6 @@ body {
     -ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./res/images/background.png',sizingMethod='scale')";
 
     text-align: center;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
 }
 
 .div-bg-img {
@@ -59,9 +58,26 @@ body {
 }
 
 .game-status {
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.game-ready {
+    color: #FFFF00;
+}
+
+.game-playing {
+    color: #00FF00;
+}
+
+.game-creator {
     color: #FFF;
     text-align: center;
+    font-size: 16px;
     width: 100%;
+    margin-top: 125px;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */

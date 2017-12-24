@@ -3,6 +3,10 @@
  * 2017-10-12
  */
 
+var STATUS_READY = 0;
+var STATUS_PLAYING = 1;
+var STATUS_OVER = 2;
+
 $(document).ready(function () {
     // get phoneNumber and token
     phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
@@ -11,7 +15,7 @@ $(document).ready(function () {
     localStorage.setItem('token', token);
 
     // get board list
-    // listTheBoards();
+    listTheBoards();
 });
 
 function listTheBoards() {
@@ -40,13 +44,31 @@ function listTheBoards() {
 }
 
 function onTheBoardsListed(boardList) {
+    var columnInRow = 3;
     if (null !== boardList) {
         document.getElementById('board_list').innerHTML = '';
         var boardListContent = '';
         for (var i = 0; i < boardList.length; i++) {
-            boardListContent += '<div><a href="#" onclick="joinLive(\'' + boardList[i].ticket + '\');">' +
-                boardList[i].creatorName + ' - ' + boardList[i].createTime + '</a></div>'
+            if (i % 3 === 0) {
+                boardListContent += '<div class="row">';
+            }
+            var status = boardList[i].status;
+            var statusStr = '';
+            var statusStyle = '';
+            if (STATUS_READY === parseInt(status)) {
+                statusStr = '准备中';
+                statusStyle = 'game-ready';
+            } else if (STATUS_PLAYING === parseInt(status)) {
+                statusStr = '进行中';
+                statusStyle = 'game-playing';
+            }
+
+            boardListContent += '<div class="col-md-4 div-bg-img" onclick="joinLive(\'' + boardList[i].ticket + '\');">\n' +
+                '<div class="game-status ' + statusStyle + '">' + statusStr + '</div>\n' +
+                '<div class="game-creator">' + boardList[i].creatorName + '</div>\n' +
+                '</div>';
         }
+        boardListContent += "</div>";
         $('#board_list').append(boardListContent);
     }
 }
