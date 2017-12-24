@@ -48,7 +48,8 @@ function onTheBoardsListed(boardList) {
     if (null !== boardList) {
         document.getElementById('board_list').innerHTML = '';
         var boardListContent = '';
-        for (var i = 0; i < boardList.length; i++) {
+        var i = 0;
+        for (i = 0; i < boardList.length; i++) {
             if (i % 3 === 0) {
                 boardListContent += '<div class="row">';
             }
@@ -63,12 +64,19 @@ function onTheBoardsListed(boardList) {
                 statusStyle = 'game-playing';
             }
 
-            boardListContent += '<div class="col-md-4 div-bg-img" onclick="joinLive(\'' + boardList[i].ticket + '\');">\n' +
+            boardListContent += '<div class="game-div col-md-4 div-bg-img" onclick="joinLive(\'' + boardList[i].ticket + '\');">\n' +
                 '<div class="game-status ' + statusStyle + '">' + statusStr + '</div>\n' +
                 '<div class="game-creator">' + boardList[i].creatorName + '</div>\n' +
                 '</div>';
+
+            if (i % 3 === 2) {
+                boardListContent += '</div>';
+            }
         }
-        boardListContent += "</div>";
+        if (i % 3 !== 0) {
+            boardListContent += "</div>";
+        }
+
         $('#board_list').append(boardListContent);
     }
 }

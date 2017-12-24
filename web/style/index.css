@@ -42,11 +42,15 @@ body {
     background-image: url('../res/images/background.png');
     background-repeat: no-repeat;
     background-size: cover;
-    /*css hack for ie*/
+    /* css hack for ie */
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./res/images/background.png', sizingMethod=scale);
     -ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./res/images/background.png',sizingMethod='scale')";
 
     text-align: center;
+}
+
+body {
+    overflow-y: scroll;
 }
 
 .div-bg-img {
@@ -55,6 +59,10 @@ body {
     background-size: 100%;
     background-repeat: no-repeat;
     height: 220px;
+}
+
+.game-div {
+    cursor: pointer;
 }
 
 .game-status {
@@ -162,7 +170,7 @@ header span { margin-left: 20px; font-size: 20px; }
  */
 
 .cover {
-    padding: 0 20px;
+    /* padding: 0 20px; */
 }
 
 .cover .btn-lg {

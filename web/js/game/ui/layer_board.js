@@ -58,8 +58,8 @@ var BoardLayer = cc.Layer.extend({
     amountLabel: null,
 
     // buttons
-    startButton: null,
-    stopButton: null,
+    // startButton: null,
+    // stopButton: null,
     callButton: null,
     checkButton: null,
     raiseButton: null,
@@ -464,6 +464,7 @@ var BoardLayer = cc.Layer.extend({
         this.controlMenuScale = this.gameScale * 0.6;
 
         if (MODE_JUDGE === playMode) {
+            /*
             this.startButton = new ccui.Button(s_start_button, s_start_button_pressed, s_start_button_disabled);
             this.startButton.setAnchorPoint(0, 0);
             this.startButton.setScale(this.controlMenuScale);
@@ -479,7 +480,6 @@ var BoardLayer = cc.Layer.extend({
                 }
             }, this);
 
-            /*
             this.stopButton = new ccui.Button(s_stop_button, s_stop_button_pressed, s_stop_button_disabled);
             this.stopButton.setAnchorPoint(0, 0);
             this.stopButton.setScale(this.controlMenuScale);
