@@ -7,6 +7,10 @@ var STATUS_READY = 0;
 var STATUS_PLAYING = 1;
 var STATUS_OVER = 2;
 
+var fullBoardList = [];
+var currentBoardIndex = 0;
+var currentBoard = null;
+
 $(document).ready(function () {
     // get phoneNumber and token
     phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
@@ -31,8 +35,8 @@ function listTheBoards() {
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
-                var boardList = response.entity;
-                onTheBoardsListed(boardList);
+                fullBoardList = response.entity;
+                onTheBoardsListed();
             } else {
                 console.log('list boards failed');
             }
@@ -43,17 +47,17 @@ function listTheBoards() {
     });
 }
 
-function onTheBoardsListed(boardList) {
+function onTheBoardsListed() {
     var columnInRow = 3;
-    if (null !== boardList) {
+    if (null !== fullBoardList) {
         document.getElementById('board_list').innerHTML = '';
         var boardListContent = '';
         var i = 0;
-        for (i = 0; i < boardList.length; i++) {
+        for (i = 0; i < fullBoardList.length; i++) {
             if (i % 3 === 0) {
                 boardListContent += '<div class="row">';
             }
-            var status = boardList[i].status;
+            var status = fullBoardList[i].status;
             var statusStr = '';
             var statusStyle = '';
             if (STATUS_READY === parseInt(status)) {
@@ -64,9 +68,9 @@ function onTheBoardsListed(boardList) {
                 statusStyle = 'game-playing';
             }
 
-            boardListContent += '<div class="game-div col-md-4 div-bg-img" onclick="joinLive(\'' + boardList[i].ticket + '\');">\n' +
+            boardListContent += '<div class="game-div col-md-4 div-bg-img" onclick="onJoin(' + i + ');">\n' +
                 '<div class="game-status ' + statusStyle + '">' + statusStr + '</div>\n' +
-                '<div class="game-creator">' + boardList[i].creatorName + '</div>\n' +
+                '<div class="game-creator">' + fullBoardList[i].creatorName + '</div>\n' +
                 '</div>';
 
             if (i % 3 === 2) {
@@ -81,13 +85,28 @@ function onTheBoardsListed(boardList) {
     }
 }
 
-function joinLive(ticket) {
+function onJoin(boardIndex) {
+    currentBoardIndex = boardIndex;
+    currentBoard = fullBoardList[currentBoardIndex];
+    $('#info_creator_name').html('创建者: ' + currentBoard.creatorName);
+    $('#info_create_time').html(currentBoard.createTime);
+    var playerInfo = currentBoard.currentPlayer.length + '人 - ';
+    if (STATUS_READY === parseInt(currentBoard.status)) {
+        playerInfo += '准备中';
+    } else if (STATUS_PLAYING === parseInt(currentBoard.status)) {
+        playerInfo += '进行中';
+    }
+    $('#info_players').html(playerInfo);
+    $('#join_game_dialog').modal();
+}
+
+function joinLive() {
     // TODO： to remember these settings in board
     var bgm = 1;
     var sound = 1;
     var autoRestart = 0;
 
-    window.open('./game.html?ticket='+ticket+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart,
+    window.open('./game.html?ticket='+currentBoard.ticket+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart,
         '_blank');
-    $('#goto_game_dialog').modal('hide');
+    $('#join_game_dialog').modal('hide');
 }

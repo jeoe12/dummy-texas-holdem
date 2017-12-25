@@ -24,8 +24,11 @@ function createBoard() {
             if (response.status.code === 0) {
                 var board = response.entity;
                 onBoardCreated(board);
-            } else {
-                console.log('create board failed');
+            } else if (response.status.code === 1) {
+                console.log('create board failed : ' + JSON.stringify(response.entity));
+                if (response.entity.ticket) {
+                    gotoGame(response.entity.ticket);
+                }
             }
         },
         error: function () {
@@ -78,4 +81,10 @@ function joinGame(ticket, playerName) {
     window.open('./game.html?ticket=' + ticket + '&name=' + playerName, '_blank');
     $('#play_player_name').val('');
     $('#goto_play_dialog').modal('hide');
+}
+
+function popUpHintDialog(hint) {
+    $("#text_hint").empty();
+    $("#text_hint").append(hint);
+    $("#hint_dialog").modal();
 }

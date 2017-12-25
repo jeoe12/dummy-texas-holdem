@@ -15,23 +15,29 @@
 <body>
     <div class="container">
         <h3 class="masthead-brand" style="float: left; margin-top: 40px;"><img src="./res/images/brand.png"></h3>
-        <div class="inner">
-            <nav>
-                <ul class="nav masthead-nav">
-                    <li class="active"><a href="./index.html">主页</a></li>
-                    <li><a href="./document.html">文档</a></li>
-                    <li><a href="#" onclick="setBoard();">直播</a></li>
-                    <li><a href="#" onclick="setPlayer();">游戏</a></li>
-                </ul>
-            </nav>
-        </div>
     </div>
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
                 <div class="inner cover">
-                    <header><h1 class="cover-heading"><b>德州扑克AI对战平台</b></h1> <span><b>游戏大厅</b></span></header>
-
+                    <header><h1 class="cover-heading"><b>德州扑克AI对战平台</b></h1></header>
+                    <div class="row" style="border-bottom: 4px solid #DDD; margin-bottom: 60px;">
+                        <div class="col-md-6" style="margin-bottom: 40px;">
+                            <div class="game-status game-div">
+                                <a style="text-decoration: none; color: #000;" target="_blank" href="./document.html">
+                                    <img src="./res/images/ico_guide.png">
+                                    <h3><b>上手文档</b></h3>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="game-status game-div" onclick="setBoard();">
+                                <img src="./res/images/ico_live.png">
+                                <h3><b>创建直播</b></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <h3><b>游戏大厅</b></h3>
                     <div id="board_list" style="margin-top: 20px;">
 
                     </div>
@@ -44,6 +50,43 @@
             </div>
         </div>
     </div>
+    <!-- game join dialog -->
+    <div class="modal fade dialog" id="join_game_dialog" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
+                    <span class="modal-title">加入游戏</span>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center;">
+                        <header><h4 id="info_creator_name"></h4></header>
+                        <p id="info_create_time"></p>
+                        <p id="info_players"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 40px;">
+                            <div class="game-status game-div" onclick="joinLive();">
+                                <img src="./res/images/ico_live.png">
+                                <h3><b>观看直播</b></h3>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="game-status game-div" onclick="setPlayer();">
+                                <img src="./res/images/ico_play.png">
+                                <h3><b>加入游戏</b></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- game settings dialog -->
     <div class="modal fade dialog" id="goto_game_dialog" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -152,6 +195,7 @@
                             <span class="input-group-addon">玩家名称</span>
                             <input type="text" class="form-control" placeholder="玩家名称" id="play_player_name">
                         </div>
+                        <br>
                         <div class="input-group">
                             <span class="input-group-addon">游戏编号</span>
                             <input type="text" class="form-control" placeholder="游戏编号" id="play_ticket">
@@ -160,6 +204,25 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="gotoPlay();">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- hint dialog -->
+    <div class="modal fade" id="hint_dialog" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="text_hint"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">确定</button>
                 </div>
             </div>
         </div>

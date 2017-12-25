@@ -75,8 +75,8 @@ exports.createBoardWorkUnit = function (gameName, phoneNumber, token, callback) 
             logger.info("response of create board = " + JSON.stringify(boards));
             callback(errorCode.SUCCESS, boards);
         } else {
-            logger.error("create board failed");
-            callback(errorCode.FAILED, null);
+            logger.error("create board failed : " + JSON.stringify(boards));
+            callback(JSON.parse(boardsResponse).status, JSON.parse(boardsResponse).entity);
         }
     });
 };

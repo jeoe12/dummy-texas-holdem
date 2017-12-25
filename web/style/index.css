@@ -97,18 +97,12 @@ body {
 .site-wrapper-inner {
     display: table-cell;
     vertical-align: top;
-    padding-top: 100px;
 }
 
 .cover-container {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-}
-
-/* Padding for spacing */
-.inner {
-    padding: 30px;
 }
 
 /*
@@ -151,7 +145,7 @@ body {
     border-bottom-color: #000;
 }
 
-header { border-bottom: 2px solid #DDD; padding-bottom: 20px; }
+header { padding-bottom: 20px; }
 header > h1 { display: inline-block; }
 header span { margin-left: 20px; font-size: 20px; }
 
@@ -206,7 +200,6 @@ header span { margin-left: 20px; font-size: 20px; }
     /* Start the vertical centering */
     .site-wrapper-inner {
         vertical-align: top;
-        padding-top: 100px;
     }
 
     /* Handle the widths */
