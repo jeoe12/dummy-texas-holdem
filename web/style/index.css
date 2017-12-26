@@ -39,18 +39,16 @@ html,
 body {
     height: 100%;
     width: 100%;
-    background-image: url('../res/images/background.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* css hack for ie */
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./res/images/background.png', sizingMethod=scale);
-    -ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./res/images/background.png',sizingMethod='scale')";
-
     text-align: center;
 }
 
 body {
     overflow-y: scroll;
+    background: url('../res/images/background.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .div-bg-img {

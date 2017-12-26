@@ -5,6 +5,11 @@
 var phoneNumber;
 var token;
 
+// global board information
+var fullBoardList = [];
+var currentBoardIndex = 0;
+var currentBoard = null;
+
 function setBoard() {
     $('#goto_game_dialog').modal();
 }
@@ -74,10 +79,11 @@ function gotoPlay() {
     if (null === playerName || null === ticket) {
         return;
     }
-    joinGame(ticket, playerName);
+
+    joinGame();
 }
 
-function joinGame(ticket, playerName) {
+function joinGame() {
     window.open('./game.html?ticket=' + ticket + '&name=' + playerName, '_blank');
     $('#play_player_name').val('');
     $('#goto_play_dialog').modal('hide');

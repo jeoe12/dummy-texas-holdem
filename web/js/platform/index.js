@@ -7,10 +7,6 @@ var STATUS_READY = 0;
 var STATUS_PLAYING = 1;
 var STATUS_OVER = 2;
 
-var fullBoardList = [];
-var currentBoardIndex = 0;
-var currentBoard = null;
-
 $(document).ready(function () {
     // get phoneNumber and token
     phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
