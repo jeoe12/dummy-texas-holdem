@@ -5,8 +5,10 @@
 
 var BoardResponse = require('../responses/board_response.js');
 var BoolResponse = require('../responses/bool_response.js');
+var PlayerResponse = require('../responses/player_response.js');
 
 var boardLogic = require('../work_units/board_logic.js');
+var playerLogic = require('../work_units/player_logic.js');
 
 exports.listActiveBoards = function (req, res) {
     var gameName = req.body.gameName;
@@ -63,6 +65,20 @@ exports.isCreatorBoard = function (req, res) {
         boolResponse.status = isCreatorBoardErr;
         boolResponse.entity = result;
         res.send(boolResponse);
+        res.end();
+    });
+};
+
+exports.getPlayerByToken = function (req, res) {
+    var phoneNumber = req.headers["phone-number"];
+    var token = req.headers["token"] || req.body.token;
+
+    var playerResponse = new PlayerResponse();
+
+    playerLogic.getPlayerByTokenWorkUnit(phoneNumber, token, function(getPlayerErr, player) {
+        playerResponse.status = getPlayerErr;
+        playerResponse.entity = player;
+        res.send(playerResponse);
         res.end();
     });
 };

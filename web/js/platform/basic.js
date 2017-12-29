@@ -68,27 +68,6 @@ function gotoGame(boardTicket) {
 
 }
 
-function setPlayer() {
-    $('#goto_play_dialog').modal();
-}
-
-function gotoPlay() {
-    var playerName = $('#play_player_name').val();
-    // ticket of the board
-    var ticket = $('#play_ticket').val();
-    if (null === playerName || null === ticket) {
-        return;
-    }
-
-    joinGame();
-}
-
-function joinGame() {
-    window.open('./game.html?ticket=' + ticket + '&name=' + playerName, '_blank');
-    $('#play_player_name').val('');
-    $('#goto_play_dialog').modal('hide');
-}
-
 function popUpHintDialog(hint) {
     $("#text_hint").empty();
     $("#text_hint").append(hint);

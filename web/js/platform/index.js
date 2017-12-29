@@ -96,13 +96,43 @@ function onJoin(boardIndex) {
     $('#join_game_dialog').modal();
 }
 
+
+// for live
 function joinLive() {
     // TODO： to remember these settings in board
     var bgm = 1;
     var sound = 1;
-    var autoRestart = 0;
 
-    window.open('./game.html?ticket='+currentBoard.ticket+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart,
+    window.open('./game.html?ticket='+currentBoard.ticket+'&bgm=1&sound=1',
         '_blank');
     $('#join_game_dialog').modal('hide');
+}
+
+// for human player
+function joinGame() {
+    // get player information at client side
+    $.ajax({
+        url: '/api/players/get_player_by_token',
+        headers: {"phone-number": phoneNumber, "token": token},
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            token: token
+        },
+        timeout: 20000,
+        success: function (response) {
+            if (response.status.code === 0) {
+                var player = response.entity;
+                window.open('./game.html?ticket='+currentBoard.ticket+'&phoneNumber='+phoneNumber+'&token='+token+
+                    '&password='+player.password+'&playerName='+player.name+'&bgm=1&sound=1&isHuman=true',
+                    '_blank');
+                $('#join_game_dialog').modal('hide');
+            } else {
+                console.log('player is not valid');
+            }
+        },
+        error: function () {
+            console.log('player is not valid');
+        }
+    });
 }

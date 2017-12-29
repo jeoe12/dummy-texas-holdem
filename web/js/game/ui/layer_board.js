@@ -154,7 +154,7 @@ var BoardLayer = cc.Layer.extend({
         this.bgSprite.setPosition(0, 0);
         this.addChild(this.bgSprite, 0);
 
-        if (MODE_LIVE === playMode || MODE_JUDGE === playMode) {
+        if (MODE_PLAYER !== playMode) {
             // initialize bottom decoration
             this.decoBottom = new cc.Sprite(s_dec_bottom);
             this.decoBottom.setAnchorPoint(0, 0);
@@ -431,7 +431,7 @@ var BoardLayer = cc.Layer.extend({
         this.addChild(this.betLabel, 2);
 
         // initialize author text
-        if (MODE_LIVE === playMode || MODE_JUDGE === playMode) {
+        if (MODE_PLAYER !== playMode) {
             this.authorLabel = new cc.LabelTTF('Dummy Team',
                 this.authorTextFont, this.authorTextSize);
             this.authorLabel.setColor(cc.color(255, 255, 255, 255));
@@ -463,7 +463,7 @@ var BoardLayer = cc.Layer.extend({
         // add start and stop button
         this.controlMenuScale = this.gameScale * 0.6;
 
-        if (MODE_JUDGE === playMode) {
+        if (MODE_JUDGE === liveMode) {
             /*
             this.startButton = new ccui.Button(s_start_button, s_start_button_pressed, s_start_button_disabled);
             this.startButton.setAnchorPoint(0, 0);

@@ -61,21 +61,21 @@
                 </div>
                 <div class="modal-body">
                     <div style="text-align: center;">
-                        <header><h4 id="info_creator_name"></h4></header>
+                        <b><h4 id="info_creator_name"></h4></b>
                         <p id="info_create_time"></p>
-                        <p id="info_players"></p>
+                        <h4 id="info_players"></h4>
                     </div>
                     <div class="row">
                         <div class="col-md-6" style="margin-bottom: 40px;">
                             <div class="game-status game-div" onclick="joinLive();">
                                 <img src="./res/images/ico_live.png">
-                                <h3><b>观看直播</b></h3>
+                                <h4><b>观看直播</b></h4>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="game-status game-div" onclick="joinGame();">
                                 <img src="./res/images/ico_play.png">
-                                <h3><b>加入游戏</b></h3>
+                                <h4><b>加入游戏</b></h4>
                             </div>
                         </div>
                     </div>
@@ -175,35 +175,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="createBoard();">确定</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- player settings dialog -->
-    <div class="modal fade dialog" id="goto_play_dialog" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
-                    <span class="modal-title">加入游戏</span>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <div class="input-group">
-                            <span class="input-group-addon">玩家名称</span>
-                            <input type="text" class="form-control" placeholder="玩家名称" id="play_player_name">
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">游戏编号</span>
-                            <input type="text" class="form-control" placeholder="游戏编号" id="play_ticket">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="gotoPlay();">确定</button>
                 </div>
             </div>
         </div>

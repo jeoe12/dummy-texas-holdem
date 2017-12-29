@@ -623,7 +623,7 @@ var PlayerLayer = cc.Layer.extend({
 
             this.privateCard0.setVisible(true);
         } else {
-            if (MODE_LIVE === playMode || MODE_JUDGE === playMode) {
+            if (MODE_PLAYER !== playMode) {
                 this.changeSpriteImage(this.privateCard0, this.pokerEmptyFrame);
                 this.privateCard0.setVisible(false);
             } else {
@@ -646,7 +646,7 @@ var PlayerLayer = cc.Layer.extend({
             }
             this.privateCard1.setVisible(true);
         } else {
-            if (MODE_LIVE === playMode || MODE_JUDGE === playMode) {
+            if (MODE_PLAYER !== playMode) {
                 this.changeSpriteImage(this.privateCard1, this.pokerEmptyFrame);
                 this.privateCard1.setVisible(false);
             } else {

@@ -7,7 +7,7 @@
 var ticket = null;
 var phoneNumber = '';
 var token = '';
-var playerNamePlain = '';
+var isHuman = false;
 var password = '';
 var playerName = '';
 var gameBgm = 0;
@@ -27,7 +27,7 @@ var danmuWidth = 0;
 var gameBoard;
 var winWidth, winHeight;
 var gameWidth, gameHeight;
-var audio1, audio2, audio3;
+var audio1, audio2;
 
 // game model related
 var STATUS_GAME_STANDBY = 0;
@@ -46,7 +46,8 @@ var MODE_JUDGE = 2;
 
 var gameStatus = STATUS_GAME_STANDBY;
 var gameCountDown = 0;
-var playMode = MODE_JUDGE;
+var liveMode = MODE_JUDGE;
+var playMode = MODE_LIVE;
 
 var currentRoundName = '';
 var currentRound = 1;
@@ -85,13 +86,10 @@ $(document).ready(function () {
     // initialize phoneNumber and token
     phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
     token = getParameter('token') || localStorage.getItem('token');
-
-    // get table number first
     ticket = getParameter('ticket');
-
-    // for human player join
-    playerNamePlain = getParameter('name');
+    playerName = getParameter('playerName');
     password = getParameter('password');
+    isHuman = (getParameter('isHuman') == 'true') || false;
 
     autoStart = getParameter('auto') || 0;
     gameBgm = getParameter('bgm') || 0;
@@ -105,15 +103,16 @@ $(document).ready(function () {
     lostTimeout = getParameter('lostTimeout') || 10;
     danmu = getParameter('danmu') || 0;
 
+    if (!ticket) {
+        return;
+    }
     $('#board_ticket').val(ticket);
 
-    if (playerNamePlain) {
+    if (true === isHuman && playerName) {
         playMode = MODE_PLAYER;
-        playerName = md5(playerNamePlain);
-        // TODO: fetch player name according to phoneNumber
         document.title = 'The Game';
     } else {
-        playMode = MODE_LIVE;
+        liveMode = MODE_LIVE;
         document.title = 'THE Live';
     }
     isCreator(ticket);
@@ -133,11 +132,16 @@ function initWebsock() {
         port = '80';
         serverAddress = 'ws://' + host + ':' + port + '/game/';
     }
-    // TODO: to pickup a idle server from cluster
-    console.log('guest connect to server, playerName = ' + playerNamePlain + ', ticket = ' + ticket);
+    // TODO: to pickup an idle server from cluster
+    console.log('guest connect to server, playerName = ' + playerName + ', ticket = ' + ticket);
 
     // TODO: to identify human and live role
-    rtc.connect(serverAddress, playerNamePlain, password, null, token, ticket, false, danmu);
+    if (isHuman) {
+        rtc.connect(serverAddress, playerName, password, phoneNumber, token, ticket, isHuman, danmu);
+    } else {
+        rtc.connect(serverAddress, playerName, null, null, token, ticket, isHuman, danmu);
+    }
+
 
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));
@@ -556,16 +560,16 @@ function isCreator(ticket) {
             if (response.status.code === 0) {
                 var isCreatorBoard = response.entity;
                 if (isCreatorBoard == true) {
-                    playMode = MODE_JUDGE;
+                    liveMode = MODE_JUDGE;
                 } else {
-                    playMode = MODE_LIVE;
+                    liveMode = MODE_LIVE;
                 }
             } else {
-                playMode = MODE_LIVE;
+                liveMode = MODE_LIVE;
             }
         },
         error: function () {
-            playMode = MODE_LIVE;
+            liveMode = MODE_LIVE;
         }
     });
 }

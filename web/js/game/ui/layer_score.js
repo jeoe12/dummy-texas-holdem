@@ -265,7 +265,7 @@ var ScoreLayer = cc.LayerColor.extend({
                     this.reloadHint.getContentSize().width * this.gameScale) / 2,
                     0);
             this.addChild(this.reloadHint, 2);
-        } else if (MODE_JUDGE === playMode) {
+        } else if (MODE_JUDGE === liveMode) {
             this.endButton = new ccui.Button(s_o_end_button,
                 s_o_end_button_pressed,
                 s_o_end_button_disabled);
