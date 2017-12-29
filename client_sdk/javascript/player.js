@@ -24,9 +24,9 @@ $(document).ready(function () {
 
 function initRTC() {
     rtc.PHONE_NUMBER = "18362966233";
-    rtc.PASSWORD = "123";
-    rtc.SERVER_ADDRESS = "ws://localhost:3001";
-    rtc.TICKET = "sfdfdfds";
+    rtc.PASSWORD = "123456";
+    rtc.SERVER_ADDRESS = "ws://dummy.vip:80/game/";
+    rtc.TICKET = "kfw8tnhik8nwh76e3abjcnrvv4nmmn";
     rtc.connect();
     rtc.on(rtc.EVENT_ACTION, function (data) {
         console.log(data);
