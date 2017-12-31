@@ -43,6 +43,7 @@ var SkyRTC = function () {
         this.PASSWORD = "";
         this.TICKET = "";
         this.SERVER_ADDRESS = "";
+        this.GAME_NAME = "texas_holdem";
     }
 
     skyrtc.prototype = new EventEmitter();
@@ -59,7 +60,8 @@ var SkyRTC = function () {
                 "data": {
                     "phoneNumber": that.PHONE_NUMBER,
                     "password": MD5(that.PASSWORD),
-                    "ticket": that.TICKET
+                    "ticket": that.TICKET,
+                    "gameName": that.GAME_NAME
                 }
             }));
             that.emit("socket_opened", socket);
