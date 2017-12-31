@@ -463,40 +463,6 @@ var BoardLayer = cc.Layer.extend({
         // add start and stop button
         this.controlMenuScale = this.gameScale * 0.6;
 
-        if (MODE_JUDGE === liveMode) {
-            /*
-            this.startButton = new ccui.Button(s_start_button, s_start_button_pressed, s_start_button_disabled);
-            this.startButton.setAnchorPoint(0, 0);
-            this.startButton.setScale(this.controlMenuScale);
-            this.startButton.setPosition(this.controlMenuMarginLeft * this.gameScale,
-                this.controlMenuMarginBottom * this.gameScale);
-            this.addChild(this.startButton, 2);
-            this.startButton.addTouchEventListener(function (sender, type) {
-                if (ccui.Widget.TOUCH_ENDED === type) {
-                    console.log('start game');
-                    if (gameStatus !== STATUS_GAME_RUNNING) {
-                        startGame();
-                    }
-                }
-            }, this);
-
-            this.stopButton = new ccui.Button(s_stop_button, s_stop_button_pressed, s_stop_button_disabled);
-            this.stopButton.setAnchorPoint(0, 0);
-            this.stopButton.setScale(this.controlMenuScale);
-            this.stopButton.setPosition(this.controlMenuMarginLeft * this.gameScale,
-                this.controlMenuMarginBottom * this.gameScale);
-            this.addChild(this.stopButton, 2);
-            this.stopButton.addTouchEventListener(function (sender, type) {
-                if (ccui.Widget.TOUCH_ENDED === type) {
-                    console.log('stop game');
-                    if (gameStatus === STATUS_GAME_RUNNING) {
-                        stopGame();
-                    }
-                }
-            }, this);
-            */
-        }
-
         // add dealer layer on the top
         this.dealerLayer = new DealerLayer(this.gameScale);
         this.dealerLayer.init();

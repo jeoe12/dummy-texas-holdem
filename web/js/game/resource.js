@@ -48,6 +48,7 @@ var s_start_button_disabled = './res/images/game_board/start_button_disabled.png
 var s_stop_button = './res/images/game_board/stop_button.png';
 var s_stop_button_pressed = './res/images/game_board/stop_button_pressed.png';
 var s_stop_button_disabled = './res/images/game_board/stop_button_disabled.png';
+var s_click_icon = './res/images/game_board/click.png';
 
 // operation buttons
 var s_o_call_button = './res/images/game_board/btn_call.png';

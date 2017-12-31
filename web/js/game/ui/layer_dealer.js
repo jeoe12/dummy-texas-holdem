@@ -20,6 +20,10 @@ var DealerLayer = cc.LayerColor.extend({
     minPlayerCount: 3,
     countDownSec: 3,
 
+    // toggle color of ticket copying hint label time interval
+    toggleInterval: 10,
+    hintLabelWhite: true,
+
     // visualization variables
     size: null,
     validWidth: 0,
@@ -30,7 +34,7 @@ var DealerLayer = cc.LayerColor.extend({
     buttonScale: 1.0,
 
     // sprites
-    dialogBoxSprite: null,
+    clickSprite: null,
 
     // labels
     titleLabel: null,
@@ -51,12 +55,13 @@ var DealerLayer = cc.LayerColor.extend({
     // design specs
     titleTextWidth: 800,
     titleTextHeight: 144,
-    boardTextWidth: 640,
+    boardTextWidth: 320,
     boardTextHeight: 40,
     nameTextHeight: 32,
     roundTextMarginBottom: 480,
     copyButtonMarginBottom: 560,
     ticketMarginBottom: 530,
+    clickHintMarginBottom: 560,
 
     // event managers
     eventListener: null,
@@ -126,9 +131,9 @@ var DealerLayer = cc.LayerColor.extend({
         this.copyButton.addTouchEventListener(function (sender, type) {
             if (ccui.Widget.TOUCH_ENDED === type) {
                 if (STATUS_GAME_RUNNING !== gameStatus) {
-                    console.log('copy board ticket : ' + $('#board_ticket').val());
                     $('#board_ticket').select();
                     document.execCommand("copy");
+                    this.clickSprite.setVisible(false);
                 }
             }
         }, this);
@@ -176,6 +181,17 @@ var DealerLayer = cc.LayerColor.extend({
         this.ticketLabel.setPosition((this.validWidth - this.ticketLabel.getContentSize().width * this.gameScale) / 2,
             this.ticketMarginBottom * this.gameScale);
         this.addChild(this.ticketLabel, 2);
+
+        // click on ticket
+        this.clickSprite = new cc.Sprite(s_click_icon);
+        this.clickSprite.setAnchorPoint(0, 0);
+        this.clickSprite.setScale(this.gameScale);
+        this.clickSprite.setPosition((this.validWidth - this.clickSprite.getContentSize().width * this.gameScale) / 2,
+            this.clickHintMarginBottom * this.gameScale);
+        this.addChild(this.clickSprite, 3);
+
+        // add start and stop button
+        this.controlMenuScale = this.gameScale * 0.6;
 
         // initialize name labels
         var playerIndex;
@@ -267,6 +283,21 @@ var DealerLayer = cc.LayerColor.extend({
     },
 
     updateControl: function () {
+        // update click label
+        if (this.toggleInterval > 0) {
+            this.toggleInterval--;
+        } else {
+            if (this.hintLabelWhite) {
+                // toggle to green
+                this.ticketLabel.setColor(cc.color(0, 255, 0, 255));
+                this.hintLabelWhite = false;
+            } else {
+                // toggle to white
+                this.ticketLabel.setColor(cc.color(255, 255, 255, 255));
+                this.hintLabelWhite = true;
+            }
+            this.toggleInterval = 10;
+        }
         if (gameStatus === STATUS_GAME_STANDBY || gameStatus === STATUS_GAME_FINISHED) {
             this.stopButton.setVisible(false);
             this.startButton.setVisible(true);
