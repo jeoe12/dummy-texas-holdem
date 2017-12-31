@@ -457,8 +457,8 @@ var BoardLayer = cc.Layer.extend({
             this.tmLogo.getContentSize().width - this.logoMarginRight) * this.gameScale,
             (this.bgSprite.getContentSize().height -
                 this.tmLogo.getContentSize().height - this.logoMarginTop) * this.gameScale);
-        this.tmLogo.setVisible(false);
-        // this.addChild(this.tmLogo, 2);
+        this.tmLogo.setVisible(true);
+        this.addChild(this.tmLogo, 2);
 
         // add start and stop button
         this.controlMenuScale = this.gameScale * 0.6;
