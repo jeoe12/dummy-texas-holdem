@@ -34,10 +34,6 @@
                                 <a href="#" onclick="setBoard();">创建直播
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">加入游戏
-                                </a>
-                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -1165,6 +1161,25 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="createBoard();">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- hint dialog -->
+    <div class="modal fade" id="hint_dialog" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="text_hint"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">确定</button>
                 </div>
             </div>
         </div>

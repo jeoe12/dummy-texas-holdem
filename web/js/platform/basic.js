@@ -38,6 +38,7 @@ function createBoard() {
         },
         error: function () {
             console.log('create board failed');
+            popUpHintDialog("服务器暂时没有响应，请稍后重试");
         }
     });
 }
