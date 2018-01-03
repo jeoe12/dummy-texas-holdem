@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import sys
 import json
+from argparse import Namespace
 
 sys.path.append('./bean')
 sys.path.append('./message')
@@ -48,9 +50,9 @@ GAME_OVER = "__game_over"
 
 
 class WebSocketClient(IndicationCallbacks):
-    def __init__(self, credential, ticket):
+    def __init__(self, credential):
         self.credential = credential
-        self.ticket = ticket
+        self.ticket = credential.ticket
         self.playerAI = PlayerAI(self)
 
     def convert_to_dict(self, obj):
@@ -68,7 +70,7 @@ class WebSocketClient(IndicationCallbacks):
 
     def onMessage(self, message):
         try:
-            message = json.loads(message)
+            message = json.loads(message, object_hook=lambda d: Namespace(**d))  # 转成对象才能用属性访问
             eventName = message.eventName
             data = message.data
             if eventName == NEW_PEER:
@@ -112,8 +114,3 @@ class WebSocketClient(IndicationCallbacks):
 
     def send(self, message):
         self.session.send(message)
-
-
-
-
-
