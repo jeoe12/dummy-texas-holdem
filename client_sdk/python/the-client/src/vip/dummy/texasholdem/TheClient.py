@@ -5,6 +5,7 @@ sys.path.append('./bean')
 sys.path.append('./utils')
 from Credential import Credential
 from MD5Util import MD5Util
+from WebSocketClient import WebSocketClient
 
 
 
@@ -25,10 +26,6 @@ if __name__ == "__main__":
             md5Util = MD5Util()
             credential.password = md5Util.MD5Encode(credential.password)
         ws = create_connection("ws://127.0.0.1:3000/")
-        ws.send(json.dumps({
-            "eventName": "__join",
-            "data": {
-                "playerName": "player1"
-            }
-        }))
+        websocketClient = WebSocketClient(credential,ticket="")
+        websocketClient.onOpen(ws)
 
