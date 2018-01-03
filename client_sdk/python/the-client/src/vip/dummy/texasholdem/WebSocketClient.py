@@ -7,6 +7,8 @@ sys.path.append('./message/data')
 sys.path.append('./indication')
 sys.path.append('./indication/data')
 sys.path.append('./playerai')
+from Credential import Credential
+from PlayerAI import PlayerAI
 from IndicationCallbacks import IndicationCallbacks
 from ReloadMessage import ReloadMessage
 from ReloadData import ReloadData
@@ -51,13 +53,19 @@ class WebSocketClient(IndicationCallbacks):
         self.ticket = ticket
         self.playerAI = PlayerAI(self)
 
+    def convert_to_dict(self,obj):
+        dict = {}
+        dict.update(obj.__dict__)
+        return dict
+
+
     def onOpen(self, session):
         print ("Client WebSocket is opening...")
         self.session = session
         joinData = JoinData(self.credential.phoneNumber, self.credential.password, self.ticket)
         joinMessage = JoinMessage(joinData)
-        joinString = json.loads(joinMessage)
-        send(joinString)
+        joinString = self.convert_to_dict(joinMessage)
+        self.send(joinString)
 
     def onMessage(self, message):
         try:
@@ -66,42 +74,44 @@ class WebSocketClient(IndicationCallbacks):
             data = message.data
             if eventName == NEW_PEER:
                 newPeerIndication = NewPeerIndication(data)
-                playerAI.onNewPeer(newPeerIndication)
+                self.playerAI.onNewPeer(newPeerIndication)
             elif eventName == NEW_ROUND:
                 newRoundData = NewRoundData(data.table, data.players)
                 newRoundIndication = NewRoundIndication(newRoundData)
-                playerAI.onNewRound(newRoundIndication)
+                self.playerAI.onNewRound(newRoundIndication)
             elif eventName == START_RELOAD:
                 startReloadData = StartReloadData(data.tableNumber, data.players)
                 startReloadIndication = StartReloadIndication(startReloadData)
-                playerAI.onNewRound(startReloadIndication)
+                self.playerAI.onNewRound(startReloadIndication)
             elif eventName == DEAL:
                 dealData = DealData(data.table, data.players)
                 dealIndication = DealIndication(dealData)
-                playerAI.onNewRound(dealIndication)
+                self.playerAI.onNewRound(dealIndication)
             elif eventName == ACTION:
                 actionData = ActionData(data.tableNumber, data.self, data.game)
                 actionIndication = ActionIndication(actionData)
-                playerAI.onNewRound(actionIndication)
+                self.playerAI.onNewRound(actionIndication)
             elif eventName == BET:
                 betData = BetData(data.tableNumber, data.self, data.game)
                 betIndication = BetIndication(betData)
-                playerAI.onNewRound(betIndication)
+                self.playerAI.onNewRound(betIndication)
             elif eventName == SHOW_ACTION:
                 showActionData = ShowActionData(data.action, data.table, data.players)
                 showActionIndication = ShowActionIndication(showActionData)
-                playerAI.onNewRound(showActionIndication)
+                self.playerAI.onNewRound(showActionIndication)
             elif eventName == ROUND_END:
                 roundEndData = RoundEndData(data.table, data.players)
                 roundEndIndication = RoundEndIndication(roundEndData)
-                playerAI.onNewRound(roundEndIndication)
+                self.playerAI.onNewRound(roundEndIndication)
             elif eventName == GAME_OVER:
                 gameOverData = GameOverData(data.table, data.players, data.winners)
                 gameOverIndication = GameOverIndication(gameOverData)
-                playerAI.onNewRound(gameOverIndication)
+                self.playerAI.onNewRound(gameOverIndication)
 
         except Exception, e:
             print e.message
 
     def send(self, message):
         self.session.send(message)
+
+

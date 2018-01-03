@@ -1,8 +1,8 @@
-import json
-
-class Message():
+class Message(object):
     def __init__(self, eventName):
         self.eventName = eventName
 
     def toJson(self):
-        return json.dumps(self)
+        dict = {}
+        dict.update(self.__dict__)
+        return dict
