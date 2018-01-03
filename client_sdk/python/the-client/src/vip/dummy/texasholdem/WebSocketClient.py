@@ -36,28 +36,27 @@ from RoundEndIndication import RoundEndIndication
 from ShowActionIndication import ShowActionIndication
 from StartReloadIndication import StartReloadIndication
 
+NEW_PEER = "__new_peer"
+NEW_ROUND = "__new_round"
+START_RELOAD = "__start_reload"
+DEAL = "__deal"
+ACTION = "__action"
+BET = "__bet"
+SHOW_ACTION = "__show_action"
+ROUND_END = "__round_end"
+GAME_OVER = "__game_over"
+
 
 class WebSocketClient(IndicationCallbacks):
-    NEW_PEER = "__new_peer"
-    NEW_ROUND = "__new_round"
-    START_RELOAD = "__start_reload"
-    DEAL = "__deal"
-    ACTION = "__action"
-    BET = "__bet"
-    SHOW_ACTION = "__show_action"
-    ROUND_END = "__round_end"
-    GAME_OVER = "__game_over"
-
     def __init__(self, credential, ticket):
         self.credential = credential
         self.ticket = ticket
         self.playerAI = PlayerAI(self)
 
-    def convert_to_dict(self,obj):
+    def convert_to_dict(self, obj):
         dict = {}
         dict.update(obj.__dict__)
         return dict
-
 
     def onOpen(self, session):
         print ("Client WebSocket is opening...")
@@ -113,5 +112,8 @@ class WebSocketClient(IndicationCallbacks):
 
     def send(self, message):
         self.session.send(message)
+
+
+
 
 
