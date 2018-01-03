@@ -28,4 +28,7 @@ if __name__ == "__main__":
         ws = create_connection("ws://127.0.0.1:3000/")
         websocketClient = WebSocketClient(credential,ticket="")
         websocketClient.onOpen(ws)
+        while 1:
+            result = ws.recv()
+            websocketClient.onMessage(result)
 
