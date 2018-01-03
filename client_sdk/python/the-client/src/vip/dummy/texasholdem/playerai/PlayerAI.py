@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append('../')
 sys.path.append('../message')
 sys.path.append('../message/data')
@@ -7,6 +8,7 @@ from ReloadMessage import ReloadMessage
 from ReloadData import ReloadData
 from ActionMessage import ActionMessage
 from ActionData import ActionData
+
 
 class PlayerAI(IndicationCallbacks):
     def __init__(self, webSocketClient):
@@ -35,7 +37,7 @@ class PlayerAI(IndicationCallbacks):
         actionMessage = ActionMessage(ActionData("check", 0))
         self.webSocketClient.send(actionMessage.toJson())
 
-    def Bet(self,amount):
+    def Bet(self, amount):
         actionMessage = ActionMessage(ActionData("bet", amount))
         self.webSocketClient.send(actionMessage.toJson())
 
@@ -43,35 +45,35 @@ class PlayerAI(IndicationCallbacks):
         actionMessage = ActionMessage(ActionData("allin", 0))
         self.webSocketClient.send(actionMessage.toJson())
 
-    def onNewPeer(newPeerIndication):
+    def onNewPeer(self, newPeerIndication):
         print("new peer")
 
-    def onNewRound(newRoundIndication):
+    def onNewRound(self, newRoundIndication):
         print("<< on new round")
 
-    def onStartReload(startReloadIndication):
+    def onStartReload(self, startReloadIndication):
         print("<< on reload indication")
 
-    def onDeal(dealIndication):
+    def onDeal(self, dealIndication):
         print("<< on deal")
 
-    def onAction(actionIndication):
+    def onAction(self, actionIndication):
         print("<< on action")
 
-    def onBet(betIndication):
+    def onBet(self, betIndication):
         print("<< on bet")
 
-    def onShowAction(showActionIndication):
+    def onShowAction(self, showActionIndication):
         print("<< on show action")
 
-    def onRoundEnd(roundEndIndication):
+    def onRoundEnd(self, roundEndIndication):
         print("<< on round end")
 
-    def onGameOver(gameOverIndication):
+    def onGameOver(self, gameOverIndication):
         print("<< on game over")
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     test = None
     if test.strip() == '':
-         print "test"
+        print "test"
