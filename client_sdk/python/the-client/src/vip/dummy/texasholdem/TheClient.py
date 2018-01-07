@@ -10,7 +10,7 @@ from WebSocketClient import WebSocketClient
 
 
 
-HOST_ADDR = "ws://localhost:8080"
+HOST_ADDR = "ws://dummy.vip:80/game/"
 if __name__ == "__main__":
     file_object = open('credential.json')
     try:
@@ -23,10 +23,10 @@ if __name__ == "__main__":
         print("login username (phone number) is required")
     else:
         print("your phone number is %s, password is %s"%(credential.phoneNumber,credential.password))
-        if credential["password"] is not None:
+        if credential.password is not None:
             md5Util = MD5Util()
             credential.password = md5Util.MD5Encode(credential.password)
-        ws = create_connection("ws://127.0.0.1:3000/")
+        ws = create_connection(HOST_ADDR)
         websocketClient = WebSocketClient(credential)
         websocketClient.onOpen(ws)
         while 1:

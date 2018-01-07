@@ -53,6 +53,7 @@ class WebSocketClient(IndicationCallbacks):
     def __init__(self, credential):
         self.credential = credential
         self.ticket = credential.ticket
+        self.gameName = credential.gameName
         self.playerAI = PlayerAI(self)
 
     def convert_to_dict(self, obj):
@@ -63,8 +64,8 @@ class WebSocketClient(IndicationCallbacks):
     def onOpen(self, session):
         print ("Client WebSocket is opening...")
         self.session = session
-        joinData = JoinData(self.credential.phoneNumber, self.credential.password, self.ticket)
-        joinMessage = JoinMessage(joinData)
+        joinData = JoinData(self.credential.phoneNumber, self.credential.password, self.ticket,self.gameName)
+        joinMessage = JoinMessage(self.convert_to_dict(joinData))
         joinString = self.convert_to_dict(joinMessage)
         self.send(joinString)
 
@@ -113,4 +114,4 @@ class WebSocketClient(IndicationCallbacks):
             print e.message
 
     def send(self, message):
-        self.session.send(message)
+        self.session.send(json.dumps(message))

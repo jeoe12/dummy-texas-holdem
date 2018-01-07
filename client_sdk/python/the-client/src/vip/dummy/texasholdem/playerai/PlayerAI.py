@@ -18,31 +18,31 @@ class PlayerAI(IndicationCallbacks):
         self.allIn()
 
     def Reload(self):
-        reloadMessage = ReloadMessage(ReloadData())
+        reloadMessage = ReloadMessage(ReloadData().toJson())
         self.webSocketClient.send(reloadMessage.toJson())
 
     def Call(self):
-        actionMessage = ActionMessage(ActionData("call", 0))
+        actionMessage = ActionMessage(ActionData("call", 0).toJson())
         self.webSocketClient.send(actionMessage.toJson())
 
     def Raise(self):
-        actionMessage = ActionMessage(ActionData("raise", 0))
+        actionMessage = ActionMessage(ActionData("raise", 0).toJson())
         self.webSocketClient.send(actionMessage.toJson())
 
     def Fold(self):
-        actionMessage = ActionMessage(ActionData("fold", 0))
+        actionMessage = ActionMessage(ActionData("fold", 0).toJson())
         self.webSocketClient.send(actionMessage.toJson())
 
     def Check(self):
-        actionMessage = ActionMessage(ActionData("check", 0))
+        actionMessage = ActionMessage(ActionData("check", 0).toJson())
         self.webSocketClient.send(actionMessage.toJson())
 
     def Bet(self, amount):
-        actionMessage = ActionMessage(ActionData("bet", amount))
+        actionMessage = ActionMessage(ActionData("bet", amount).toJson())
         self.webSocketClient.send(actionMessage.toJson())
 
     def AllIn(self):
-        actionMessage = ActionMessage(ActionData("allin", 0))
+        actionMessage = ActionMessage(ActionData("allin", 0).toJson())
         self.webSocketClient.send(actionMessage.toJson())
 
     def onNewPeer(self, newPeerIndication):
