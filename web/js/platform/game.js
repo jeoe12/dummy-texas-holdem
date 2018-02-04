@@ -525,7 +525,7 @@ function ccLoad() {
     cc.game.onStart = function () {
         //load resources
         cc.LoaderScene.preload(resources, function () {
-            var LSScene = cc.Scene.extend({
+            var theScene = cc.Scene.extend({
                 onEnter: function () {
                     this._super();
                     gameBoard = new BoardLayer();
@@ -537,7 +537,7 @@ function ccLoad() {
                     }
                 }
             });
-            cc.director.runScene(new LSScene());
+            cc.director.runScene(new theScene());
         }, this);
     };
     cc.game.run('gameCanvas');
@@ -559,7 +559,7 @@ function isCreator(ticket) {
             console.log("isCreatorBoard response = " + JSON.stringify(response));
             if (response.status.code === 0) {
                 var isCreatorBoard = response.entity;
-                if (isCreatorBoard == true) {
+                if (isCreatorBoard === true) {
                     liveMode = MODE_JUDGE;
                 } else {
                     liveMode = MODE_LIVE;
