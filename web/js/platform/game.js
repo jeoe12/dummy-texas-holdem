@@ -524,6 +524,7 @@ function initGame() {
 function ccLoad() {
     cc.game.onStart = function () {
         //load resources
+        cc.view.setOrientation(cc.ORIENTATION_LANDSCAPE);
         cc.LoaderScene.preload(resources, function () {
             var theScene = cc.Scene.extend({
                 onEnter: function () {
