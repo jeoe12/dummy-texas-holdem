@@ -44,11 +44,12 @@ function createBoard() {
 }
 
 function onBoardCreated(board) {
-    gotoGame(board.ticket);
+    gotoGame(board.ticket, board.port);
 }
 
-function gotoGame(boardTicket) {
+function gotoGame(boardTicket, instancePort) {
     var ticket = boardTicket;
+    var port = instancePort;
     var defaultChips = $('#game_default_chips').val();
     var defaultSb = $('#game_default_sb').val();
     var defaultRoundInterval = $('#game_round_interval').val();
@@ -61,7 +62,7 @@ function gotoGame(boardTicket) {
     var autoRestart = $('#auto_restart').is(':checked') ? 1 : 0;
 
     window.open('./game.html?phoneNumber='+phoneNumber+'&token='+token+'&ticket='+ticket+
-        '&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
+        '&port='+port+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
         '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
         '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout,
         '_blank');

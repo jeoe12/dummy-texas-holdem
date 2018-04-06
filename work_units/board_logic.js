@@ -48,6 +48,11 @@ exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, callb
 };
 
 exports.createBoardWorkUnit = function (gameName, phoneNumber, token, callback) {
+    if (null === gameName || null === phoneNumber) {
+        callback(errorCode.FAILED, null);
+        return;
+    }
+
     // send HTTP request to engine server to list boards
     var queryParams = new Map();
     var requestSender =
@@ -61,7 +66,6 @@ exports.createBoardWorkUnit = function (gameName, phoneNumber, token, callback) 
         'phone-number': phoneNumber,
         'token': token
     };
-
     var createBoardParameters = {
         phoneNumber: phoneNumber,
         gameName: gameName

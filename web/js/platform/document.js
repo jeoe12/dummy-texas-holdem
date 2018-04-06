@@ -15,6 +15,7 @@ function createDummy() {
     var phoneNumber = $('#player_name').val();
     var password = $('#password').val();
     var ticket = $('#ticket').val();
+    var port = $('#port').val();
 
     if (null === phoneNumber || "" === password || "" === ticket) {
         return;

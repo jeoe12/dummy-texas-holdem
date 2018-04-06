@@ -27,6 +27,7 @@ $(document).ready(function () {
     phoneNumber = getParameter('phoneNumber');
     password = getParameter('password');
     ticket = getParameter('ticket');
+    port = getParameter('port');
 
     var host = window.location.hostname;
     var port = '80';
