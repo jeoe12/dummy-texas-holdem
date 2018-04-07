@@ -178,7 +178,7 @@ function joinLive() {
     var bgm = 1;
     var sound = 1;
 
-    window.open('./game.html?ticket='+currentBoard.ticket+'&bgm=1&sound=1',
+    window.open('./game.html?ticket='+currentBoard.ticket+'&port='+currentBoard.port+'&bgm=1&sound=1',
         '_blank');
     $('#join_game_dialog').modal('hide');
 }
@@ -198,7 +198,7 @@ function joinGame() {
         success: function (response) {
             if (response.status.code === 0) {
                 var player = response.entity;
-                window.open('./game.html?ticket='+currentBoard.ticket+'&phoneNumber='+phoneNumber+'&token='+token+
+                window.open('./game.html?ticket='+currentBoard.ticket+'&port='+currentBoard.port+'&phoneNumber='+phoneNumber+'&token='+token+
                     '&password='+player.password+'&playerName='+player.name+'&bgm=1&sound=1&isHuman=true',
                     '_blank');
                 $('#join_game_dialog').modal('hide');
