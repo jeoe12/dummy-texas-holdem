@@ -55,7 +55,7 @@ var DealerLayer = cc.LayerColor.extend({
     // design specs
     titleTextWidth: 800,
     titleTextHeight: 144,
-    boardTextWidth: 320,
+    boardTextWidth: 640,
     boardTextHeight: 40,
     nameTextHeight: 32,
     roundTextMarginBottom: 480,
