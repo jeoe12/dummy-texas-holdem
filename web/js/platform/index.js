@@ -23,6 +23,30 @@ $(document).ready(function () {
     listTheBoards();
 });
 
+function signOut() {
+    $.ajax({
+        url: '/api/players/sign_out',
+        headers: {"phone-number": phoneNumber, "token": token},
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            phoneNumber: phoneNumber,
+            token: token
+        },
+        timeout: 20000,
+        success: function (response) {
+            if (response.status.code === 0) {
+                onSignOut(true);
+            } else {
+                onSignOut(false);
+            }
+        },
+        error: function () {
+            onSignOut(false);
+        }
+    });
+}
+
 function prevPage() {
     if (0 === from) {
         toastr.info('已经是第一页');
@@ -171,6 +195,17 @@ function onJoin(boardIndex) {
     $('#join_game_dialog').modal();
 }
 
+function onSignOut(success) {
+    if (success) {
+        toastr.success('注销成功');
+        localStorage.removeItem('phoneNumber');
+        localStorage.removeItem('token');
+        console.log('back to index ' + window.location.host);
+        window.location = window.location.host;
+    } else {
+        toastr.error('注销失败');
+    }
+}
 
 // for live
 function joinLive() {

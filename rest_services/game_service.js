@@ -6,6 +6,7 @@
 var BoardResponse = require('../responses/board_response.js');
 var BoolResponse = require('../responses/bool_response.js');
 var PlayerResponse = require('../responses/player_response.js');
+var ServiceResponse = require('../responses/service_response.js');
 
 var boardLogic = require('../work_units/board_logic.js');
 var playerLogic = require('../work_units/player_logic.js');
@@ -82,6 +83,19 @@ exports.getPlayerByToken = function (req, res) {
         playerResponse.status = getPlayerErr;
         playerResponse.entity = player;
         res.send(playerResponse);
+        res.end();
+    });
+};
+
+exports.signOut = function (req, res) {
+    var phoneNumber = req.headers["phone-number"];
+    var token = req.headers["token"] || req.body.token;
+
+    var serviceResponse = new ServiceResponse();
+
+    playerLogic.signOutWorkUnit(phoneNumber, token, function(signOutErr) {
+        serviceResponse.status = signOutErr;
+        res.send(serviceResponse);
         res.end();
     });
 };
