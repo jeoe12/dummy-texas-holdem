@@ -5,6 +5,7 @@
 
 // data related
 var ticket = null;
+var port = null;
 var phoneNumber = '';
 var token = '';
 var isHuman = false;
@@ -87,6 +88,7 @@ $(document).ready(function () {
     phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
     token = getParameter('token') || localStorage.getItem('token');
     ticket = getParameter('ticket');
+    port = getParameter('port');
     playerName = getParameter('playerName');
     password = getParameter('password');
     isHuman = (getParameter('isHuman') == 'true') || false;
@@ -106,6 +108,11 @@ $(document).ready(function () {
     if (!ticket) {
         return;
     }
+
+    if (!port) {
+        return;
+    }
+
     $('#board_ticket').val(ticket);
 
     if (true === isHuman && playerName) {
@@ -123,23 +130,20 @@ $(document).ready(function () {
 function initWebsock() {
     // initialize web communication
     var host = window.location.hostname;
-    var port = '80';
     var serverAddress;
     if (host === 'localhost') {
-        port = '8080';
         serverAddress = 'ws://' + host + ':' + port;
     } else {
-        port = '80';
-        serverAddress = 'ws://' + host + ':' + port + '/game/';
+        serverAddress = 'ws://' + host + '/game/' + port;
     }
-    // TODO: to pickup an idle server from cluster
-    console.log('guest connect to server, playerName = ' + playerName + ', ticket = ' + ticket);
+    console.log('guest connect to server, playerName = ' + playerName + ', server = ' + serverAddress +
+        ', ticket = ' + ticket);
 
     // TODO: to identify human and live role
     if (isHuman) {
-        rtc.connect(serverAddress, playerName, password, phoneNumber, token, ticket, isHuman, danmu);
+        rtc.connect(serverAddress, playerName, password, phoneNumber, token, ticket, port, isHuman, danmu);
     } else {
-        rtc.connect(serverAddress, playerName, null, null, token, ticket, isHuman, danmu);
+        rtc.connect(serverAddress, playerName, null, null, token, ticket, port, isHuman, danmu);
     }
 
 
@@ -524,8 +528,9 @@ function initGame() {
 function ccLoad() {
     cc.game.onStart = function () {
         //load resources
+        cc.view.setOrientation(cc.ORIENTATION_LANDSCAPE);
         cc.LoaderScene.preload(resources, function () {
-            var LSScene = cc.Scene.extend({
+            var theScene = cc.Scene.extend({
                 onEnter: function () {
                     this._super();
                     gameBoard = new BoardLayer();
@@ -537,7 +542,7 @@ function ccLoad() {
                     }
                 }
             });
-            cc.director.runScene(new LSScene());
+            cc.director.runScene(new theScene());
         }, this);
     };
     cc.game.run('gameCanvas');
@@ -559,7 +564,7 @@ function isCreator(ticket) {
             console.log("isCreatorBoard response = " + JSON.stringify(response));
             if (response.status.code === 0) {
                 var isCreatorBoard = response.entity;
-                if (isCreatorBoard == true) {
+                if (isCreatorBoard === true) {
                     liveMode = MODE_JUDGE;
                 } else {
                     liveMode = MODE_LIVE;

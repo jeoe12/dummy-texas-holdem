@@ -1,5 +1,7 @@
 import sys
 import json
+
+from argparse import Namespace
 from websocket import create_connection
 sys.path.append('./bean')
 sys.path.append('./utils')
@@ -8,8 +10,7 @@ from MD5Util import MD5Util
 from WebSocketClient import WebSocketClient
 
 
-
-HOST_ADDR = "ws://localhost:8080"
+HOST_ADDR = "ws://dummy.vip:80/game/"
 if __name__ == "__main__":
     file_object = open('credential.json')
     try:
@@ -17,7 +18,7 @@ if __name__ == "__main__":
     finally:
         file_object.close()
 
-    credential = json.loads(credential)
+    credential = json.loads(credential, object_hook=lambda d: Namespace(**d))
     if credential is None:
         print("login username (phone number) is required")
     else:
@@ -25,7 +26,10 @@ if __name__ == "__main__":
         if credential.password is not None:
             md5Util = MD5Util()
             credential.password = md5Util.MD5Encode(credential.password)
-        ws = create_connection("ws://127.0.0.1:3000/")
-        websocketClient = WebSocketClient(credential,ticket="")
+        ws = create_connection(HOST_ADDR)
+        websocketClient = WebSocketClient(credential)
         websocketClient.onOpen(ws)
+        while 1:
+            result = ws.recv()
+            websocketClient.onMessage(result)
 

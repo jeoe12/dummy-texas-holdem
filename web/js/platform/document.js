@@ -15,17 +15,19 @@ function createDummy() {
     var phoneNumber = $('#player_name').val();
     var password = $('#password').val();
     var ticket = $('#ticket').val();
+    var port = $('#port').val();
 
-    if (null === phoneNumber || "" === password || "" === ticket) {
+    if (null === phoneNumber || "" === password || "" === ticket || "" === port) {
         return;
     }
 
     password = md5(password);
-    window.open('./dummy.html?phoneNumber='+phoneNumber+'&password='+password+'&ticket='+ticket, '_blank');
+    window.open('./dummy.html?phoneNumber='+phoneNumber+'&password='+password+'&ticket='+ticket+'&port='+port, '_blank');
 
     $('#player_name').val('');
     $('#password').val('');
     $('#ticket').val('');
+    $('#port').val('');
 }
 
 function hashName() {

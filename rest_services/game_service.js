@@ -6,17 +6,21 @@
 var BoardResponse = require('../responses/board_response.js');
 var BoolResponse = require('../responses/bool_response.js');
 var PlayerResponse = require('../responses/player_response.js');
+var ServiceResponse = require('../responses/service_response.js');
 
 var boardLogic = require('../work_units/board_logic.js');
 var playerLogic = require('../work_units/player_logic.js');
 
 exports.listActiveBoards = function (req, res) {
     var gameName = req.body.gameName;
+    var from = req.body.from || 0;
+    var count = req.body.count || 12;
+    var searchName = req.body.searchName;
     var phoneNumber = req.headers["phone-number"];
     var token = req.headers["token"];
 
     var boardResponse = new BoardResponse();
-    boardLogic.listActiveBoardsWorkUnit(gameName, phoneNumber, token, function(listBoardsErr, boards) {
+    boardLogic.listActiveBoardsWorkUnit(gameName, phoneNumber, token, from, count, searchName, function(listBoardsErr, boards) {
         boardResponse.status = listBoardsErr;
         boardResponse.entity = boards;
         res.send(boardResponse);
@@ -79,6 +83,19 @@ exports.getPlayerByToken = function (req, res) {
         playerResponse.status = getPlayerErr;
         playerResponse.entity = player;
         res.send(playerResponse);
+        res.end();
+    });
+};
+
+exports.signOut = function (req, res) {
+    var phoneNumber = req.headers["phone-number"];
+    var token = req.headers["token"] || req.body.token;
+
+    var serviceResponse = new ServiceResponse();
+
+    playerLogic.signOutWorkUnit(phoneNumber, token, function(signOutErr) {
+        serviceResponse.status = signOutErr;
+        res.send(serviceResponse);
         res.end();
     });
 };

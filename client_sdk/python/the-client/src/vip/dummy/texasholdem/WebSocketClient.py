@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import sys
 import json
+from argparse import Namespace
 
 sys.path.append('./bean')
 sys.path.append('./message')
@@ -36,40 +38,40 @@ from RoundEndIndication import RoundEndIndication
 from ShowActionIndication import ShowActionIndication
 from StartReloadIndication import StartReloadIndication
 
+NEW_PEER = "__new_peer"
+NEW_ROUND = "__new_round"
+START_RELOAD = "__start_reload"
+DEAL = "__deal"
+ACTION = "__action"
+BET = "__bet"
+SHOW_ACTION = "__show_action"
+ROUND_END = "__round_end"
+GAME_OVER = "__game_over"
+
 
 class WebSocketClient(IndicationCallbacks):
-    NEW_PEER = "__new_peer"
-    NEW_ROUND = "__new_round"
-    START_RELOAD = "__start_reload"
-    DEAL = "__deal"
-    ACTION = "__action"
-    BET = "__bet"
-    SHOW_ACTION = "__show_action"
-    ROUND_END = "__round_end"
-    GAME_OVER = "__game_over"
-
-    def __init__(self, credential, ticket):
+    def __init__(self, credential):
         self.credential = credential
-        self.ticket = ticket
+        self.ticket = credential.ticket
+        self.gameName = credential.gameName
         self.playerAI = PlayerAI(self)
 
-    def convert_to_dict(self,obj):
+    def convert_to_dict(self, obj):
         dict = {}
         dict.update(obj.__dict__)
         return dict
 
-
     def onOpen(self, session):
         print ("Client WebSocket is opening...")
         self.session = session
-        joinData = JoinData(self.credential.phoneNumber, self.credential.password, self.ticket)
-        joinMessage = JoinMessage(joinData)
+        joinData = JoinData(self.credential.phoneNumber, self.credential.password, self.ticket,self.gameName)
+        joinMessage = JoinMessage(self.convert_to_dict(joinData))
         joinString = self.convert_to_dict(joinMessage)
         self.send(joinString)
 
     def onMessage(self, message):
         try:
-            message = json.loads(message)
+            message = json.loads(message, object_hook=lambda d: Namespace(**d))  # 转成对象才能用属性访问
             eventName = message.eventName
             data = message.data
             if eventName == NEW_PEER:
@@ -112,6 +114,4 @@ class WebSocketClient(IndicationCallbacks):
             print e.message
 
     def send(self, message):
-        self.session.send(message)
-
-
+        self.session.send(json.dumps(message))

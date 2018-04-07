@@ -81,3 +81,7 @@ global.REDIS_PASSWORD = "";
 global.DANMU_SERVER = "127.0.0.1";
 global.DANMU_SERVER_PORT = "80";
 global.DANMU_RELAY_PORT = "8080";
+
+// multiple instance
+global.MULTIPLE_INSTANCE = 100;
+global.BASE_PORT = 9000;

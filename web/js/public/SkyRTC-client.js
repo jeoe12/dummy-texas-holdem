@@ -45,7 +45,7 @@ var SkyRTC = function () {
      * @param isHuman
      * @param danmu
      */
-    skyrtc.prototype.connect = function (server, playerName, password, phoneNumber, token, ticket, isHuman, danmu) {
+    skyrtc.prototype.connect = function (server, playerName, password, phoneNumber, token, ticket, port, isHuman, danmu) {
         var socket,
             that = this;
 
@@ -59,6 +59,7 @@ var SkyRTC = function () {
                     "token": token,
                     "password": password,
                     "ticket": ticket,
+                    "port": port,
                     "isHuman": isHuman,
                     "danmu": danmu,
                     "gameName": "texas_holdem"

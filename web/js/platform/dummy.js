@@ -22,20 +22,19 @@ var serverAddress = '';
 var maxCommands = 500;
 var commandCount = 0;
 var playerName = '';
+var port = '';
 
 $(document).ready(function () {
     phoneNumber = getParameter('phoneNumber');
     password = getParameter('password');
     ticket = getParameter('ticket');
+    port = getParameter('port');
 
     var host = window.location.hostname;
-    var port = '80';
     if (host === 'localhost') {
-        port = '8080';
         serverAddress = 'ws://' + host + ':' + port;
     } else {
-        port = '80';
-        serverAddress = 'ws://' + host + ':' + port + '/game/';
+        serverAddress = 'ws://' + host + '/game/' + port;
     }
 
     writeToCommands('player : ' + phoneNumber + ', server : ' + serverAddress);
@@ -47,7 +46,7 @@ $(document).ready(function () {
 });
 
 function initRTC() {
-    rtc.connect(serverAddress, '', password, phoneNumber, '', ticket);
+    rtc.connect(serverAddress, '', password, phoneNumber, '', ticket, port, false, 0);
 
     rtc.on('__action', function (data) {
         writeToCommands('<<< action: ' + JSON.stringify(data, null, 4));

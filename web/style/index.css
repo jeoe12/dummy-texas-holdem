@@ -44,8 +44,8 @@ body {
 
 body {
     overflow-y: scroll;
-    background: url('../res/images/background.png') no-repeat center center fixed;
     -webkit-background-size: cover;
+    background-image: url('../res/images/background.png');
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;

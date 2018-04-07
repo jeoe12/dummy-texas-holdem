@@ -2,7 +2,7 @@ import hashlib
 
 
 class MD5Util():
-    def MD5Encode(self, origin, charsetname):
+    def MD5Encode(self, origin, charsetname=None):
         resultString = None
         try:
             if charsetname is None or charsetname.strip() == '':

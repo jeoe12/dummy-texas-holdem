@@ -55,7 +55,7 @@ var DealerLayer = cc.LayerColor.extend({
     // design specs
     titleTextWidth: 800,
     titleTextHeight: 144,
-    boardTextWidth: 320,
+    boardTextWidth: 640,
     boardTextHeight: 40,
     nameTextHeight: 32,
     roundTextMarginBottom: 480,
@@ -169,7 +169,7 @@ var DealerLayer = cc.LayerColor.extend({
         this.addChild(this.boardLabel, 2);
 
         // ticket label and copy button
-        this.ticketLabel = new cc.LabelTTF('Click to Copy Board Ticket',
+        this.ticketLabel = new cc.LabelTTF('Click to Copy Board Ticket (Port : ' + port + ')',
             this.ticketFont, this.ticketTextSize);
         this.ticketLabel.setColor(cc.color(255, 255, 255, 255));
         this.ticketLabel.setAnchorPoint(0, 0);

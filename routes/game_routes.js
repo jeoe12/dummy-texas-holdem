@@ -12,3 +12,4 @@ app.post("/api/board/create_board", gameService.createBoard);
 app.post("/api/board/update_board", gameService.updateBoard);
 app.post("/api/board/is_creator_board", gameService.isCreatorBoard);
 app.post("/api/players/get_player_by_token", gameService.getPlayerByToken);
+app.post("/api/players/sign_out", gameService.signOut);
