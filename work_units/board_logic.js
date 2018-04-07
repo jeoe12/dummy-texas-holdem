@@ -15,7 +15,7 @@ var CREATE_BOARD_SERVICE = '/board/create_board';
 var UPDATE_BOARD_SERVICE = '/board/update_board';
 var IS_CREAGOR_BOARD_SERVICE = '/board/is_creator_board';
 
-exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, callback) {
+exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, from, count, searchName, callback) {
     // send HTTP request to engine server to list boards
     var queryParams = new Map();
     var requestSender =
@@ -30,7 +30,10 @@ exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, callb
     };
 
     var listActiveBoardsParameters = {
-        gameName: gameName
+        gameName: gameName,
+        from: from,
+        count: count,
+        searchName: searchName
     };
 
     requestSender.sendPostRequest(listActiveBoardsParameters, headers, function (listBoardsErr, boardsResponse) {

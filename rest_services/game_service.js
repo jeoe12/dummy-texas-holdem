@@ -12,11 +12,14 @@ var playerLogic = require('../work_units/player_logic.js');
 
 exports.listActiveBoards = function (req, res) {
     var gameName = req.body.gameName;
+    var from = req.body.from || 0;
+    var count = req.body.count || 12;
+    var searchName = req.body.searchName;
     var phoneNumber = req.headers["phone-number"];
     var token = req.headers["token"];
 
     var boardResponse = new BoardResponse();
-    boardLogic.listActiveBoardsWorkUnit(gameName, phoneNumber, token, function(listBoardsErr, boards) {
+    boardLogic.listActiveBoardsWorkUnit(gameName, phoneNumber, token, from, count, searchName, function(listBoardsErr, boards) {
         boardResponse.status = listBoardsErr;
         boardResponse.entity = boards;
         res.send(boardResponse);
