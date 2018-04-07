@@ -134,16 +134,16 @@ function initWebsock() {
     if (host === 'localhost') {
         serverAddress = 'ws://' + host + ':' + port;
     } else {
-        serverAddress = 'ws://' + host + ':' + port + '/game/';
+        serverAddress = 'ws://' + host + '/game/' + port;
     }
     console.log('guest connect to server, playerName = ' + playerName + ', server = ' + serverAddress +
         ', ticket = ' + ticket);
 
     // TODO: to identify human and live role
     if (isHuman) {
-        rtc.connect(serverAddress, playerName, password, phoneNumber, token, ticket, isHuman, danmu);
+        rtc.connect(serverAddress, playerName, password, phoneNumber, token, ticket, port, isHuman, danmu);
     } else {
-        rtc.connect(serverAddress, playerName, null, null, token, ticket, isHuman, danmu);
+        rtc.connect(serverAddress, playerName, null, null, token, ticket, port, isHuman, danmu);
     }
 
 
