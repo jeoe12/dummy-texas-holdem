@@ -103,6 +103,11 @@ body {
     margin-left: auto;
 }
 
+.content {
+    text-align: left;
+    padding: 20px;
+}
+
 /*
  * Header
  */
