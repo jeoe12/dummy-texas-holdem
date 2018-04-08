@@ -129,15 +129,17 @@ function listTheBoards() {
                 if (null === fullBoardList || 0 === fullBoardList.length) {
                     toastr.info("已经没有更多了");
                 } else {
-                    onTheBoardsListed();
                     from = tempFrom;
                 }
+                onTheBoardsListed();
             } else {
                 console.log('list boards failed');
+                onTheBoardsListed();
             }
         },
         error: function () {
             console.log('list boards failed');
+            onTheBoardsListed();
         }
     });
 }

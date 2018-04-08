@@ -17,24 +17,34 @@
     <div class="container">
         <img style="float: left; margin-top: 40px;" src="./res/images/brand.png">
     </div>
-    <h1 style="margin-bottom: 40px;"><b>德州扑克AI对战平台</b></h1>
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
+            <div>趋势科技简介，趋势科技简介...</div>
             <div class="cover-container">
                 <div class="inner cover" style="margin-bottom: 60px;">
                     <div class="row" style="border-bottom: 4px solid #DDD; margin-bottom: 60px;">
-                        <div class="col-md-6" style="margin-bottom: 40px;">
+                        <div class="col-md-4" style="margin-bottom: 40px;">
                             <div class="game-status game-div">
                                 <a style="text-decoration: none; color: #000;" target="_blank" href="./document.html">
                                     <img src="./res/images/ico_guide.png">
-                                    <h3><b>上手文档</b></h3>
+                                    <h3><b>开发指南</b></h3>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="game-status game-div" onclick="setBoard();">
-                                <img src="./res/images/ico_live.png">
-                                <h3><b>创建直播</b></h3>
+                        <div class="col-md-4">
+                            <div class="game-status game-div">
+                                <a style="text-decoration: none; color: #000;" target="_blank" href="#" onclick="setBoard();">
+                                    <img src="./res/images/ico_live.png">
+                                    <h3><b>创建游戏</b></h3>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="game-status game-div">
+                                <a style="text-decoration: none; color: #000;" target="_blank" href="#">
+                                    <img src="./res/images/ico_live.png">
+                                    <h3><b>校园招聘</b></h3>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -42,8 +52,8 @@
                     <div style="margin-top: 20px;"><a style="text-decoration: none; color: #202020;" href="#" onclick="signOut();">[退出]</a></div>
                     <div style="margin-top: 20px;">
                         <div class="input-group">
-                            <span class="input-group-addon">搜索直播</span>
-                            <input type="text" maxlength="7" class="form-control" placeholder="创建者名称" id="search_name">
+                            <span class="input-group-addon">搜索游戏</span>
+                            <input type="text" maxlength="20" class="form-control" placeholder="创建者名称" id="search_name">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" onclick="onSearch();">搜索</button>
                                 <button class="btn btn-info" type="button" onclick="listTheBoards();">刷新</button>
