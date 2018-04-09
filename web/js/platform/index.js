@@ -187,7 +187,18 @@ function onJoin(boardIndex) {
     currentBoard = fullBoardList[currentBoardIndex];
     $('#info_creator_name').html('创建者: ' + currentBoard.creatorName);
     $('#info_create_time').html(currentBoard.createTime);
-    var playerInfo = currentBoard.currentPlayer.length + '人 - ';
+    var playerCount = 0;
+    if (undefined === currentBoard.currentPlayer || null === currentBoard.currentPlayer) {
+        playerCount = 0;
+    } else {
+        for (var i = 0; i < currentBoard.currentPlayer.length; i++) {
+            if(currentBoard.currenyPlayer.isOnline) {
+                playerCount++;
+            }
+        }
+    }
+
+    var playerInfo = playerCount + '人 - ';
     if (STATUS_READY === parseInt(currentBoard.status)) {
         playerInfo += '准备中';
     } else if (STATUS_PLAYING === parseInt(currentBoard.status)) {
