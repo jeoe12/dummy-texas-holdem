@@ -4,7 +4,6 @@
  */
 
 var SkyRTC = function () {
-
     function EventEmitter() {
         this.events = {};
     }

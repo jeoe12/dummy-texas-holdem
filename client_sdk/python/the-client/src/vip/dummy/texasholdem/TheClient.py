@@ -1,6 +1,5 @@
 import sys
 import json
-
 from argparse import Namespace
 from websocket import create_connection
 sys.path.append('./bean')
@@ -10,7 +9,7 @@ from MD5Util import MD5Util
 from WebSocketClient import WebSocketClient
 
 
-HOST_ADDR = "ws://dummy.vip:80/game/"
+
 if __name__ == "__main__":
     file_object = open('credential.json')
     try:
@@ -26,7 +25,7 @@ if __name__ == "__main__":
         if credential.password is not None:
             md5Util = MD5Util()
             credential.password = md5Util.MD5Encode(credential.password)
-        ws = create_connection(HOST_ADDR)
+        ws = create_connection(credential.host)
         websocketClient = WebSocketClient(credential)
         websocketClient.onOpen(ws)
         while 1:

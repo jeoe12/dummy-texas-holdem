@@ -5,12 +5,14 @@ public class JoinData {
     private String password;
     private String ticket;
     private String gameName;
+    private String port;
 
-    public JoinData(String phoneNumber, String password, String ticket) {
+    public JoinData(String phoneNumber, String password, String ticket, String port) {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.ticket = ticket;
         this.gameName = "texas_holdem";
+        this.port = port;
     }
 
     public JoinData() {
@@ -39,5 +41,13 @@ public class JoinData {
 
     public void setTicket(String ticket) {
         this.ticket = ticket;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
     }
 }

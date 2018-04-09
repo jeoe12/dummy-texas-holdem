@@ -32,7 +32,7 @@ function createBoard() {
             } else if (response.status.code === 1) {
                 console.log('create board failed : ' + JSON.stringify(response.entity));
                 if (response.entity.ticket) {
-                    gotoGame(response.entity.ticket);
+                    gotoGame(response.entity.ticket, response.entity.port);
                 }
             }
         },

@@ -25,7 +25,7 @@ import javax.websocket.WebSocketContainer;
 public class TheClient {
 
     // private static final String HOST_ADDR = "ws://116.62.205.153/game/";
-    private static final String HOST_ADDR = "ws://localhost:8080";
+    private static final String HOST_ADDR = "ws://ai.cad-stg.trendmicro.com";
 
     public static void main(String[] args) throws DeploymentException, IOException,
             URISyntaxException {
@@ -62,10 +62,16 @@ public class TheClient {
         }
         System.out.println("your game ticket : " + ticket);
 
+        String port = "";
+        while(null == port || port.equals("")) {
+            System.out.print("please enter game port : ");
+            port = input.next();
+        }
+        System.out.println("your game port : " + port);
+
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-        WebSocketClient client = new WebSocketClient(credential, ticket);
-        container.connectToServer(client,
-                new URI(HOST_ADDR));
+        WebSocketClient client = new WebSocketClient(credential, ticket, port);
+        container.connectToServer(client, new URI(HOST_ADDR + ":" + port));
 
         try {
             while (true) {

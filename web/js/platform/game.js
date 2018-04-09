@@ -142,7 +142,6 @@ function initWebsock() {
         rtc.connect(serverAddress, playerName, null, null, token, ticket, port, isHuman, danmu);
     }
 
-
     rtc.on('__message', function (data) {
         console.log('receive danmu message : ' + JSON.stringify(data));
         gameBoard.spawnDanmu(data.content);

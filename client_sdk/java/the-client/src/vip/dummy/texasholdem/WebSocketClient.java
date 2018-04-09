@@ -35,6 +35,7 @@ public class WebSocketClient {
 	private Session session;
 	private Credential credential;
 	private String ticket;
+	private String port;
 
     private PlayerAI playerAI;
 
@@ -48,9 +49,10 @@ public class WebSocketClient {
 	private static final String ROUND_END = "__round_end";
 	private static final String GAME_OVER = "__game_over";
 
-	WebSocketClient(Credential credential, String ticket) {
+	WebSocketClient(Credential credential, String ticket, String port) {
 	    this.credential = credential;
 	    this.ticket = ticket;
+	    this.port = port;
 	    this.playerAI = new PlayerAI(this);
     }
 
@@ -60,7 +62,7 @@ public class WebSocketClient {
 		this.session = session;
 
 		// send join message here with your name
-		JoinData joinData = new JoinData(credential.getPhoneNumber(), credential.getPassword(), ticket);
+		JoinData joinData = new JoinData(credential.getPhoneNumber(), credential.getPassword(), ticket, port);
 		JoinMessage joinMessage = new JoinMessage(joinData);
 		String joinString = new Gson().toJson(joinMessage);
 		send(joinString);

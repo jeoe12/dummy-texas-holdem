@@ -1,6 +1,6 @@
 /**
- * Created by the-engine-team
- * 2017-09-20
+ * Created by dummy team
+ * 2017-07-22
  */
 
 var SkyRTC = function () {
@@ -61,7 +61,8 @@ var SkyRTC = function () {
                     "phoneNumber": that.PHONE_NUMBER,
                     "password": MD5(that.PASSWORD),
                     "ticket": that.TICKET,
-                    "gameName": that.GAME_NAME
+                    "gameName": that.GAME_NAME,
+                    "port": that.PORT
                 }
             }));
             that.emit("socket_opened", socket);

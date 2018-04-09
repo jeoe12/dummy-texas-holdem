@@ -11,8 +11,44 @@
 </head>
 <body>
     <div class="container">
-        <h2>玩家测试 <span id="player_name"></span> </h2>
-        <hr>
+        <h2>玩家测试 <span id="player_name"></span></h2>
+		<hr>
+		<table width="100%">
+			<tr>
+				<td>
+					电话号码
+				</td>
+				<td>
+					<input type="text" id="phoneNumber"></input>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					密码
+				</td>
+				<td>
+					<input type="password" id="password"></input>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					ticket
+				</td>
+				<td>
+					<input type="text" id="ticket"></input>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					port
+				</td>
+				<td>
+					<input type="text" id="port"></input>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="button" onclick="connect();" value="连接">
         <div id="action" style="display: none">
             <div>
                 <input class="btn btn-primary" value="Bet" id="bet" style="display: inline-block">

@@ -19,14 +19,24 @@ var rtc = SkyRTC();
 
 
 $(document).ready(function () {
-    initRTC();
+    // initRTC();
 });
 
-function initRTC() {
-    rtc.PHONE_NUMBER = "18362966233";
-    rtc.PASSWORD = "123456";
-    rtc.SERVER_ADDRESS = "ws://dummy.vip:80/game/";
-    rtc.TICKET = "kfw8tnhik8nwh76e3abjcnrvv4nmmn";
+function connect() {
+	var phoneNumber = document.getElementById("phoneNumber").value;
+	var password = document.getElementById("password").value;
+	var ticket = document.getElementById("ticket").value;
+	var port = document.getElementById("port").value;
+	console.log("phoneNumber = " + phoneNumber + ", password = " + password + ", ticket = " + ticket + ", port = " + port);
+	initRTC(phoneNumber, password, ticket, port);
+}
+
+function initRTC(phoneNumber, password, ticket, port) {
+    rtc.PHONE_NUMBER = phoneNumber;
+    rtc.PASSWORD = password;
+    rtc.SERVER_ADDRESS = "ws://ai.cad-stg.trendmicro.com:" + port;
+    rtc.TICKET = ticket;
+	rtc.PORT = port;
     rtc.connect();
     rtc.on(rtc.EVENT_ACTION, function (data) {
         console.log(data);

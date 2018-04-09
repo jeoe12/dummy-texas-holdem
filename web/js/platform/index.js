@@ -203,7 +203,7 @@ function onSignOut(success) {
         localStorage.removeItem('phoneNumber');
         localStorage.removeItem('token');
         console.log('back to index ' + window.location.host);
-        window.location = window.location.host;
+        window.location = "https://ai.cad-stg.trendmicro.com";
     } else {
         toastr.error('注销失败');
     }
