@@ -8,7 +8,7 @@
     <meta name="screen-orientation" content="portrait">
     <meta name="description" content="dummy-the">
     <meta name="author" content="dummy team">
-    <title>THE</title>
+    <title>趋势杯德州扑克AI大赛</title>
     <link rel="stylesheet" href="./js/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./js/public/bower_components/toastr/toastr.min.css">
     <link rel="stylesheet" href="./style/index.css">
@@ -17,24 +17,37 @@
     <div class="container">
         <img style="float: left; margin-top: 40px;" src="./res/images/brand.png">
     </div>
-    <h1 style="margin-bottom: 40px;"><b>德州扑克AI对战平台</b></h1>
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
                 <div class="inner cover" style="margin-bottom: 60px;">
+                    <p class="content" style="font-size: 16px; text-indent: 32px;"><strong>趋势科技在1988年创建于美国硅谷，目前在全球50多个国家和地区设有分公司，员工总人数超过5500人。我们专为消费者、企业以及政府机构设计创新安全解决方案，是全球最大的独立安全整体解决方案提供商。趋势科技是被客户公认的终端安全、云安全和服务器安全方面的世界领导者，其入侵检测系统和入侵预防系统结合人工智能异常发现技术，采用高速网络数据采集，深得全球客户赞赏和推崇。我们还拥有全球最先进的威胁情报网络——趋势智能保护网络，它基于大数据分析和机器学习技术，并得到数百个趋势科技安全专家和漏洞专家的支持。趋势科技在全球有超过50万家企业客户和上亿级终端客户，全球前 50 家企业就有48家是趋势科技的客户，此外，全球顶尖10大汽车、银行、电信以及石油公司100%皆为趋势科技客户。
+                    </strong></p>
                     <div class="row" style="border-bottom: 4px solid #DDD; margin-bottom: 60px;">
-                        <div class="col-md-6" style="margin-bottom: 40px;">
+                        <div class="col-md-4" style="margin-bottom: 40px;">
                             <div class="game-status game-div">
                                 <a style="text-decoration: none; color: #000;" target="_blank" href="./document.html">
                                     <img src="./res/images/ico_guide.png">
-                                    <h3><b>上手文档</b></h3>
+                                    <h3><b>开发指南</b></h3>
+                                    <p class="content"><strong>关于比赛的赛制介绍，FAQ，开发文档等等，你想要了解的这里都有</strong></p>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="game-status game-div" onclick="setBoard();">
                                 <img src="./res/images/ico_live.png">
-                                <h3><b>创建直播</b></h3>
+                                <h3><b>创建游戏</b></h3>
+                                <p class="content"><strong>要想程序写的好，练习不可少！
+                                    欢迎与其他参赛小伙伴进行切磋</strong></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-bottom: 40px;">
+                            <div class="game-status game-div">
+                                <a style="text-decoration: none; color: #000;" target="_blank" href="#">
+                                    <img src="./res/images/ico_campus.png">
+                                    <h3><b>校园招聘</b></h3>
+                                    <p class="content"><strong>趋势科技2019校园招聘正在火热进行中，欢迎感兴趣的同学点击报名</strong></p>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -42,8 +55,8 @@
                     <div style="margin-top: 20px;"><a style="text-decoration: none; color: #202020;" href="#" onclick="signOut();">[退出]</a></div>
                     <div style="margin-top: 20px;">
                         <div class="input-group">
-                            <span class="input-group-addon">搜索直播</span>
-                            <input type="text" maxlength="7" class="form-control" placeholder="创建者名称" id="search_name">
+                            <span class="input-group-addon">搜索游戏</span>
+                            <input type="text" maxlength="20" class="form-control" placeholder="创建者名称" id="search_name">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" onclick="onSearch();">搜索</button>
                                 <button class="btn btn-info" type="button" onclick="listTheBoards();">刷新</button>

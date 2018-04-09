@@ -108,3 +108,28 @@ pre {
 .answer {
     color: #000000
 }
+
+.content {
+    text-align: left;
+    text-indent:28px;
+}
+
+td, th {
+    border: 1px solid black;
+}
+
+thead {
+    text-align: left;
+}
+
+td {
+    padding: 2px;
+}
+
+tbody {
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+}
