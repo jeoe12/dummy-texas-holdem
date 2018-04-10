@@ -192,7 +192,7 @@ function onJoin(boardIndex) {
         playerCount = 0;
     } else {
         for (var i = 0; i < currentBoard.currentPlayer.length; i++) {
-            if(currentBoard.currenyPlayer.isOnline) {
+            if(currentBoard.currentPlayer[i].isOnline) {
                 playerCount++;
             }
         }
