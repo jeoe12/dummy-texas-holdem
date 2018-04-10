@@ -215,13 +215,13 @@ function onJoin(boardIndex) {
     var playerInfo = playerCount + '人 - ';
     if (STATUS_READY === parseInt(currentBoard.status)) {
         playerInfo += '准备中';
-    } else if (STATUS_PREPARING === parseInt(status)) {
+    } else if (STATUS_PREPARING === parseInt(currentBoard.status)) {
         playerInfo += '启动中';
-    } else if (STATUS_RUNNING === parseInt(status)) {
+    } else if (STATUS_RUNNING === parseInt(currentBoard.status)) {
         playerInfo += '进行中';
-    } else if (STATUS_FINISHED === parseInt(status)) {
+    } else if (STATUS_FINISHED === parseInt(currentBoard.status)) {
         playerInfo += '已结束';
-    } else if (STATUS_ENDED === parseInt(status)) {
+    } else if (STATUS_ENDED === parseInt(currentBoard.status)) {
         playerInfo += '已关闭';
     } else {
         playerInfo += ' ';
