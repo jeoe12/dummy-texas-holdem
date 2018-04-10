@@ -215,8 +215,16 @@ function onJoin(boardIndex) {
     var playerInfo = playerCount + '人 - ';
     if (STATUS_READY === parseInt(currentBoard.status)) {
         playerInfo += '准备中';
-    } else if (STATUS_PLAYING === parseInt(currentBoard.status)) {
+    } else if (STATUS_PREPARING === parseInt(status)) {
+        playerInfo += '启动中';
+    } else if (STATUS_RUNNING === parseInt(status)) {
         playerInfo += '进行中';
+    } else if (STATUS_FINISHED === parseInt(status)) {
+        playerInfo += '已结束';
+    } else if (STATUS_ENDED === parseInt(status)) {
+        playerInfo += '已关闭';
+    } else {
+        playerInfo += ' ';
     }
     $('#info_players').html(playerInfo);
     $('#join_game_dialog').modal();
