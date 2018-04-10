@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <h2>开发指南</h2>
+        <h2><strong>开发指南</strong></h2>
         <hr>
         <div>
             <ul class="nav nav-tabs" id="main_tab">
@@ -47,11 +47,12 @@
                 <li style="cursor: pointer;"><a data-target="#api_doc" data-toggle="tab">开发规范</a></li>
                 <li style="cursor: pointer;"><a data-target="#example" data-toggle="tab">实用工具</a></li>
                 <li style="cursor: pointer;"><a data-target="#faq" data-toggle="tab">FAQ</a></li>
+                <!-- <li style="cursor: pointer;"><a data-target="#credit" data-toggle="tab">关于</a></li> -->
             </ul>
 
             <div class="tab-content" style="margin-top: 40px; margin-bottom: 80px;">
                 <div class="tab-pane active" id="contest">
-                    <h2><strong>赛事简介</strong></h2>
+                    <h3><strong>赛事简介</strong></h3>
                     <hr>
                     <p class="content">趋势杯德州扑克AI大赛面向广大高校在校同学，致力于让参赛学生充分感受最佳算法和优秀代码的魅力，验证用软件设计和编程解决问题的能力，以游戏的方式推进AI在实用领域的探索和应用，并通过比赛增强同学们的实战、实践能力。除了为获胜者提供实物奖励外，决赛成绩排名前三的个人还将被邀请参加趋势科技中国研发中心一日游活动，体验趋势工程师的一天！</p>
                     <br>
@@ -130,7 +131,7 @@
                     <p class="content">最终解释权为趋势科技（中国）有限公司。咨询QQ群：618639669</p>
                 </div>
                 <div class="tab-pane" id="game_rules">
-                    <h2><strong>游戏规则</strong></h2>
+                    <h3><strong>游戏规则</strong></h3>
                     <hr>
                     <a style="text-decoration: none;"><h4><strong>约定术语</strong></h4></a>
                     <p>约定游戏过程中会有如下概念：</p>
@@ -142,7 +143,7 @@
                         <p>5. action: 一个action是指轮到某一个玩家 call/raise/check/fold/bet/allin 玩家通过 AI 客户端完成其中一种决策称之为一个action。</p>
                     </ul>
                     <hr>
-                    <a style="text-decoration: none;"><h4><strong>游戏规则</strong></h4></a>
+                    <a style="text-decoration: none;"><h4><strong>关于德州扑克</strong></h4></a>
                     <p>德克萨斯扑克全称Texas Hold’em poker， 中文简称德州扑克。 它是一种玩家对玩家的公共牌类游戏。 本次比赛中参赛人数为 3--10 人。 </p>
                     <p>德州扑克一共有52张牌， 没有王牌。 每个玩家分两张牌作为“底牌”， 五张由荷官陆续朝上发出的公共牌。 开始的时候， 每个玩家会有两张面朝下的底牌。 经过所有押注圈后， 若仍不能分出胜负， 游戏会进入“摊牌”阶段， 也就是让所剩的玩家亮出各自的底牌以较高下， 持大牌者获胜。 </p>
                     <p>玩家之间同时继续看牌或比牌需要下同样注额筹码， 筹码不足的玩家allin全下后可以看到底并参与比牌。 </p>
@@ -179,7 +180,8 @@
                     <p>更详细的规则请参考 <a href="https://baike.baidu.com/item/%E5%BE%B7%E5%85%8B%E8%90%A8%E6%96%AF%E6%89%91%E5%85%8B/83440?fr=aladdin">百度百科</a></p>
                 </div>
                 <div class="tab-pane" id="api_doc">
-                    <h2><strong>开发规范</strong></h2>
+                    <h3><strong>开发规范</strong></h3>
+                    <hr>
                     <div id="bs-example-navbar-collapse-2" class="navbar">
                         <ul class="nav navbar-nav" style="float: left;">
                             <li class="dropdown">
@@ -200,7 +202,6 @@
                             </li>
                         </ul>
                     </div>
-                    <hr>
                     <a name="server_access" style="text-decoration: none;"><h4><strong>接入方式</strong></h4></a>
                     <ul>
                         <p>本游戏引擎服务器端采用 Websocket 与 客户端相连接， 游戏为多人(上限为10人)对战模式， 至多允许10个客户端接入一个游戏桌 (game board)。</p>
@@ -986,34 +987,36 @@
                     </ul>
                 </div>
                 <div class="tab-pane" id="example">
-                    <h2>示例代码</h2>
+                    <h3><strong>实用工具</strong></h3>
+                    <hr>
+                    <a style="text-decoration: none;"><h4 class="phrase"><b>示例代码</b></h4></a>
                     <p><span>请开发者自行修改示例代码中的 Socket 地址和接入用户名信息以方便自助测试</span></p>
                     <div class="row">
                         <div class="col-md-4">
-                            <h2>Javascript V1.0.2</h2>
+                            <h4>Javascript V1.0.2</h4>
                             <p>启动方式：双击用浏览器打开 player.html， 并附加URL参数name=your_name， <br>例如： file:///D:/player.html?name=bobi<br><br></p>
                             <p><a class="btn btn-large btn-default" href="example/js-example.zip" role="button">js 示例下载 &raquo;</a></p>
                         </div>
                         <div class="col-md-4">
-                            <h2>Python V1.0.2</h2>
+                            <h4>Python V1.0.2</h4>
                             <p>启动方式：请参考 <a href="https://pypi.python.org/pypi/websocket-client/0.7.0">https://pypi.python.org/pypi/websocket-client/0.7.0</a> 先安装 Python 的 websocket 插件， 自行修改代码中的 ws 和所有 playerName 变量值，然后运行 python player.py 接入游戏</p>
                             <p><a class="btn btn-default" href="example/python-example.zip" role="button">python 示例下载 &raquo;</a></p>
                         </div>
                         <div class="col-md-4">
-                            <h2>Java V1.0.0</h2>
+                            <h4>Java V1.0.0</h4>
                             <p>启动方式：请自行修改代码中的 URI 和 JoinData 以及 ActionData 中的 playerName 字段，编译生成 .jar 文件之后使用 java -jar player.jar 接入游戏 (example的IDE环境为 idea， 工程可编译生成 artifact : player.jar)</p>
                             <p><a class="btn btn-default" href="example/java-example.zip" role="button">java 示例下载 &raquo;</a></p>
                         </div>
                     </div>
                     <hr>
+                    <a style="text-decoration: none;"><h4 class="phrase"><b>牌面比较算法</b></h4></a>
                     <div>
-                        <h2>牌面比较算法</h2>
                         <p>算法输入为玩家手牌的数组， 输出为 rank 值， rank 值越大， 牌面组合越大， 目前只提供 js 版本， 其它版本请开发者自行修改完善</p>
                         <p><a class="btn btn-default" href="example/card_compare.txt" role="button">比牌算法下载 &raquo;</a></p>
                     </div>
                     <hr>
+                    <a style="text-decoration: none;"><h4 class="phrase"><b>Dummy</b></h4></a>
                     <div>
-                        <h2>Dummy</h2>
                         <p>Dummy是一个人工智障， 但是他可以在你三缺一的时候来凑数， 以及帮你捕获所有的交互指令</p>
                         <div class="row">
                             <div class="col-md-3">
@@ -1062,99 +1065,123 @@
                     -->
                 </div>
                 <div class="tab-pane" id="faq">
+                    <h3><strong>FAQ</strong></h3>
+                    <hr>
                     <a style="text-decoration: none;"><h4><strong>规则篇</strong></h4></a>
-                    <p class="question">
+                    <p>
                         Q: 本次比赛是有上限还是无上限类型？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 有上限类型， 每回合中 Raise 和 Bet 各不能超过 4 次。
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 为什么需要有reload操作， 而不是一开始就为每名玩家分配3000筹码？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 因为会影响到玩家决策allin。
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 可不可以Re-raise？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 本平台中的非第一次Raise， 即为Re-raise， 但由于是Limit方式， 所以在一回合中 Raise 的次数不能超过 4 次， 超过 4 次之后默认为 Call， 同理还有 Bet， 每回合 Bet 次数不能超过 4 次。
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 什么时候必须Bet (客户端接收到 __bet 消息)？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: Flop 以及后续阶段从小盲注位置开始的第一个玩家 (如果小盲注过牌或者ALLIN那么就依次顺延) 必须Bet (还可以是check/raise/allin)。
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 什么时候不允许Check？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 如果当前牌桌上最大注额比即将行动的玩家的注额高， 这名玩家就不能为 Check， 否则系统自动判为 Call。
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 如果最后比牌阶段有多名玩家ALLIN， 如何结算筹码？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 请看 <a target="_blank" href="https://www.douban.com/group/topic/35806191/"> 这里。 </a>
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: Royal Straight里按花色比较大小吗？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 目前规定所有Royal Straight都是同样大小， 不分花色， 其它组合同理 </a>
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 如果比牌阶段多人牌面值相等， 筹码如果均分的话是否允许筹码出现浮点数？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 允许， UI上会保留小数点后1位， 后台保留2位， 虽然在现实中会比较奇怪， 但是不影响本次虚拟比赛的排名 </a>
                     </p>
                     <hr>
                     <a style="text-decoration: none;"><h4><strong>开发篇</strong></h4></a>
-                    <p class="question">
+                    <p>
                         Q: 如何使用本平台自助接入和测试自己的AI程序？
                     </p>
-                    <p class="answer">
+                    <p>
                         A:<br>
-                        1. 请先在趋势科技德州扑克AI大赛报名页面上报名注册您的账号并登录到本站点。<br>
-                        2. 编写自己的AI程序， 注意Websocket接入地址正确。<br>
-                        3. 点击"直播"输入创建玩家时录入的桌号， 可进入游戏界面， 可以配置关于游戏的各种参数， 以调试你的AI。<br>
-                        4. 将AI程序中的玩家名逐个替换成不同玩家名， 逐个接入， 在游戏界面即可看见玩家进场。<br>
-                        5. 点击Play按钮， 开始比赛。<br>
-                        6. 人类玩家在菜单中点击"游戏"输入任意同桌玩家名可加入。
+                        1. 请先在趋势科技德州扑克AI大赛报名页面上报名注册您的账号并登录到本站。<br>
+                        2. 编写自己的AI程序， 注意 Websocket 接入地址正确，程序可以参考开发指南当中的 Java，Javascript 以及 Python 示例。<br>
+                        3. 点击“创建游戏“， 可进入游戏界面， 可以配置关于游戏的各种参数。<br>
+                        4. 如果要加入别人的游戏，可以在游戏大厅寻找或者搜索到你想加入的游戏，点击“观看直播”进行加入。<br>
+                        5. 注意游戏直播界面上的按钮，点击“拷贝”按钮可以拷贝游戏的Ticket，将Ticket输入到你的AI程序中，配置上合适的端口号即可让你的AI程序接入游戏。<br>
+                        6. 当累计到3名玩家以上时，在直播界面点击Play按钮， 开始比赛。<br>
+                        7. 也可以在游戏大厅中寻找到想要加入的游戏，点击“加入游戏”进行人机对战。
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 掉线了怎么办？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 10s之内接入还有机会， 加入后可以通过侦听 __show_action 指令重新获得牌桌状态， 否则系统将用一直FOLD的算法接管这个掉线的玩家， 请认真coding & testing， 确保程序不会crash。
                     </p>
                     <br>
-                    <p class="question">
+                    <p>
                         Q: 怎样从客户端收到的消息中得到玩家座位顺序？
                     </p>
-                    <p class="answer">
+                    <p>
                         A: 在任何的players列表中给出的玩家都是按照入座先后排序的， 这个顺序不会变， 即使玩家比赛过程中掉线退出并重新加入之后也不会变。
                     </p>
                     <br>
-                    <p class="question">
-                        Q: 游戏的ticket和port都有什么用？
+                    <p>
+                        Q: 游戏的Ticket和port都有什么用？
                     </p>
-                    <p class="answer">
-                        A: TODO。
+                    <p>
+                        A: Ticket是某个游戏房间的唯一编号，你的AI程序需要通过指定某个Ticket从而加入某个特定的游戏房间，否则将无法接入。port则表示你的AI程序需要连接的服务器端口。
                     </p>
                     <br>
                 </div>
+                <!--
+                <div class="tab-pane" id="credit">
+                    <h3><strong>关于</strong></h3>
+                    <hr>
+                    <a style="text-decoration: none;"><h4><strong>平台开发团队</strong></h4></a>
+                    <p>
+                        策划: 趋势科技(中国)有限公司南京分公司
+                    </p>
+                    <p>
+                        主程: Strawmanbobi
+                    </p>
+                    <p>
+                        开发: JiePing.Yang，Bruce.Wang，Elsie.Ding，Bob.Zou
+                    </p>
+                    <p>
+                        美术: Teresa.Pepe
+                    </p>
+                    <br>
+                    <p>Dummy Team 2018</p>
+                </div>
+                -->
             </div>
         </div>
     </div>
