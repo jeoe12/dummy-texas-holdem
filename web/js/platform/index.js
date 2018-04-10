@@ -4,8 +4,10 @@
  */
 
 var STATUS_READY = 0;
-var STATUS_PLAYING = 1;
-var STATUS_OVER = 2;
+var STATUS_PREPARING = 1;
+var STATUS_RUNNING = 2;
+var STATUS_FINISHED = 3;
+var STATUS_ENDED = 4;
 
 var tempFrom = 0;
 var from = 0;
@@ -160,9 +162,21 @@ function onTheBoardsListed() {
             if (STATUS_READY === parseInt(status)) {
                 statusStr = '准备中';
                 statusStyle = 'game-ready';
-            } else if (STATUS_PLAYING === parseInt(status)) {
+            } else if (STATUS_PREPARING === parseInt(status)) {
+                statusStr = '启动中';
+                statusStyle = 'game-playing';
+            } else if (STATUS_RUNNING === parseInt(status)) {
                 statusStr = '进行中';
                 statusStyle = 'game-playing';
+            } else if (STATUS_FINISHED === parseInt(status)) {
+                statusStr = '已结束';
+                statusStyle = 'game-ready';
+            } else if (STATUS_ENDED === parseInt(status)) {
+                statusStr = '已关闭';
+                statusStyle = 'game-ready';
+            } else {
+                statusStr = ' ';
+                statusStyle = 'game-ready';
             }
 
             boardListContent += '<div class="game-div col-md-4 div-bg-img" onclick="onJoin(' + i + ');">\n' +
