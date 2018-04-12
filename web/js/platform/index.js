@@ -80,6 +80,7 @@ function onTheBoardsSearched() {
 }
 
 function searchBoards(searchName) {
+    $('#search_name').val('');
     $.ajax({
         url: '/api/board/list_active_boards',
         headers: {"phone-number": phoneNumber, "token": token},
@@ -113,6 +114,7 @@ function searchBoards(searchName) {
 }
 
 function listTheBoards() {
+    $('#search_name').val('');
     $.ajax({
         url: '/api/board/list_active_boards',
         headers: {"phone-number": phoneNumber, "token": token},
