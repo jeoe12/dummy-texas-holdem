@@ -7,7 +7,6 @@ body {
 body {
     overflow-y: scroll;
     -webkit-background-size: cover;
-    background-image: url('../res/images/background.png');
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
@@ -30,7 +29,7 @@ pre {
 
 /* Padding for spacing */
 .inner {
-    padding: 30px;
+    padding-top: 30px;
 }
 
 

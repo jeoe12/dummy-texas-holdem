@@ -21,8 +21,8 @@
                 <div class="inner">
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li class="active">
-                                <a href="#">主页
+                            <li>
+                                <a href="./index.html">主页
                                 </a>
                             </li>
                             <li>
@@ -30,10 +30,10 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" onclick="validateSignIn(setBoard);">创建游戏
+                                <a href="#" onclick="setBoard();">创建游戏
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="#">游戏大厅
                                 </a>
                             </li>
@@ -46,48 +46,31 @@
                 </div>
             </div>
         </div>
-        <div style="text-align: center;"><img src="./res/images/logo.png"></div>
-        <div style="text-align: center;"><h1><strong>趋势科技杯德州扑克AI大赛</strong></h1></div>
-        <div style="text-align: center;" id="login_button"><a href="#" onclick="onSignIn();"><img src="./res/images/btn_sign_in.png"></a></div>
-        <div style="text-align: center; display: none; height: 40px; margin-top:25px;"  id="welcome"><h4><strong>玩家<span id="player_name"></span>已上线</strong> <a href="#" onclick="signOut();">[注销]</a></h4></div>
+        <h3><b>游戏大厅</b></h3>
+        <div style="margin-top: 10px;"><a style="text-decoration: none; color: #202020;" href="#" onclick="signOut();">[退出]</a></div>
+        <div style="margin-top: 20px;">
+            <div class="input-group">
+                <span class="input-group-addon">搜索游戏</span>
+                <input type="text" maxlength="20" class="form-control" placeholder="创建者名称" id="search_name">
+                <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" onclick="onSearch();">搜索</button>
+                                <button class="btn btn-info" type="button" onclick="listTheBoards();">刷新</button>
+                            </span>
+            </div>
+        </div>
+        <div class="cover-container" id="board_list" style="margin-top: 20px;">
+
+        </div>
         <hr>
-        <p class="content">趋势科技在1988年创建于美国硅谷，目前在全球50多个国家和地区设有分公司，员工总人数超过5500人。我们专为消费者、企业以及政府机构设计创新安全解决方案，是全球最大的独立安全整体解决方案提供商。趋势科技是被客户公认的终端安全、云安全和服务器安全方面的世界领导者，其入侵检测系统和入侵预防系统结合人工智能异常发现技术，采用高速网络数据采集，深得全球客户赞赏和推崇。我们还拥有全球最先进的威胁情报网络——趋势智能保护网络，它基于大数据分析和机器学习技术，并得到数百个趋势科技安全专家和漏洞专家的支持。趋势科技在全球有超过50万家企业客户和上亿级终端客户，全球前 50 家企业就有48家是趋势科技的客户，此外，全球顶尖10大汽车、银行、电信以及石油公司100%皆为趋势科技客户。</p>
-        <hr>
-        <div class="row" style="border-bottom: 4px solid #DDD; margin-bottom: 60px; text-align: center">
-            <div class="col-md-3" style="margin-bottom: 40px;">
-                <div class="game-status game-div">
-                    <a style="text-decoration: none; color: #000;" target="_blank" href="./document.html">
-                        <img src="./res/images/ico_guide.png">
-                        <h3><b>开发指南</b></h3>
-                        <p class="content-noindent" style="font-size: 16px;">关于比赛的赛制介绍，FAQ，开发文档等等... 你想要了解的这里都有</p>
-                    </a>
+        <div class="row">
+            <div class="col-md-6" style="margin-bottom: 40px;">
+                <div class="game-status game-div" onclick="prevPage();">
+                    <button class="btn btn-lg btn-primary glyphicon glyphicon-arrow-left"></button>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="game-status game-div" onclick="validateSignIn(setBoard);">
-                    <a style="text-decoration: none; color: #000;" href="#">
-                        <img src="./res/images/ico_game.png">
-                        <h3><b>创建游戏</b></h3>
-                        <p class="content-noindent" style="font-size: 16px;">要想程序写的好，练习不可少，欢迎与其他参赛小伙伴进行切磋</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3" style="margin-bottom: 40px;">
-                <div class="game-status game-div">
-                    <a style="text-decoration: none; color: #000;" href="#">
-                        <img src="./res/images/ico_hall.png">
-                        <h3><b>游戏大厅</b></h3>
-                        <p class="content-noindent" style="font-size: 16px;">三人行必有我师，来看看其他人的对战吧，感兴趣的话也可以一起加入</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3" style="margin-bottom: 40px;">
-                <div class="game-status game-div">
-                    <a style="text-decoration: none; color: #000;" target="_blank" href="http://trendmicro.zhaopin.com">
-                        <img src="./res/images/ico_campus.png">
-                        <h3><b>校园招聘</b></h3>
-                        <p class="content-noindent" style="font-size: 16px;">趋势科技2019校园招聘正在火热进行中，欢迎2018/2019/2020年毕业的同学报名参加</p>
-                    </a>
+            <div class="col-md-6">
+                <div class="game-status game-div" onclick="nextPage();">
+                    <button class="btn btn-lg btn-primary glyphicon glyphicon-arrow-right"></button>
                 </div>
             </div>
         </div>
@@ -96,7 +79,6 @@
         <div style="text-align: center; margin-bottom: 20px;">Powered by Dummy AI Games</div>
     </div>
 
-    <!-- sign in dialog -->
     <div class="modal fade dialog" id="signin_dialog" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -107,57 +89,54 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group" style="margin-top: 20px;">
-                        <span class="input-group-addon input-group-addon-title">手机号码</span>
+                        <span class="input-group-addon">账号</span>
                         <input type="tel" class="form-control" id="phone_number" placeholder="报名时填写的手机号">
                     </div>
                     <div class="input-group" style="margin-top: 20px;">
-                        <span class="input-group-addon input-group-addon-title">密码</span>
+                        <span class="input-group-addon">密码</span>
                         <input type="password" class="form-control" id="password" placeholder="报名时提交的密码">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="signIn(showSignedIn);">确定</button>
-                    <button type="button" class="btn btn-default" onclick="onResetPassword();">重置密码</button>
-                    <button type="button" class="btn btn-success" onclick="gotoRegister();">报名参赛</button>
+                    <button type="button" class="btn btn-info" onclick="resetPassword();">重置密码</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- reset password dialog -->
-    <div class="modal fade dialog" id="reset_password_dialog" role="dialog" aria-labelledby="myModalLabel"
+    <!-- game join dialog -->
+    <div class="modal fade dialog" id="join_game_dialog" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
-                    <span class="modal-title">重置密码</span>
+                    <span class="modal-title">加入游戏</span>
                 </div>
                 <div class="modal-body">
-                    <div class="input-group" style="margin-top: 20px;">
-                        <span class="input-group-addon input-group-addon-title">手机号码</span>
-                        <input type="number" class="form-control" id="reset_password_phone_number" min="1" minlength="11" maxlength="11" placeholder="报名时填写的11位手机号码"
-                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-                        <span class="input-group-btn">
-                            <button class="btn btn-warning" type="button" onclick="sendVerificationCode()">发送验证码</button>
-                        </span>
+                    <div style="text-align: center;">
+                        <b><h4 id="info_creator_name"></h4></b>
+                        <p id="info_create_time"></p>
+                        <h4 id="info_players"></h4>
                     </div>
-                    <div class="input-group" style="margin-top: 20px;">
-                        <span class="input-group-addon input-group-addon-title">短信验证码</span>
-                        <input type="number" class="form-control" placeholder="6位数短信验证码" min="0" maxlength="6" id="reset_password_verification_code"
-                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-                    </div>
-                    <div class="input-group" style="margin-top: 20px;">
-                        <span class="input-group-addon input-group-addon-title">密码</span>
-                        <input type="password" class="form-control" id="reset_password_password" placeholder="新密码">
-                    </div>
-                    <div class="input-group" style="margin-top: 20px;">
-                        <span class="input-group-addon input-group-addon-title">确认密码</span>
-                        <input type="password" class="form-control" id="reset_password_confirm" placeholder="确认新密码">
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 40px;">
+                            <div class="game-status game-div" onclick="joinLive();">
+                                <img src="./res/images/ico_game.png">
+                                <h4><b>观看游戏</b></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="game-status game-div" onclick="joinGame();">
+                                <img src="./res/images/ico_play.png">
+                                <h4><b>人机对战</b></h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="resetPassword();">确定</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>
@@ -178,14 +157,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon input-group-addon-title">指令间隔&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="为了让您看清楚 Live 上玩家的出牌顺序, 服务器上可以在连续两条 action 请求之间加上一定时间间隔"></span></span>
+                                    <span class="input-group-addon">指令间隔&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="为了让您看清楚 Live 上玩家的出牌顺序, 服务器上可以在连续两条 action 请求之间加上一定时间间隔"></span></span>
                                     <input type="number" min="0" max="2" step="0.2" class="form-control" placeholder="指令间隔" id="game_command_interval" value="1" onkeydown="return false">
                                     <span class="input-group-addon">秒</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon input-group-addon-title">回合间隔&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="在每回合清算的时候将展示玩家手牌, 得分和牌面组合, 以及让客户端请求reload 的这个时间间隔"></span></span>
+                                    <span class="input-group-addon">回合间隔&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="在每回合清算的时候将展示玩家手牌, 得分和牌面组合, 以及让客户端请求reload 的这个时间间隔"></span></span>
                                     <input type="number" min="5" max="30" step="5" class="form-control" placeholder="回合间隔" id="game_round_interval" value="15" onkeydown="return false">
                                     <span class="input-group-addon">秒</span>
                                 </div>
@@ -195,14 +174,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon input-group-addon-title">指令超时&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="服务器等待客户端决策指令的超时时间, 正式比赛为 2 秒"></span></span>
+                                    <span class="input-group-addon">指令超时&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="服务器等待客户端决策指令的超时时间, 正式比赛为 2 秒"></span></span>
                                     <input type="number" min="1" max="10" step="1" class="form-control" placeholder="指令超时" id="game_command_timeout" value="5" onkeydown="return false">
                                     <span class="input-group-addon">秒</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon input-group-addon-title">掉线超时&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="客户端因为各种原因掉线之后服务器的等待时间, 正式比赛为 10 秒"></span></span>
+                                    <span class="input-group-addon">掉线超时&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="客户端因为各种原因掉线之后服务器的等待时间, 正式比赛为 10 秒"></span></span>
                                     <input type="number" min="10" max="15" step="1" class="form-control" placeholder="回合间隔" id="game_lost_timeout" value="10" onkeydown="return false">
                                     <span class="input-group-addon">秒</span>
                                 </div>
@@ -212,13 +191,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon input-group-addon-title">默认小盲&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="默认初始小盲注, 正式比赛为 10"></span></span>
+                                    <span class="input-group-addon">默认小盲&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="默认初始小盲注, 正式比赛为 10"></span></span>
                                     <input type="number" min="10" max="100" step="10" class="form-control" placeholder="默认小盲" id="game_default_sb" value="10" onkeydown="return false">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon input-group-addon-title">默认筹码&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="默认玩家初始以及每次reload可获得的筹码, 正式比赛为 1000"></span></span>
+                                    <span class="input-group-addon">默认筹码&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="默认玩家初始以及每次reload可获得的筹码, 正式比赛为 1000"></span></span>
                                     <input type="number" min="1000" max="2000" step="100" class="form-control" placeholder="默认筹码" id="game_default_chips" value="1000" onkeydown="return false">
                                 </div>
                             </div>
@@ -227,7 +206,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon input-group-addon-title">重载次数&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="玩家可申请的reload的机会, 正式比赛为 2 次"></span></span>
+                                    <span class="input-group-addon">重载次数&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="玩家可申请的reload的机会, 正式比赛为 2 次"></span></span>
                                     <input type="number" min="0" max="5" step="1" class="form-control" placeholder="重载次数" id="game_reload_chance" value="2" onkeydown="return false">
                                 </div>
                             </div>

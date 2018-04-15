@@ -74,16 +74,14 @@ exports.createBoardWorkUnit = function (gameName, phoneNumber, token, callback) 
         gameName: gameName
     };
 
-    requestSender.sendPostRequest(createBoardParameters, headers, function (listBoardsErr, boardsResponse) {
-        if (errorCode.SUCCESS.code === listBoardsErr &&
-            JSON.parse(boardsResponse).status.code === errorCode.SUCCESS.code) {
-            logger.info("create board successfully");
+    requestSender.sendPostRequest(createBoardParameters, headers, function (createBoardErr, boardsResponse) {
+        if (errorCode.SUCCESS.code === createBoardErr) {
+            logger.info("call create board successfully");
             var boards = JSON.parse(boardsResponse).entity;
             logger.info("response of create board = " + JSON.stringify(boards));
-            callback(errorCode.SUCCESS, boards);
+            callback(JSON.parse(boardsResponse).status, boards);
         } else {
-            logger.error("create board failed : " + JSON.stringify(boards));
-            callback(JSON.parse(boardsResponse).status, JSON.parse(boardsResponse).entity);
+            callback(errorCode.FAILED, null);
         }
     });
 };

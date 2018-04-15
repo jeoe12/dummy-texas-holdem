@@ -14,16 +14,42 @@ var from = 0;
 var count = 12;
 
 $(document).ready(function () {
-    // get phoneNumber and token
-    phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
-    token = getParameter('token') || localStorage.getItem('token');
-    localStorage.setItem('phoneNumber', phoneNumber);
-    localStorage.setItem('token', token);
-
+    validateSignIn(showWelcome);
     tempFrom = from;
     // get board list
-    listTheBoards();
+    // listTheBoards();
 });
+
+function showWelcome(show, player) {
+    if (show && player) {
+        clearSignInModal();
+        $('#player_name').html(player.name);
+        $('#login_button').hide();
+        $('#welcome').show();
+        rememberInLs(player);
+    } else {
+        $('#player_name').val('');
+        $('#login_button').show();
+        $('#welcome').hide();
+        clearLs();
+    }
+}
+
+function clearSignInModal() {
+    $('#phone_number').val('');
+    $('#password').val('');
+
+    $('#signin_dialog').modal('hide');
+}
+
+function showSignedIn(show, player) {
+    if (show && player) {
+        toastr.success('登录成功');
+    } else {
+        toastr.error('登录失败，电话号码或密码错误');
+    }
+    showWelcome(show, player);
+}
 
 function signOut() {
     $.ajax({
@@ -38,15 +64,27 @@ function signOut() {
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
-                onSignOut(true);
+                onSignedOut(true);
             } else {
-                onSignOut(false);
+                onSignedOut(false);
             }
         },
         error: function () {
-            onSignOut(false);
+            onSignedOut(false);
         }
     });
+}
+
+function onSignedOut(success) {
+    if (success) {
+        toastr.success('注销成功');
+        localStorage.removeItem('phoneNumber');
+        localStorage.removeItem('token');
+        console.log('back to index ' + window.location.host);
+        window.location.reload();
+    } else {
+        toastr.error('注销失败');
+    }
 }
 
 function prevPage() {
@@ -230,18 +268,6 @@ function onJoin(boardIndex) {
     }
     $('#info_players').html(playerInfo);
     $('#join_game_dialog').modal();
-}
-
-function onSignOut(success) {
-    if (success) {
-        toastr.success('注销成功');
-        localStorage.removeItem('phoneNumber');
-        localStorage.removeItem('token');
-        console.log('back to index ' + window.location.host);
-        window.location = "https://ai.cad-stg.trendmicro.com";
-    } else {
-        toastr.error('注销失败');
-    }
 }
 
 // for live

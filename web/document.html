@@ -14,8 +14,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- <img src="./res/images/ec2017_logo_rev.png" style="max-height: 80px; float: left; margin-bottom: 10px; margin-top: 10px; margin-right: 20px;"> -->
-        <h3 class="masthead-brand" style="float: left; margin-top: 40px;"><img src="./res/images/brand.png"></h3>
+        <h3 class="masthead-brand" style="float: left;"><img src="./res/images/brand.png"></h3>
         <div class="cover-container">
             <div class="masthead clearfix">
                 <div class="inner">
@@ -33,6 +32,14 @@
                                 <a href="#" onclick="setBoard();">创建游戏
                                 </a>
                             </li>
+                            <li>
+                                <a href="#" onclick="gotoGameHall();">游戏大厅
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://trendmicro.zhaopin.com" target="_blank">校园招聘
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -47,7 +54,7 @@
                 <li style="cursor: pointer;"><a data-target="#api_doc" data-toggle="tab">开发规范</a></li>
                 <li style="cursor: pointer;"><a data-target="#example" data-toggle="tab">实用工具</a></li>
                 <li style="cursor: pointer;"><a data-target="#faq" data-toggle="tab">FAQ</a></li>
-                <!-- <li style="cursor: pointer;"><a data-target="#credit" data-toggle="tab">关于</a></li> -->
+                <li style="cursor: pointer;"><a data-target="#credit" data-toggle="tab">关于</a></li>
             </ul>
 
             <div class="tab-content" style="margin-top: 40px; margin-bottom: 80px;">
@@ -73,27 +80,25 @@
                     <p class="content">即日起至 4月30日中午12:00截止。</p>
                     <br>
                     <a style="text-decoration: none;"><h4><strong>赛制流程</strong></h4></a>
-                    <p class="content"><b>1. 报名与准备</b></p>
-                    <p class="content">从即日起至2018年5月17日，报名成功者可在平台上调试进入初赛的程序。并且确保在5月17日结束前准备好初赛程序。</p>
-                    <p class="content"><b>2. 初赛</b></p>
-                    <p class="content">赛委会会根据准备阶段调试程序的情况确定初赛分组名单，并于5月19日以前通过邮件和短信通知初赛参加者具体赛程。</p>
-                    <p class="content"><b>3. 复赛</b></p>
-                    <p class="content">赛委会会根据初赛结果确定复赛分组名单，并于5月26日以前通过邮件和短信通知复赛参加者具体赛程。</p>
-                    <p class="content"><b>4. 决赛</b></p>
-                    <p class="content">赛委会会根据复赛结果确定决赛分组名单，并于5月27日以前通过邮件和短信通知决赛参加者具体赛程。</p>
-                    <p class="content">参加决赛的选手届时需要向大赛举办方提供有效身份证件。</p>
-                    <p class="content"><b>5. 颁奖</b></p>
-                    <p class="content">将于5月31日邀请比赛前三名选手到南京趋势科技中国研发中心参加颁奖典礼并参观公司，与趋势大咖交流比赛经验。</p>
+                    <p class="content"><b>1. 报名与准备（即日起至2018年5月17日）</b></p>
+                    <p class="content">报名成功者可在平台上调试进入初赛的程序，并且确保在5月17日结束前准备好初赛程序。</p>
+                    <p class="content"><b>2. 初赛（5月19日）</b></p>
+                    <p class="content">主办方根据准备阶段调试程序的情况确定初赛分组名单，并于5月19日前通过邮件和短信通知初赛参加者具体赛程。</p>
+                    <p class="content"><b>3. 复赛（5月26日）</b></p>
+                    <p class="content">主办方根据初赛结果确定复赛分组名单，并于5月26日前通过邮件和短信通知复赛参加者具体赛程。</p>
+                    <p class="content"><b>4. 决赛（5月27日）</b></p>
+                    <p class="content">主办方根据复赛结果确定决赛分组名单，并于5月27日前通过邮件和短信通知决赛参加者具体赛程。</p>
+                    <p class="content">参加决赛的选手届时需要向大赛主办方提供有效身份证件。</p>
+                    <p class="content"><b>5. 颁奖（5月31日）</b></p>
+                    <p class="content">主办方将于5月31日邀请比赛前三名选手到趋势科技中国研发中心（南京）参加颁奖典礼并参观公司，与趋势科技大咖交流比赛经验。</p>
 
                     <p class="content">注：选手在比赛中提交的代码将进行审核，若判定有作弊行为，成绩将清零，不计入排名。</p>
                     <br>
                     <a style="text-decoration: none;"><h4><b>参赛规则</b></h4></a>
                     <p class="content">1. 参赛成员人数必须是个体参赛，不接受团队名义参赛。</p>
                     <p class="content">2. 参赛人员必须为在校全日制学生，不接受其他任何社会人员参赛。获奖者需要证明其资格，包括但不仅限于证明年龄、学籍、居住地和身份。</p>
-                    <p class="content">3. 参赛个人的游戏用户名不可侵犯任何第三方的知识产权、隐私权、宣传权，或其他适用的法律法规。</p>
-                    <p class="content">4. 所有参赛者代码均为原创，不可抄袭，如果发现抄袭他人作品或者代码，将取消参赛资格。</p>
-                    <p class="content">5. 竞赛产生的所有数据，包括所有参赛者的数据将由主办方共同所有并分享给主办方，参赛者参赛，即理解并同意主办方有权获得所产生的作为竞赛一部分的数据，特别地，主办方可能会就潜在的雇佣机会与参赛者联系。主办方使用参赛者数据将遵守主办方各自的隐私政策项下的条款和条件。</p>
-                    <p class="content">6. 未前往现场参加颁奖典礼的个人将不会获得旅行补助。</p>
+                    <p class="content">3. 所有参赛者代码均为原创，不可抄袭，如果发现抄袭他人作品或者代码，将取消参赛资格。</p>
+                    <p class="content">4. 未前往现场参加颁奖典礼的个人将不会获得旅行补助。</p>
                     <br>
                     <p class="content">最终解释权为趋势科技（中国）有限公司。咨询QQ群：618639669</p>
                 </div>
@@ -1129,27 +1134,33 @@
                     </p>
                     <br>
                 </div>
-                <!--
                 <div class="tab-pane" id="credit">
                     <h3><strong>关于</strong></h3>
                     <hr>
                     <a style="text-decoration: none;"><h4><strong>平台开发团队</strong></h4></a>
+                    <p>Dummy-team</p>
                     <p>
-                        策划: 趋势科技(中国)有限公司南京分公司
+                        制作人/主程: Strawmanbobi
                     </p>
                     <p>
-                        主程: Strawmanbobi
-                    </p>
-                    <p>
-                        开发: JiePing.Yang，Bruce.Wang，Elsie.Ding，Bob.Zou
+                        开发: JiePing.Yang, Bruce.Wang, Elsie.Ding
                     </p>
                     <p>
                         美术: Teresa.Pepe
                     </p>
                     <br>
-                    <p>Dummy Team 2018</p>
+                    <a style="text-decoration: none;"><h4><strong>特别感谢</strong></h4></a>
+                    <p>
+                        Sunny.Zhang, Franson.Fang, Peter.Li, Bob.Zou,<br>
+                        Andy.Du, Ace.Luo, Luffy.Huang, Toby.Zhang, Joseph.D.Wang,<br>
+                        David.Z.Zhang, Boris.Xiao, Richard.Tai, Orange.Chang, Javen.Tsai
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <a href="#" style="text-decoration: none;"><strong>Powered by Dummy AI Games 1.0.1</strong></a>
+                    <br>
                 </div>
-                -->
             </div>
         </div>
     </div>

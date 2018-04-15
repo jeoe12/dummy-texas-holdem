@@ -33,7 +33,6 @@ exports.createBoard = function (req, res) {
     var phoneNumber = req.body.phoneNumber || req.headers["phone-number"];
     var token = req.headers["token"];
 
-    console.log("createBoardService entry");
     var boardResponse = new BoardResponse();
     boardLogic.createBoardWorkUnit(gameName, phoneNumber, token, function(createBoardsErr, board) {
         boardResponse.status = createBoardsErr;
@@ -73,6 +72,20 @@ exports.isCreatorBoard = function (req, res) {
     });
 };
 
+exports.validateSignIn = function (req, res) {
+    var phoneNumber = req.headers["phone-number"];
+    var token = req.headers["token"] || req.body.token;
+
+    var playerResponse = new PlayerResponse();
+
+    playerLogic.validateUserTokenWorkUnit(phoneNumber, token, function(getPlayerErr, player) {
+        playerResponse.status = getPlayerErr;
+        playerResponse.entity = player;
+        res.send(playerResponse);
+        res.end();
+    });
+};
+
 exports.getPlayerByToken = function (req, res) {
     var phoneNumber = req.headers["phone-number"];
     var token = req.headers["token"] || req.body.token;
@@ -87,6 +100,32 @@ exports.getPlayerByToken = function (req, res) {
     });
 };
 
+exports.sendSmsForUpdate = function (req, res) {
+    var phoneNumber = req.body.phoneNumber;
+
+    var serviceResponse = new ServiceResponse();
+
+    playerLogic.sendSmsForUpdateWorkUnit(phoneNumber, function(sendSmsErr) {
+        serviceResponse.status = sendSmsErr;
+        res.send(serviceResponse);
+        res.end();
+    });
+};
+
+exports.signIn = function (req, res) {
+    var phoneNumber = req.body.phoneNumber;
+    var password = req.body.password;
+
+    var playerResponse = new PlayerResponse();
+
+    playerLogic.signInWorkUnit(phoneNumber, password, function(signInErr, player) {
+        playerResponse.status = signInErr;
+        playerResponse.entity = player;
+        res.send(playerResponse);
+        res.end();
+    });
+};
+
 exports.signOut = function (req, res) {
     var phoneNumber = req.headers["phone-number"];
     var token = req.headers["token"] || req.body.token;
@@ -95,6 +134,20 @@ exports.signOut = function (req, res) {
 
     playerLogic.signOutWorkUnit(phoneNumber, token, function(signOutErr) {
         serviceResponse.status = signOutErr;
+        res.send(serviceResponse);
+        res.end();
+    });
+};
+
+exports.resetPassword = function (req, res) {
+    var phoneNumber = req.body.phoneNumber;
+    var verificationCode = req.body.verificationCode;
+    var password = req.body.password;
+
+    var serviceResponse = new ServiceResponse();
+
+    playerLogic.resetPasswordWorkUnit(phoneNumber, verificationCode, password, function(resetPasswordErr) {
+        serviceResponse.status = resetPasswordErr;
         res.send(serviceResponse);
         res.end();
     });

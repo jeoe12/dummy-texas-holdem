@@ -1,45 +1,7 @@
-/**
- * create by dummy-team
- * 2017-09-01
- */
-
-/*
- * Globals
- */
-
-/* Links */
-a,
-a:focus,
-a:hover {
-    color: #fff;
-}
-
-/* Dialog */
-.dialog {
-    color: #000;
-    text-shadow: none;
-    text-align: left;
-}
-
-/* Custom default button */
-.btn-default,
-.btn-default:hover,
-.btn-default:focus {
-    color: #333;
-    text-shadow: none; /* Prevent inheritance from `body` */
-    background-color: #fff;
-    border: 1px solid #fff;
-}
-
-/*
- * Base structure
- */
-
 html,
 body {
     height: 100%;
     width: 100%;
-    text-align: center;
 }
 
 body {
@@ -51,62 +13,37 @@ body {
     background-size: cover;
 }
 
-.div-bg-img {
-    border: 20px solid transparent;
-    background-image: url('../res/images/img_table.png');
-    background-size: 100%;
-    background-repeat: no-repeat;
-    height: 220px;
+pre {
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
-.game-div {
-    cursor: pointer;
+.input-group-addon-title {
+    min-width: 100px;
+    text-align: right;
 }
 
-.game-status {
-    text-align: center;
-    font-size: 16px;
-    width: 100%;
-    margin-top: 8px;
-}
-
-.game-ready {
-    color: #FFFF00;
-}
-
-.game-playing {
-    color: #00FF00;
-}
-
-.game-creator {
-    color: #FFF;
-    text-align: center;
-    font-size: 16px;
-    width: 100%;
-    margin-top: 140px;
-}
-
-/* Extra markup and styles for table-esque vertical and horizontal centering */
-.site-wrapper {
-    display: table;
-    width: 100%;
-}
-
-.site-wrapper-inner {
-    display: table-cell;
-    vertical-align: top;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 .cover-container {
-    width: 100%;
     margin-right: auto;
     margin-left: auto;
+    text-align: right;
 }
 
-.content {
-    text-align: left;
-    padding: 20px;
+/* Padding for spacing */
+.inner {
+    padding-top: 30px;
 }
+
 
 /*
  * Header
@@ -119,11 +56,9 @@ body {
 .masthead-nav > li {
     display: inline-block;
 }
-
 .masthead-nav > li + li {
     margin-left: 20px;
 }
-
 .masthead-nav > li > a {
     padding-right: 0;
     padding-left: 0;
@@ -133,14 +68,12 @@ body {
     color: rgba(0, 0, 0, .75);
     border-bottom: 2px solid transparent;
 }
-
 .masthead-nav > li > a:hover,
 .masthead-nav > li > a:focus {
     background-color: transparent;
     border-bottom-color: #a9a9a9;
     border-bottom-color: rgba(255,255,255,.25);
 }
-
 .masthead-nav > .active > a,
 .masthead-nav > .active > a:hover,
 .masthead-nav > .active > a:focus {
@@ -148,75 +81,70 @@ body {
     border-bottom-color: #000;
 }
 
-header { padding-bottom: 20px; }
-header > h1 { display: inline-block; }
-header span { margin-left: 20px; font-size: 20px; }
-
-@media (min-width: 768px) {
-    .masthead-brand {
-        float: left;
-    }
-
-    .masthead-nav {
-        float: right;
-    }
+.tag {
+    font-size: 14px;
+    font-weight: normal;
+    padding: .3em .4em .4em;
+    margin: 0 .1em;
 }
 
-/*
- * Cover
- */
-
-.cover {
-    /* padding: 0 20px; */
+.tag a {
+    color: #bbb;
+    cursor: pointer;
+    opacity: 0.6;
+}
+.tag a:hover {
+    opacity: 1.0
+}
+.tag .remove {
+    vertical-align: bottom;
+    top: 0;
+}
+.tag a {
+    margin: 0 0 0 .3em;
+}
+.tag a .glyphicon-white {
+    color: #fff;
+    margin-bottom: 2px;
 }
 
-.cover .btn-lg {
-    padding: 10px 20px;
-    font-weight: bold;
+.new_content {
+    color: #FF3F00
 }
 
-/*
- * Footer
- */
-
-.mastfoot {
-    color: #999; /* IE8 proofing */
-    color: rgba(255, 255, 255, .5);
+.question {
+    color: #FF3F00
 }
 
-/*
- * Affix and center
- */
-
-@media (min-width: 768px) {
-    /* Pull out the header and footer */
-    .masthead {
-        position: fixed;
-        top: 0;
-    }
-
-    .mastfoot {
-        position: fixed;
-        bottom: 0;
-    }
-
-    /* Start the vertical centering */
-    .site-wrapper-inner {
-        vertical-align: top;
-    }
-
-    /* Handle the widths */
-    .masthead,
-    .mastfoot,
-    .cover-container {
-        width: 100%; /* Must be percentage or pixels for horizontal alignment */
-    }
+.answer {
+    color: #000000
 }
 
-@media (min-width: 940px) {
-    .masthead,
-    .mastfoot,
-    .cover-container {
-        width: 940px;
-    }
+.content {
+    text-align: left;
+    text-indent:28px;
+}
+
+.content-noindent {
+    text-align: left;
+}
+
+td, th {
+    border: 1px solid black;
+}
+
+thead {
+    text-align: left;
+}
+
+td {
+    padding: 2px;
+}
+
+tbody {
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
 }
