@@ -79,19 +79,11 @@ function gotoGame(boardTicket, instancePort) {
     var sound = $('#game_sound').is(':checked') ? 1 : 0;
     var autoRestart = $('#auto_restart').is(':checked') ? 1 : 0;
 
-    var gameURL = '';
     var hostName = window.location.hostname + ':' + window.location.port;
-    if (-1 !== hostName.indexOf('localhost')) {
-        gameURL = 'http://' + hostName + '/game.html?phoneNumber='+phoneNumber+'&token='+token+'&ticket='+ticket+
-            '&port='+port+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
-            '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
-            '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout;
-    } else {
-        gameURL = 'http://' + hostName + '/texasholdem/game.html?phoneNumber='+phoneNumber+'&token='+token+'&ticket='+ticket+
-            '&port='+port+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
-            '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
-            '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout;
-    }
+    var gameURL = 'http://' + hostName + '/game.html?phoneNumber='+phoneNumber+'&token='+token+'&ticket='+ticket+
+        '&port='+port+'&bgm='+bgm+'&sound='+sound+'&auto='+autoRestart+'&defaultChips='+defaultChips+
+        '&defaultSb='+defaultSb+'&roundInterval='+defaultRoundInterval+'&commandInterval='+defaultCommandInterval+
+        '&reloadChance='+reloadChance+'&commandTimeout='+defaultCommandTimeout+'&lostTimeout='+defaultLostTimeout;
     window.open(gameURL);
     $('#goto_game_dialog').modal('hide');
 }
