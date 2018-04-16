@@ -131,7 +131,7 @@ function initWebsock() {
     // initialize web communication
     var host = window.location.hostname;
     var serverAddress;
-    serverAddress = 'wss://' + host + ':' + port;
+    serverAddress = 'ws://' + host + ':' + port;
     console.log('guest connect to server, playerName = ' + playerName + ', server = ' + serverAddress +
         ', ticket = ' + ticket);
 
