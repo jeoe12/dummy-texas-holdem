@@ -209,9 +209,10 @@ function joinLive(canJoinLive, player) {
 // for human player
 function joinGame(canJoinGame, player) {
     if (canJoinGame && player) {
-        window.open('./game.html?ticket=' + currentBoard.ticket + '&port=' + currentBoard.port + '&phoneNumber=' + phoneNumber + '&token=' + token +
-            '&password=' + password + '&playerName=' + player.name + '&bgm=1&sound=1&isHuman=true',
-            '_blank');
+        var hostName = window.location.hostname + ':' + window.location.port;
+        var gameURL = 'http://' + hostName + '/game.html?ticket=' + currentBoard.ticket + '&port=' + currentBoard.port + '&phoneNumber=' + phoneNumber + '&token=' + token +
+            '&password=' + password + '&playerName=' + player.name + '&bgm=1&sound=1&isHuman=true';
+        window.open(gameURL);
         $('#join_game_dialog').modal('hide');
     } else {
         toastr.warning('请先登录之后再观看游戏');
