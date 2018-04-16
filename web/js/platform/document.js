@@ -22,7 +22,10 @@ function createDummy() {
     }
 
     password = md5(password);
-    window.open('./dummy.html?phoneNumber='+phoneNumber+'&password='+password+'&ticket='+ticket+'&port='+port, '_blank');
+    var hostName = window.location.hostname + ':' + window.location.port;
+    var dummyURL = 'http://' + hostName + '/dummy.html?phoneNumber='+phoneNumber+'&password='+password+
+        '&ticket='+ticket+'&port='+port;
+    window.open(dummyURL);
 
     $('#player_name').val('');
     $('#password').val('');
