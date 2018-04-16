@@ -5,6 +5,7 @@
 
 var phoneNumber;
 var token;
+var password;
 
 // HTTP response code
 var SUCCESS = 0;
@@ -104,6 +105,7 @@ function gotoRegister() {
 function validateSignIn(callback) {
     phoneNumber = localStorage.getItem('phoneNumber');
     token = localStorage.getItem('token');
+    password = localStorage.getItem('password');
     if (phoneNumber && token) {
         // get player information at client side
         $.ajax({
@@ -145,18 +147,20 @@ function signIn(callback) {
         toastr.error('请输入正确的电话号码和密码');
         return;
     }
+    password = md5(password);
     $.ajax({
         url: '/api/players/sign_in',
         type: 'POST',
         dataType: 'json',
         data: {
             phoneNumber: phoneNumber,
-            password: md5(password)
+            password: password
         },
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
                 var player = response.entity;
+                localStorage.setItem('password', password);
                 onSignedIn(true, player, callback);
             } else {
                 onSignedIn(false, null, callback);
@@ -245,19 +249,21 @@ function resetPassword() {
         toastr.error('两次填写的密码不一致');
         return;
     }
+    password = md5(password);
     $.ajax({
         url: '/api/players/reset_password',
         type: 'POST',
         data: JSON.stringify({
             phoneNumber: phoneNumber,
             verificationCode: verificationCode,
-            password: md5(password)
+            password: password
         }),
         contentType: 'application/json; charset=utf-8',
         timeout: 20000,
         success: function(response) {
             if (response.status.code === 0) {
                 toastr.success('密码修改成功');
+                localStorage.setItem('password', password);
                 clearResetPasswordModal();
             } else {
                 switch(parseInt(response.status.code)) {
@@ -336,6 +342,7 @@ function rememberInLs(player) {
 function clearLs() {
     localStorage.removeItem('phoneNumber');
     localStorage.removeItem('token');
+    localStorage.removeItem('password');
 }
 
 function popUpHintDialog(hint) {

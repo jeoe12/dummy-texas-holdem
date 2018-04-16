@@ -211,7 +211,7 @@ function joinGame(canJoinGame, player) {
     if (canJoinGame && player) {
         var hostName = window.location.hostname + ':' + window.location.port;
         var gameURL = 'http://' + hostName + '/game.html?ticket=' + currentBoard.ticket + '&port=' + currentBoard.port + '&phoneNumber=' + phoneNumber + '&token=' + token +
-            '&password=' + player.password + '&playerName=' + player.name + '&bgm=1&sound=1&isHuman=true';
+            '&password=' + password + '&playerName=' + player.name + '&bgm=1&sound=1&isHuman=true';
         window.open(gameURL);
         $('#join_game_dialog').modal('hide');
     } else {
