@@ -21,6 +21,50 @@ pre {
     word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
+.input-group-addon-title {
+    min-width: 100px;
+    text-align: right;
+}
+
+.div-bg-img {
+    border: 20px solid transparent;
+    background-image: url('../res/images/img_table.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    min-height: 240px;
+}
+
+.game-div {
+    cursor: pointer;
+}
+
+.game-status {
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.game-ready {
+    color: #FFFF00;
+}
+
+.game-playing {
+    color: #00FF00;
+}
+
+.game-creator {
+    color: #FFF;
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 172px;
+}
+
+.row > div {
+    flex: 1;
+    border: 1px solid #FFFFFF;
+}
 
 .cover-container {
     margin-right: auto;
@@ -132,4 +176,17 @@ tbody {
 
 table {
     border-collapse: collapse;
+}
+
+#responsive
+@media (min-width: 768px) {
+    .cover-container {
+        width: 100%; /* Must be percentage or pixels for horizontal alignment */
+    }
+}
+
+@media (min-width: 940px) {
+    .cover-container {
+        width: 940px;
+    }
 }

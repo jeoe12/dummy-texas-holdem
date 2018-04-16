@@ -2,9 +2,11 @@
  * Created by dummy-team
  * 2017-10-12
  */
+
 var phoneNumber;
 var token;
 
+// HTTP response code
 var SUCCESS = 0;
 var SESSION_TIMEOUT =2;
 var FAILED = -1;
@@ -15,6 +17,13 @@ var PLAYER_NOT_EXIST = -5;
 var WRONG_VERIFICATION_CODE = -6;
 var MULTI_ACTIVE_BOARD_CREATED = -7;
 var LOGIN_FAILURE = -8;
+
+// game status code
+var STATUS_READY = 0;
+var STATUS_PREPARING = 1;
+var STATUS_RUNNING = 2;
+var STATUS_FINISHED = 3;
+var STATUS_ENDED = 4;
 
 // global board information
 var fullBoardList = [];
@@ -93,8 +102,8 @@ function gotoRegister() {
 }
 
 function validateSignIn(callback) {
-    var phoneNumber = localStorage.getItem('phoneNumber');
-    var token = localStorage.getItem('token');
+    phoneNumber = localStorage.getItem('phoneNumber');
+    token = localStorage.getItem('token');
     if (phoneNumber && token) {
         // get player information at client side
         $.ajax({
@@ -170,6 +179,39 @@ function onSignedIn(success, player, callback) {
             callback(false, null);
         }
     }
+}
+
+function showSignedIn(show, player) {
+    if (show && player) {
+        toastr.success('登录成功');
+    } else {
+        toastr.error('登录失败，电话号码或密码错误');
+    }
+    if (showWelcome) {
+        showWelcome(show, player);
+    }
+}
+
+function showWelcome(show, player) {
+    if (show && player) {
+        clearSignInModal();
+        $('#player_name').html(player.name);
+        $('#login_button').hide();
+        $('#welcome').show();
+        rememberInLs(player);
+    } else {
+        $('#player_name').val('');
+        $('#login_button').show();
+        $('#welcome').hide();
+        clearLs();
+    }
+}
+
+function clearSignInModal() {
+    $('#phone_number').val('');
+    $('#password').val('');
+
+    $('#signin_dialog').modal('hide');
 }
 
 function onResetPassword() {

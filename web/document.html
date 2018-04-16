@@ -10,6 +10,7 @@
     <meta name="author" content="dummy team">
     <title>开发指南</title>
     <link rel="stylesheet" href="./js/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./js/public/bower_components/toastr/toastr.min.css">
     <link rel="stylesheet" href="./style/document.css">
 </head>
 <body>
@@ -29,11 +30,11 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" onclick="setBoard();">创建游戏
+                                <a href="#" onclick="validateSignIn(setBoard);">创建游戏
                                 </a>
                             </li>
                             <li>
-                                <a href="#" onclick="gotoGameHall();">游戏大厅
+                                <a href="./hall.html">游戏大厅
                                 </a>
                             </li>
                             <li>
@@ -1042,6 +1043,14 @@
                     <hr>
                     <a style="text-decoration: none;"><h4><strong>规则篇</strong></h4></a>
                     <p>
+                        Q: 我的163邮箱收到了比赛报名成功邮件，但是内容是乱码，我该怎么办？
+                    </p>
+                    <p>
+                        A: 请按照下图的方式修改邮件的编码方式为UTF-8，然后再阅览邮件，谢谢！
+                        <br>
+                        <img src="./res/images/mail_163_settings.png">
+                    </p>
+                    <p>
                         Q: 本次比赛是有上限还是无上限类型？
                     </p>
                     <p>
@@ -1164,123 +1173,13 @@
             </div>
         </div>
     </div>
-
-    <!-- game settings dialog -->
-    <div class="modal fade dialog" id="goto_game_dialog" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
-                    <span class="modal-title">创建游戏</span>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <p><strong>参数设置</strong></p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">指令间隔&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="为了让您看清楚 Live 上玩家的出牌顺序， 服务器上可以在连续两条 action 请求之间加上一定时间间隔"></span></span>
-                                    <input type="number" min="0" max="2" step="0.2" class="form-control" placeholder="指令间隔" id="game_command_interval" value="1" onkeydown="return false">
-                                    <span class="input-group-addon">秒</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">回合间隔&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="在每回合清算的时候将展示玩家手牌， 得分和牌面组合， 以及让客户端请求reload 的这个时间间隔"></span></span>
-                                    <input type="number" min="5" max="30" step="5" class="form-control" placeholder="回合间隔" id="game_round_interval" value="15" onkeydown="return false">
-                                    <span class="input-group-addon">秒</span>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">指令超时&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="服务器等待客户端决策指令的超时时间， 正式比赛为 2 秒"></span></span>
-                                    <input type="number" min="1" max="10" step="1" class="form-control" placeholder="指令超时" id="game_command_timeout" value="5" onkeydown="return false">
-                                    <span class="input-group-addon">秒</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">掉线超时&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="客户端因为各种原因掉线之后服务器的等待时间， 正式比赛为 10 秒"></span></span>
-                                    <input type="number" min="10" max="15" step="1" class="form-control" placeholder="回合间隔" id="game_lost_timeout" value="10" onkeydown="return false">
-                                    <span class="input-group-addon">秒</span>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">默认小盲&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="默认初始小盲注， 正式比赛为 10"></span></span>
-                                    <input type="number" min="10" max="100" step="10" class="form-control" placeholder="默认小盲" id="game_default_sb" value="10" onkeydown="return false">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">默认筹码&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="默认玩家初始以及每次reload可获得的筹码， 正式比赛为 1000"></span></span>
-                                    <input type="number" min="1000" max="2000" step="100" class="form-control" placeholder="默认筹码" id="game_default_chips" value="1000" onkeydown="return false">
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">重载次数&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="玩家可申请的reload的机会， 正式比赛为 2 次"></span></span>
-                                    <input type="number" min="0" max="5" step="1" class="form-control" placeholder="重载次数" id="game_reload_chance" value="2" onkeydown="return false">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="input-group" style="padding-top: 6px;">
-                                    <input type="checkbox" id="game_sound" checked/> 音效&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="就是音效呗"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="input-group" style="padding-top: 6px;">
-                                    <input type="checkbox" id="game_bgm" checked/> 音乐&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="无限洗脑循环"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="input-group" style="padding-top: 6px;">
-                                    <input type="checkbox" id="auto_restart"/> 循环&nbsp;<span class="glyphicon glyphicon-question-sign tool_tip" data-toggle="tooltip" title="自动重新开始下一局比赛"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="createBoard();">确定</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- hint dialog -->
-    <div class="modal fade" id="hint_dialog" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">提示</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="text_hint"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">确定</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="dialogs"></div>
 </body>
 
 <script src="./js/public/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="./js/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./js/public/bower_components/bootstrap/js/modal.js"></script>
+<script src="./js/public/bower_components/toastr/toastr.min.js"></script>
 <script src="./js/public/bower_components/bootstrap/js/alert.js"></script>
 <script src="./js/utils/md5.js"></script>
 <script src="./js/utils/url-parser.js"></script>

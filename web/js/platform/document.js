@@ -4,11 +4,8 @@
  */
 
 $(document).ready(function () {
-    phoneNumber = getParameter('phoneNumber') || localStorage.getItem('phoneNumber');
-    token = getParameter('token') || localStorage.getItem('token');
-    console.log("phoneNumber = " + phoneNumber + ", token = " + token);
-    localStorage.setItem('phoneNumber', phoneNumber);
-    localStorage.setItem('token', token);
+    $('#dialogs').load('dialogs.html');
+    validateSignIn();
 });
 
 function createDummy() {

@@ -24,9 +24,7 @@ exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, from,
             LIST_ACTIVE_BOARDS_SERVICE,
             queryParams);
     var headers = {
-        'Content-Type': 'application/json',
-        'phone-number': phoneNumber,
-        'token': token
+        'Content-Type': 'application/json'
     };
 
     var listActiveBoardsParameters = {
