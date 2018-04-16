@@ -180,13 +180,13 @@ table {
 
 #responsive
 @media (min-width: 768px) {
-    .cover-container {
+    .game-list {
         width: 100%; /* Must be percentage or pixels for horizontal alignment */
     }
 }
 
 @media (min-width: 940px) {
-    .cover-container {
+    .game-list {
         width: 940px;
     }
 }
