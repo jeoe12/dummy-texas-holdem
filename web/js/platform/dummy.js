@@ -31,7 +31,7 @@ $(document).ready(function () {
     port = getParameter('port');
 
     var host = window.location.hostname;
-    serverAddress = 'ws://' + host + ':' + port;
+    serverAddress = 'wss://' + host + ':' + port;
 
     writeToCommands('player : ' + phoneNumber + ', server : ' + serverAddress);
     $('#player_name').html(phoneNumber);
