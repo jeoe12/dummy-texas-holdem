@@ -9,23 +9,17 @@ $(document).ready(function () {
 });
 
 function createDummy() {
-    var phoneNumber = $('#player_name').val();
-    var password = $('#password').val();
     var ticket = $('#ticket').val();
     var port = $('#port').val();
 
-    if (null === phoneNumber || "" === password || "" === ticket || "" === port) {
+    if ("" === ticket || "" === port) {
         return;
     }
 
-    password = md5(password);
     var hostName = window.location.hostname + ':' + window.location.port;
-    var dummyURL = 'http://' + hostName + '/dummy.html?phoneNumber='+phoneNumber+'&password='+password+
-        '&ticket='+ticket+'&port='+port;
+    var dummyURL = 'http://' + hostName + '/dummy.html?ticket='+ticket+'&port='+port;
     window.open(dummyURL);
 
-    $('#player_name').val('');
-    $('#password').val('');
     $('#ticket').val('');
     $('#port').val('');
 }

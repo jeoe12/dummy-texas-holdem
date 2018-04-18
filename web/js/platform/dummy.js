@@ -15,8 +15,6 @@ var gameStatus = 0;
 var risk = 1;
 var danger = 2;
 var rtc = SkyRTC();
-var phoneNumber = '';
-var password = '';
 var ticket = '';
 var serverAddress = '';
 var maxCommands = 500;
@@ -25,24 +23,22 @@ var playerName = '';
 var port = '';
 
 $(document).ready(function () {
-    phoneNumber = getParameter('phoneNumber');
-    password = getParameter('password');
     ticket = getParameter('ticket');
     port = getParameter('port');
 
     var host = window.location.hostname;
     serverAddress = 'ws://' + host + ':' + port;
 
-    writeToCommands('player : ' + phoneNumber + ', server : ' + serverAddress);
-    $('#player_name').html(phoneNumber);
-    document.title = "THE Dummy " + phoneNumber;
-    playerName = phoneNumber;
+    writeToCommands('player : Dummy, server : ' + serverAddress);
+    $('#player_name').html('Dummy');
+    document.title = 'THE Dummy';
+    playerName = 'Dummy';
 
     initRTC();
 });
 
 function initRTC() {
-    rtc.connect(serverAddress, '', password, phoneNumber, '', ticket, port, false, 0);
+    rtc.connect(serverAddress, '', '000000', '00000000000', '', ticket, port, false, 0);
 
     rtc.on('__action', function (data) {
         writeToCommands('<<< action: ' + JSON.stringify(data, null, 4));
@@ -267,8 +263,8 @@ function fold() {
 
 // utils
 function getQueryStringRegExp(name) {
-    var reg = new RegExp("(^|\\?|&|)" + name + "=([^&]*)(\\s|&|$|)", "i");
-    if (reg.test(decodeURI(location.href))) return unescape(RegExp.$2.replace(/\+/g, " "));
+    var reg = new RegExp('(^|\\?|&|)' + name + '=([^&]*)(\\s|&|$|)', 'i');
+    if (reg.test(decodeURI(location.href))) return unescape(RegExp.$2.replace(/\+/g, ' '));
     return "";
 }
 
@@ -288,11 +284,11 @@ function writeToCommands(text) {
         clearCommands();
     }
     commandCount++;
-    document.getElementById("commands").value += text;
-    document.getElementById("commands").value += "\r\n";
+    document.getElementById('commands').value += text;
+    document.getElementById('commands').value += '\r\n';
     console.log(text);
 }
 
 function clearCommands() {
-    document.getElementById("commands").value = "";
+    document.getElementById('commands').value = "";
 }
