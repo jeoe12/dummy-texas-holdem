@@ -266,23 +266,7 @@ function resetPassword() {
                 localStorage.setItem('password', password);
                 clearResetPasswordModal();
             } else {
-                switch(parseInt(response.status.code)) {
-                    case WRONG_ENV:
-                        toastr.error('运行环境错误');
-                        break;
-                    case AUTHENTICATION_FAILED:
-                        toastr.error('短信验证码无效');
-                        break;
-                    case PLAYER_EXISTED:
-                        toastr.error('此手机号已注册');
-                        break;
-                    case INVALID_EMAIL:
-                        toastr.error('邮箱地址无效');
-                        break;
-                    default:
-                        toastr.error('注册失败, 请检查所填内容是否正确');
-                        break;
-                }
+                toastr.error('密码修改失败');
             }
         },
         error: function() {
@@ -316,14 +300,7 @@ function sendVerificationCode() {
             if (response.status.code === 0) {
                 toastr.success('短信验证码发送成功');
             } else {
-                switch(parseInt(response.status.code)) {
-                    case PLAYER_NOT_EXIST:
-                        toastr.error('此手机号没有注册');
-                        break;
-                    default:
-                        toastr.error('短信发送失败, 请检查手机号码是否正确');
-                        break;
-                }
+                toastr.error('短信发送失败, 请检查手机号码是否正确');
             }
         },
         error: function() {
