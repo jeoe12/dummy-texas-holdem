@@ -35,7 +35,7 @@ function setBoard(canSetBoard, player) {
     if (canSetBoard && player) {
         $('#goto_game_dialog').modal();
     } else {
-        toastr.warning('请先登录之后再创建游戏');
+        toastr.warning('请先登录之后再创建比赛');
         $('#goto_game_dialog').modal('hide');
         $('#signin_dialog').modal();
     }
