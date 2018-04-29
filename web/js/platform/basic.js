@@ -53,19 +53,16 @@ function createBoard() {
         },
         timeout: 20000,
         success: function (response) {
-            console.log('create board response : ' + JSON.stringify(response));
             if (response.status.code === 0) {
                 var board = response.entity;
                 onBoardCreated(board);
             } else if (response.status.code === MULTI_ACTIVE_BOARD_CREATED) {
-                console.log('create board failed : ' + JSON.stringify(response.entity));
                 if (response.entity.ticket) {
                     gotoGame(response.entity.ticket, response.entity.port);
                 }
             }
         },
         error: function () {
-            console.log('create board failed');
             popUpHintDialog('服务器暂时没有响应，请稍后重试');
         }
     });

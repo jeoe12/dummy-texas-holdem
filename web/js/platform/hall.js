@@ -60,13 +60,11 @@ function searchBoards(searchName) {
                 }
                 onTheBoardsListed();
             } else {
-                console.log('search boards failed');
                 toastr.info("已经没有更多了");
                 onTheBoardsListed();
             }
         },
         error: function () {
-            console.log('search boards failed');
             toastr.info("已经没有更多了");
             onTheBoardsListed();
         }
@@ -97,12 +95,10 @@ function listTheBoards() {
                 }
                 onTheBoardsListed();
             } else {
-                console.log('list boards failed');
                 onTheBoardsListed();
             }
         },
         error: function () {
-            console.log('list boards failed');
             onTheBoardsListed();
         }
     });

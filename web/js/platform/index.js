@@ -37,7 +37,6 @@ function onSignedOut(success) {
         toastr.success('注销成功');
         localStorage.removeItem('phoneNumber');
         localStorage.removeItem('token');
-        console.log('back to index ' + window.location.host);
         window.location.reload();
     } else {
         toastr.error('注销失败');

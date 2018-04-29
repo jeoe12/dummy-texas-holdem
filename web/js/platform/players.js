@@ -40,7 +40,6 @@ function loadTables() {
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
-                console.log('list tables successfully');
                 refreshTables(response.entity);
                 if (0 === currentTableNumber) {
                     currentTableNumber = response.entity[0].tableNumber;
@@ -255,7 +254,6 @@ function removePlayer() {
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
-                console.log('delete player successfully');
                 onPlayerUnselected();
                 loadTables();
                 loadPlayersByTable();

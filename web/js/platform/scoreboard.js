@@ -19,7 +19,6 @@ function updateScoreBoard() {
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
-                console.log(response.entity);
                 onScoreBoardUpdated(response.entity);
             } else {
                 console.log("list scoreboard failed");
