@@ -141,3 +141,9 @@ tbody {
 table {
     border-collapse: collapse;
 }
+
+@media screen and (min-width: 0px) and (max-width: 767px) {
+    .pc-only {
+        display: none;
+    }
+}

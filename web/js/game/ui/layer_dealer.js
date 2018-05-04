@@ -131,8 +131,11 @@ var DealerLayer = cc.LayerColor.extend({
         this.copyButton.addTouchEventListener(function (sender, type) {
             if (ccui.Widget.TOUCH_ENDED === type) {
                 if (STATUS_GAME_RUNNING !== gameStatus) {
+                    copyToClipboard();
+                    /*
                     $('#board_ticket').select();
                     document.execCommand("copy");
+                    */
                     this.clickSprite.setVisible(false);
                 }
             }

@@ -113,7 +113,7 @@ $(document).ready(function () {
         return;
     }
 
-    $('#board_ticket').val(ticket);
+    $('#copy_me').val(ticket);
 
     if (true === isHuman && playerName) {
         playMode = MODE_PLAYER;
@@ -802,6 +802,48 @@ function getElementTop(element) {
         current = current.offsetParent;
     }
     return actualTop;
+}
+
+function copyToClipboardFF() {
+}
+
+function copyToClipboard() {
+    var success   = true,
+        range     = document.createRange(),
+        selection;
+
+    var input = $("#copy_me");
+
+    if (window.clipboardData) {
+        window.clipboardData.setData("Text", input.val());
+    } else {
+        // Create a temporary element off screen.
+        var tmpElem = $('<div>');
+        tmpElem.css({
+            position: "absolute",
+            left:     "-1000px",
+            top:      "-1000px"
+        });
+        // Add the input value to the temp element.
+        tmpElem.text(input.val());
+        $("body").append(tmpElem);
+        // Select temp element.
+        range.selectNodeContents(tmpElem.get(0));
+        selection = window.getSelection ();
+        selection.removeAllRanges ();
+        selection.addRange (range);
+        // Lets copy.
+        try {
+            success = document.execCommand("copy", false, null);
+        }
+        catch (e) {
+            copyToClipboardFF(input.val());
+        }
+        if (success) {
+            // remove temp element.
+            tmpElem.remove();
+        }
+    }
 }
 
 // Action helper
