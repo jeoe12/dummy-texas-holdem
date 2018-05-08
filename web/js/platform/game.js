@@ -79,9 +79,11 @@ var currentBigBlind = 0;
 // communication related
 var rtc = SkyRTC();
 
+/*
 window.onbeforeunload = function () {
     return 'Are you sure to leave?';
 };
+*/
 
 $(document).ready(function () {
     // initialize phoneNumber and token
@@ -126,6 +128,14 @@ $(document).ready(function () {
     initGame();
 });
 
+var onSocketClosed = function(data) {
+    console.log("socket closed : " + JSON.stringify(data));
+    // refresh this page
+    if (STATUS_GAME_ENDED !== gameStatus || STATUS_GAME_FINISHED !== gameStatus) {
+        location.reload();
+    }
+};
+
 // game communication with back-end
 function initWebsock() {
     // initialize web communication
@@ -137,9 +147,9 @@ function initWebsock() {
 
     // TODO: to identify human and live role
     if (isHuman) {
-        rtc.connect(serverAddress, playerName, password, phoneNumber, token, ticket, port, isHuman, danmu);
+        rtc.connect(serverAddress, playerName, password, phoneNumber, token, ticket, port, isHuman, danmu, onSocketClosed);
     } else {
-        rtc.connect(serverAddress, playerName, null, null, token, ticket, port, isHuman, danmu);
+        rtc.connect(serverAddress, playerName, null, null, token, ticket, port, isHuman, danmu, onSocketClosed);
     }
 
     rtc.on('__message', function (data) {

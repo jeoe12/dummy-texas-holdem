@@ -44,7 +44,8 @@ var SkyRTC = function () {
      * @param isHuman
      * @param danmu
      */
-    skyrtc.prototype.connect = function (server, playerName, password, phoneNumber, token, ticket, port, isHuman, danmu) {
+    skyrtc.prototype.connect = function (server, playerName, password, phoneNumber, token, ticket, port, isHuman, danmu,
+                                         onSocketClosed) {
         var socket,
             that = this;
 
@@ -81,8 +82,10 @@ var SkyRTC = function () {
         };
 
         socket.onclose = function (data) {
-
             that.emit('socket_closed', socket);
+            if (onSocketClosed) {
+                onSocketClosed(data);
+            }
         };
 
         this.on('_peers', function (data) {
