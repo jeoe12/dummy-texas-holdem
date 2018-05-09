@@ -152,3 +152,14 @@ exports.resetPassword = function (req, res) {
         res.end();
     });
 };
+
+exports.getRandomDummy = function (req, res) {
+    var playerResponse = new PlayerResponse();
+
+    playerLogic.getRandomDummyWorkUnit(function(getRandomDummyErr, dummy) {
+        playerResponse.status = getRandomDummyErr;
+        playerResponse.entity = dummy;
+        res.send(playerResponse);
+        res.end();
+    });
+};

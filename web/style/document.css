@@ -133,3 +133,8 @@ tbody {
 table {
     border-collapse: collapse;
 }
+
+.input-group-addon-title {
+    min-width: 100px;
+    text-align: right;
+}

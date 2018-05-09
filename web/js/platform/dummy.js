@@ -21,10 +21,14 @@ var maxCommands = 500;
 var commandCount = 0;
 var playerName = '';
 var port = '';
+var phoneNumber = '';
+var password = '';
 
 $(document).ready(function () {
     ticket = getParameter('ticket');
     port = getParameter('port');
+    phoneNumber = getParameter('phoneNumber');
+    password = getParameter('password');
 
     var host = window.location.hostname;
     serverAddress = 'ws://' + host + ':' + port;
@@ -38,7 +42,7 @@ $(document).ready(function () {
 });
 
 function initRTC() {
-    rtc.connect(serverAddress, '', '000000', '00000000000', '', ticket, port, false, 0);
+    rtc.connect(serverAddress, '', password, phoneNumber, '', ticket, port, false, 0);
 
     rtc.on('__action', function (data) {
         writeToCommands('<<< action: ' + JSON.stringify(data, null, 4));

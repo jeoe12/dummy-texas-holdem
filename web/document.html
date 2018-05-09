@@ -1009,23 +1009,37 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <span class="input-group-addon">游戏条码</span>
+                                    <span class="input-group-addon input-group-addon-title">游戏条码</span>
                                     <input type="text" class="form-control" placeholder="请从游戏界面复制并粘贴到这里" id="ticket">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <span class="input-group-addon">游戏端口</span>
+                                    <span class="input-group-addon input-group-addon-title">游戏端口</span>
                                     <input type="number" class="form-control" placeholder="请在游戏界面查看" id="port">
                                 </div>
                             </div>
                         </div>
-
+                        <br>
+                        <p>系统中存在5000个Dummy，如果你想指定固定的Dummy，那么请填写10000000000~10000004999范围内的任意号码，密码为123456。如果不填写电话号码和密码，系统将随机分配Dummy和你对战。所有Dummy使用的智能(zhang)均相同，没有差别。</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon input-group-addon-title">电话号码</span>
+                                    <input type="number" class="form-control" placeholder="填写以指定Dummy，也可不填" id="phone_number">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon input-group-addon-title">密码</span>
+                                    <input type="password" class="form-control" placeholder="Dummy的密码是123456，也可不填" id="password">
+                                </div>
+                            </div>
+                        </div>
                         <br>
                         <p><a class="btn btn-default" role="button" onclick="createDummy();">启动Dummy &raquo;</a></p>
                     </div>
                     <hr>
-                    <!--
                     <div>
                         <h2>MD5 Hash</h2>
                         <p>您可以在这里 Hash 您的用户名以便在代码中进行自我判断， 当然您也可以在代码中集成 128bit 的 MD5 算法(输出为32字节 hex 格式文本， 英文字母小写)</p>
@@ -1038,7 +1052,6 @@
                         <br>
                         <p><a class="btn btn-default" role="button" onclick="hashName();">生成散列报文 &raquo;</a></p>
                     </div>
-                    -->
                 </div>
                 <div class="tab-pane" id="faq">
                     <h3><strong>FAQ</strong></h3>
@@ -1145,14 +1158,13 @@
                     </p>
                     <br>
                 </div>
-                <!--
                 <div class="tab-pane" id="credit">
                     <h3><strong>关于</strong></h3>
                     <hr>
                     <a style="text-decoration: none;"><h4><strong>平台开发团队</strong></h4></a>
                     <p>Dummy-team</p>
                     <p>
-                        制作人/主程: Strawmanbobi
+                        制作人/主程: <a href="https://github.com/strawmanbobi">Strawmanbobi</a>
                     </p>
                     <p>
                         开发: JiePing.Yang, Bruce.Wang, Elsie.Ding
@@ -1173,7 +1185,6 @@
                     <a href="#" style="text-decoration: none;"><strong>Powered by Dummy AI Games 1.0.1</strong></a>
                     <br>
                 </div>
-                -->
             </div>
         </div>
     </div>
@@ -1187,6 +1198,7 @@
 <script src="./js/public/bower_components/bootstrap/js/alert.js"></script>
 <script src="./js/utils/md5.js"></script>
 <script src="./js/utils/url-parser.js"></script>
+<script src="./js/utils/string-utils.js"></script>
 <script src="./js/platform/basic.js"></script>
 <script src="./js/platform/document.js"></script>
 </html>

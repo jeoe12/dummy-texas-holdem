@@ -16,6 +16,7 @@ var SIGN_OUT_SERVICE = '/players/sign_out';
 var VALIDATE_SIGN_IN_SERVICE = '/players/validate_sign_in';
 var GET_PLAYER_BY_TOKEN_SERVICE = '/players/get_player_by_token';
 var RESET_PASSWORD_SERVICE = '/players/reset_password';
+var GET_RANDOM_DUMMY_SERVICE = '/players/get_random_dummy';
 
 
 exports.sendSmsForUpdateWorkUnit = function (phoneNumber, callback) {
@@ -197,4 +198,33 @@ exports.resetPasswordWorkUnit = function (phoneNumber, verificationCode, passwor
             callback(errorCode.FAILED);
         }
     });
+};
+
+exports.getRandomDummyWorkUnit = function (callback) {
+    // send HTTP request to engine server to reset password
+    var queryParams = new Map();
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            GET_RANDOM_DUMMY_SERVICE,
+            queryParams);
+
+    var headers = {
+        'Content-Type': 'application/json'
+    };
+
+    logger.info("get random dummy");
+
+    requestSender.sendPostRequest({}, headers,
+        function (getRandomDummyErr, playerResponse) {
+            if (errorCode.SUCCESS.code === getRandomDummyErr &&
+                JSON.parse(playerResponse).status.code === errorCode.SUCCESS.code) {
+                logger.info("get dummy successfully");
+                var player = JSON.parse(playerResponse).entity;
+                callback(errorCode.SUCCESS, player);
+            } else {
+                logger.error("get dummy failed");
+                callback(errorCode.FAILED, null);
+            }
+        });
 };
