@@ -12,7 +12,7 @@ function createDummy() {
     var ticket = $('#ticket').val();
     var port = $('#port').val();
     var phoneNumber = $('#phone_number').val();
-    var password = MD5($('#password').val());
+    var password = $('#password').val();
 
     if (isEmpty(ticket) || isEmpty(port)) {
         return;
@@ -52,6 +52,7 @@ function createDummy() {
             }
         });
     } else {
+        var password = md5(password);
         var hostName = window.location.hostname + ':' + window.location.port;
         var dummyURL = 'http://' + hostName + '/dummy.html?ticket='+ticket+'&port='+port+
             '&phoneNumber='+phoneNumber+'&password='+password;
