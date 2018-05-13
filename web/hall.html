@@ -110,7 +110,26 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    <button id="delete_board_button" type="button" class="btn btn-danger" style="display: none;" onclick="onDeleteBoard();">删除游戏</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade dialog" id="delete_game_dialog" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
+                    <span class="modal-title">删除游戏</span>
+                </div>
+                <div class="modal-body">
+                    确定要删除这个游戏吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="deleteBoard();">删除游戏</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>

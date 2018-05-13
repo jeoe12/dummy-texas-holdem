@@ -58,6 +58,20 @@ exports.updateBoard = function (req, res) {
     });
 };
 
+exports.deleteBoard = function (req, res) {
+    var ticket = req.body.ticket;
+    var paramToken = req.body.token;
+    var phoneNumber = req.headers["phone-number"];
+    var token = req.headers["token"];
+
+    var serviceResponse = new ServiceResponse();
+    boardLogic.deleteBoardsWorkUnit(ticket, phoneNumber, paramToken, function(createBoardsErr, board) {
+        serviceResponse.status = createBoardsErr;
+        res.send(serviceResponse);
+        res.end();
+    });
+};
+
 exports.isCreatorBoard = function (req, res) {
     var ticket = req.body.ticket;
     var phoneNumber = req.headers["phone-number"];

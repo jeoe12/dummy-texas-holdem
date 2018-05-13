@@ -13,6 +13,7 @@ var Map = require('../poem/mem/map.js');
 var LIST_ACTIVE_BOARDS_SERVICE = '/board/list_active_boards';
 var CREATE_BOARD_SERVICE = '/board/create_board';
 var UPDATE_BOARD_SERVICE = '/board/update_board';
+var DELETE_BOARD_SERVICE = '/board/delete_board';
 var IS_CREAGOR_BOARD_SERVICE = '/board/is_creator_board';
 
 exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, from, count, searchName, callback) {
@@ -115,6 +116,38 @@ exports.updateBoardsWorkUnit = function (ticket, gameName, newBoard, phoneNumber
         } else {
             logger.error("update board failed");
             callback(errorCode.FAILED, null);
+        }
+    });
+};
+
+exports.deleteBoardsWorkUnit = function (ticket, phoneNumber, token, callback) {
+    // send HTTP request to engine server to list boards
+    var queryParams = new Map();
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            DELETE_BOARD_SERVICE,
+            queryParams);
+
+    var headers = {
+        'Content-Type': 'application/json',
+        'phone-number': phoneNumber,
+        'token': token
+    };
+
+    var deleteBoardParameters = {
+        token: token,
+        ticket: ticket
+    };
+
+    requestSender.sendPostRequest(deleteBoardParameters, headers, function (deleteBoardErr, serviceResponse) {
+        if (errorCode.SUCCESS.code === deleteBoardErr &&
+            JSON.parse(serviceResponse).status.code === errorCode.SUCCESS.code) {
+            logger.info("delete board successfully");
+            callback(errorCode.SUCCESS);
+        } else {
+            logger.error("delete board failed");
+            callback(errorCode.FAILED);
         }
     });
 };

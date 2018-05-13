@@ -104,6 +104,30 @@ function listTheBoards() {
     });
 }
 
+function deleteBoard() {
+    $.ajax({
+        url: '/api/board/delete_board',
+        headers: {"phone-number": phoneNumber, "token": token},
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            token: token,
+            ticket: currentBoard.ticket
+        },
+        timeout: 20000,
+        success: function (response) {
+            if (response.status.code === 0) {
+                onBoardDeleted(true);
+            } else {
+                onBoardDeleted(false);
+            }
+        },
+        error: function () {
+            onBoardDeleted(false);
+        }
+    });
+}
+
 function onTheBoardsListed() {
     var columnInRow = 3;
     if (null !== fullBoardList) {
@@ -185,7 +209,28 @@ function onJoin(boardIndex) {
         playerInfo += ' ';
     }
     $('#info_players').html(playerInfo);
+
+    if (currentBoard.creator === phoneNumber) {
+        $('#delete_board_button').show();
+    } else {
+        $('#delete_board_button').hide();
+    }
     $('#join_game_dialog').modal();
+}
+
+function onDeleteBoard() {
+    $('#join_game_dialog').modal('hide');
+    $('#delete_game_dialog').modal();
+}
+
+function onBoardDeleted(success) {
+    if (success) {
+        toastr.success('游戏已删除');
+        $('#delete_game_dialog').modal('hide');
+        listTheBoards();
+    } else {
+        toastr.warning('删除游戏失败');
+    }
 }
 
 // for live
