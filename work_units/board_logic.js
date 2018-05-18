@@ -15,6 +15,7 @@ var CREATE_BOARD_SERVICE = '/board/create_board';
 var UPDATE_BOARD_SERVICE = '/board/update_board';
 var DELETE_BOARD_SERVICE = '/board/delete_board';
 var IS_CREAGOR_BOARD_SERVICE = '/board/is_creator_board';
+var LIST_MATCH_TABLES_SERVICE = '/board/list_match_tables';
 
 exports.listActiveBoardsWorkUnit = function (gameName, phoneNumber, token, from, count, searchName, callback) {
     // send HTTP request to engine server to list boards
@@ -181,6 +182,33 @@ exports.isCreatorBoardWorkUnit = function (ticket, phoneNumber, token, callback)
             callback(errorCode.SUCCESS, isCreatorBoard);
         } else {
             logger.error("get is creator board failed");
+            callback(errorCode.FAILED, null);
+        }
+    });
+};
+
+exports.listTablesWorkUnit = function (callback) {
+    // send HTTP request to engine server to list match tables
+    var queryParams = new Map();
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            LIST_MATCH_TABLES_SERVICE,
+            queryParams);
+
+    var headers = {
+        'Content-Type': 'application/json'
+    };
+
+    requestSender.sendGetRequest({}, headers, function (listTablesErr, tablesResponse) {
+        if (errorCode.SUCCESS.code === listTablesErr &&
+            JSON.parse(tablesResponse).status.code === errorCode.SUCCESS.code) {
+            logger.info("list tables successfully");
+            var tables = JSON.parse(tablesResponse).entity;
+            logger.info("response of updated board = " + JSON.stringify(tables));
+            callback(errorCode.SUCCESS, tables);
+        } else {
+            logger.error("delete board failed");
             callback(errorCode.FAILED, null);
         }
     });

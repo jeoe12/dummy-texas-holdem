@@ -8,6 +8,7 @@ body {
     overflow-y: scroll;
     -webkit-background-size: cover;
     background-image: url('../res/images/background.png');
+    background-attachment: fixed;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;

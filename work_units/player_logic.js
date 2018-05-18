@@ -17,6 +17,8 @@ var VALIDATE_SIGN_IN_SERVICE = '/players/validate_sign_in';
 var GET_PLAYER_BY_TOKEN_SERVICE = '/players/get_player_by_token';
 var RESET_PASSWORD_SERVICE = '/players/reset_password';
 var GET_RANDOM_DUMMY_SERVICE = '/players/get_random_dummy';
+var GET_CONTESTANTS_SERVICE = '/players/get_contestants';
+var GET_KANBAN_CONTESTANTS_SERVICE = '/players/get_kanban_contestants';
 
 
 exports.sendSmsForUpdateWorkUnit = function (phoneNumber, callback) {
@@ -213,17 +215,68 @@ exports.getRandomDummyWorkUnit = function (callback) {
         'Content-Type': 'application/json'
     };
 
-    logger.info("get random dummy");
-
     requestSender.sendPostRequest({}, headers,
         function (getRandomDummyErr, playerResponse) {
             if (errorCode.SUCCESS.code === getRandomDummyErr &&
                 JSON.parse(playerResponse).status.code === errorCode.SUCCESS.code) {
-                logger.info("get dummy successfully");
                 var player = JSON.parse(playerResponse).entity;
                 callback(errorCode.SUCCESS, player);
             } else {
                 logger.error("get dummy failed");
+                callback(errorCode.FAILED, null);
+            }
+        });
+};
+
+exports.getContestantsWorkUnit = function (callback) {
+    // send HTTP request to engine server to list contestants for specific table
+    var queryParams = new Map();
+
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            GET_CONTESTANTS_SERVICE,
+            queryParams);
+
+    var headers = {
+        'Content-Type': 'application/json'
+    };
+
+    requestSender.sendGetRequest({}, headers,
+        function (getContestantsErr, playerResponse) {
+            if (errorCode.SUCCESS.code === getContestantsErr &&
+                JSON.parse(playerResponse).status.code === errorCode.SUCCESS.code) {
+                var contestants = JSON.parse(playerResponse).entity;
+                callback(errorCode.SUCCESS, contestants);
+            } else {
+                logger.error("get contestants failed");
+                callback(errorCode.FAILED, null);
+            }
+        });
+};
+
+exports.getKanbanContestantsWorkUnit = function (tableNumber, callback) {
+    // send HTTP request to engine server to list contestants for specific table
+    var queryParams = new Map();
+    queryParams.put("table_number", tableNumber);
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            GET_KANBAN_CONTESTANTS_SERVICE,
+            queryParams);
+
+    var headers = {
+        'Content-Type': 'application/json'
+    };
+
+    requestSender.sendGetRequest({}, headers,
+        function (getContestantsErr, playerResponse) {
+            if (errorCode.SUCCESS.code === getContestantsErr &&
+                JSON.parse(playerResponse).status.code === errorCode.SUCCESS.code) {
+                var contestants = JSON.parse(playerResponse).entity;
+                callback(errorCode.SUCCESS, contestants);
+            } else {
+                logger.error("get contestants failed");
                 callback(errorCode.FAILED, null);
             }
         });

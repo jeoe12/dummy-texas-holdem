@@ -6,6 +6,7 @@
 var tempFrom = 0;
 var from = 0;
 var count = 12;
+var tables;
 
 $(document).ready(function () {
     $('#dialogs').load('dialogs.html');
@@ -45,56 +46,69 @@ function searchKnaban(searchName) {
 
 function listTheKanban() {
     $('#search_name').val('');
+    $.ajax({
+        url: '/api/board/list_match_tables',
+        headers: {"phone-number": phoneNumber, "token": token},
+        type: 'GET',
+        dataType: 'json',
+        timeout: 20000,
+        success: function (response) {
+            if (response.status.code === 0) {
+                tables = response.entity;
+                if (null === tables || 0 === tables.length) {
+                    onKanbanListed(false);
+                } else {
+                    onKanbanListed(true);
+                }
+            } else {
+                onKanbanListed(false);
+            }
+        },
+        error: function () {
+            onKanbanListed(false);
+        }
+    });
 }
 
-function onKanbanListed() {
-    var columnInRow = 3;
-    if (null !== fullBoardList) {
-        document.getElementById('board_list').innerHTML = '';
-        var boardListContent = '';
-        var i = 0;
-        for (i = 0; i < fullBoardList.length; i++) {
-            if (i % columnInRow === 0) {
-                boardListContent += '<div class="row">';
-            }
-            var status = fullBoardList[i].status;
-            var statusStr = '';
-            var statusStyle = '';
-            if (STATUS_READY === parseInt(status)) {
-                statusStr = '准备中';
-                statusStyle = 'game-ready';
-            } else if (STATUS_PREPARING === parseInt(status)) {
-                statusStr = '启动中';
-                statusStyle = 'game-playing';
-            } else if (STATUS_RUNNING === parseInt(status)) {
-                statusStr = '进行中';
-                statusStyle = 'game-playing';
-            } else if (STATUS_FINISHED === parseInt(status)) {
-                statusStr = '已结束';
-                statusStyle = 'game-ready';
-            } else if (STATUS_ENDED === parseInt(status)) {
-                statusStr = '已关闭';
-                statusStyle = 'game-ready';
-            } else {
-                statusStr = ' ';
-                statusStyle = 'game-ready';
-            }
-
-            boardListContent += '<div class="game-div col-md-4 div-bg-img" onclick="onJoin(' + i + ');">\n' +
-                '<div class="game-status ' + statusStyle + '">' + statusStr + '</div>\n' +
-                '<div class="game-creator">' + fullBoardList[i].creatorName + '</div>\n' +
-                '</div>';
-
-            if (i % columnInRow === 2) {
-                boardListContent += '</div>';
-            }
-        }
-        if (i % columnInRow !== 0) {
-            boardListContent += "</div>";
+function onKanbanListed(success) {
+    if (success) {
+        $('#kanban_empty').hide();
+        $('#kanban_list').show();
+        // list contestants for each table
+        for (var i = 0; i < tables.length; i++) {
+            listContestants(table[i].tableNumber);
         }
 
-        $('#board_list').append(boardListContent);
+    } else {
+        toastr.info("暂时没有数据");
+        $('#kanban_empty').show();
+        $('#kanban_list').hide();
     }
+}
+
+function listContestants(tableNumber) {
+    $.ajax({
+        url: '/api/players/get_contestants?table_number='+tableNumber,
+        headers: {"phone-number": phoneNumber, "token": token},
+        type: 'GET',
+        dataType: 'json',
+        timeout: 20000,
+        success: function (response) {
+            if (response.status.code === 0) {
+                tables = response.entity;
+                if (null === tables || 0 === tables.length) {
+                    onKanbanListed(false);
+                } else {
+                    onKanbanListed(true);
+                }
+            } else {
+                onKanbanListed(false);
+            }
+        },
+        error: function () {
+            onKanbanListed(false);
+        }
+    });
 }
 
 function onJoin(boardIndex) {

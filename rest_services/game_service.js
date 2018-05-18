@@ -7,6 +7,7 @@ var BoardResponse = require('../responses/board_response.js');
 var BoolResponse = require('../responses/bool_response.js');
 var PlayerResponse = require('../responses/player_response.js');
 var ServiceResponse = require('../responses/service_response.js');
+var TablesResponse = require('../responses/tables_response.js');
 
 var boardLogic = require('../work_units/board_logic.js');
 var playerLogic = require('../work_units/player_logic.js');
@@ -82,6 +83,19 @@ exports.isCreatorBoard = function (req, res) {
         boolResponse.status = isCreatorBoardErr;
         boolResponse.entity = result;
         res.send(boolResponse);
+        res.end();
+    });
+};
+
+exports.listMatchTables = function (req, res) {
+    var phoneNumber = req.headers["phone-number"];
+    var token = req.headers["token"];
+
+    var tablesResponse = new TablesResponse();
+    boardLogic.listTablesWorkUnit(function(listTablesErr, result) {
+        tablesResponse.status = listTablesErr;
+        tablesResponse.entity = result;
+        res.send(tablesResponse);
         res.end();
     });
 };
@@ -173,6 +187,30 @@ exports.getRandomDummy = function (req, res) {
     playerLogic.getRandomDummyWorkUnit(function(getRandomDummyErr, dummy) {
         playerResponse.status = getRandomDummyErr;
         playerResponse.entity = dummy;
+        res.send(playerResponse);
+        res.end();
+    });
+};
+
+exports.getContestants = function (req, res) {
+    var playerResponse = new PlayerResponse();
+
+    playerLogic.getContestantsWorkUnit(function(getContestantsErr, contestants) {
+        playerResponse.status = getContestantsErr;
+        playerResponse.entity = contestants;
+        res.send(playerResponse);
+        res.end();
+    });
+};
+
+exports.getKanbanContestants = function (req, res) {
+    var tableNumber = req.query.table_number;
+
+    var playerResponse = new PlayerResponse();
+
+    playerLogic.getKanbanContestantsWorkUnit(tableNumber, function(getContestantsErr, contestants) {
+        playerResponse.status = getContestantsErr;
+        playerResponse.entity = contestants;
         res.send(playerResponse);
         res.end();
     });
