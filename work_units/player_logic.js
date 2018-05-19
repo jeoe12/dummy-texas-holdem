@@ -273,8 +273,8 @@ exports.getKanbanContestantsWorkUnit = function (tableNumber, callback) {
         function (getContestantsErr, playerResponse) {
             if (errorCode.SUCCESS.code === getContestantsErr &&
                 JSON.parse(playerResponse).status.code === errorCode.SUCCESS.code) {
-                var contestants = JSON.parse(playerResponse).entity;
-                callback(errorCode.SUCCESS, contestants);
+                var kanbanContestants = JSON.parse(playerResponse).entity;
+                callback(errorCode.SUCCESS, kanbanContestants);
             } else {
                 logger.error("get contestants failed");
                 callback(errorCode.FAILED, null);

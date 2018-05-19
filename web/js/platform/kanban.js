@@ -1,12 +1,9 @@
 /**
  * Created by dummy-team
- * 2018-04-16
+ * 2018-05-16
  */
 
-var tempFrom = 0;
-var from = 0;
-var count = 12;
-var tables;
+var tables = [];
 
 $(document).ready(function () {
     $('#dialogs').load('dialogs.html');
@@ -14,38 +11,7 @@ $(document).ready(function () {
     listTheKanban();
 });
 
-function prevPage() {
-    if (0 === from) {
-        toastr.info('已经是第一页');
-    }
-    tempFrom = from = from - 12;
-    if (from < 0) {
-        from = 0;
-        tempFrom = 0;
-    }
-    listTheKanban();
-}
-
-function nextPage() {
-    tempFrom = from + 12;
-    listTheKanban();
-}
-
-function onSearch() {
-    var searchName = $('#search_name').val();
-    if (isEmpty(searchName)) {
-        toastr.error('请输入参赛者名称');
-        return;
-    }
-    searchKnaban(searchName);
-}
-
-function searchKnaban(searchName) {
-    $('#search_name').val('');
-}
-
 function listTheKanban() {
-    $('#search_name').val('');
     $.ajax({
         url: '/api/board/list_match_tables',
         headers: {"phone-number": phoneNumber, "token": token},
@@ -74,9 +40,22 @@ function onKanbanListed(success) {
     if (success) {
         $('#kanban_empty').hide();
         $('#kanban_list').show();
+        // create table dom
+        $('#kanban_list').html('');
+        var tableHtml = '';
+        console.log('table length = ' + tables.length);
+        for (var i = 0; i < tables.length; i++) {
+            tableHtml +=
+                '<div class="panel panel-default">' +
+                    '<div class="panel-heading"> <h4>第 ' + tables[i].tableNumber + ' 桌</h4> </div>' +
+                    '<div class="panel-body" id="table_'+tables[i].tableNumber+'">' +
+                    '</div>' +
+                '</div>';
+        }
+        $('#kanban_list').html(tableHtml);
         // list contestants for each table
         for (var i = 0; i < tables.length; i++) {
-            listContestants(table[i].tableNumber);
+            listContestants(tables[i].tableNumber);
         }
 
     } else {
@@ -88,27 +67,62 @@ function onKanbanListed(success) {
 
 function listContestants(tableNumber) {
     $.ajax({
-        url: '/api/players/get_contestants?table_number='+tableNumber,
+        url: '/api/players/get_kanban_contestants?table_number='+tableNumber,
         headers: {"phone-number": phoneNumber, "token": token},
         type: 'GET',
         dataType: 'json',
         timeout: 20000,
         success: function (response) {
             if (response.status.code === 0) {
-                tables = response.entity;
-                if (null === tables || 0 === tables.length) {
-                    onKanbanListed(false);
+                var kanbanContestants = response.entity;
+                if (null === kanbanContestants ||
+                    null === kanbanContestants.contestants || 0 === kanbanContestants.contestants.length) {
+                    onContestantsListed(false, null);
                 } else {
-                    onKanbanListed(true);
+                    onContestantsListed(true, kanbanContestants);
                 }
             } else {
-                onKanbanListed(false);
+                onContestantsListed(false, null);
             }
         },
         error: function () {
-            onKanbanListed(false);
+            onContestantsListed(false, null);
         }
     });
+}
+
+function onContestantsListed(success, kanbanContestants) {
+    if (success) {
+        var tableNumber = kanbanContestants.tableNumber;
+        var contestants = kanbanContestants.contestants;
+        var tableHtml = 
+            '<table class="table table-striped table-bordered">' +
+                '<thead>' +
+                '<tr>' +
+                    '<td>姓名</td>' +
+                    '<td>AI</td>' +
+                    '<td>学校</td>' +
+                    '<td>活跃度</td>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>';
+        for (var i = 0; i < contestants.length; i++) {
+            var contestant = contestants[i];
+            tableHtml +=
+                '<tr>' +
+                '<td>' + contestant.studentName + '</td>' +
+                '<td>' + contestant.name + '</td>' +
+                '<td>' + contestant.university + '</td>' +
+                '<td>' + contestant.activeStats + '</td>' +
+                '</tr>';
+        }
+        tableHtml +=
+                '</tbody>' +
+                '</table>';
+        $('#table_'+tableNumber).html(tableHtml);
+    } else {
+        console.log("list kanbanContestants failed");
+    }
 }
 
 function onJoin(boardIndex) {
