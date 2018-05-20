@@ -43,11 +43,10 @@ function onKanbanListed(success) {
         // create table dom
         $('#kanban_list').html('');
         var tableHtml = '';
-        console.log('table length = ' + tables.length);
         for (var i = 0; i < tables.length; i++) {
             tableHtml +=
                 '<div class="panel panel-default">' +
-                    '<div class="panel-heading"> <h4>第 ' + tables[i].tableNumber + ' 桌</h4> </div>' +
+                    '<div class="panel-heading"> <h4>第 ' + tables[i].tableNumber + ' 桌 <a href="#" onclick="gotoMatch('+i+')">[进入]</a></h4> </div>' +
                     '<div class="panel-body" id="table_'+tables[i].tableNumber+'">' +
                     '</div>' +
                 '</div>';
@@ -125,20 +124,10 @@ function onContestantsListed(success, kanbanContestants) {
     }
 }
 
-function onJoin(boardIndex) {
-
-}
-
-// for live
-function joinLive(canJoinLive, player) {
-    if (canJoinLive && player) {
-        var hostName = window.location.hostname + ':' + window.location.port;
-        var gameURL = 'http://' + hostName + '/game.html?ticket='+currentBoard.ticket+'&port='+currentBoard.port+'&bgm=1&sound=1';
-        window.open(gameURL);
-        $('#join_game_dialog').modal('hide');
-    } else {
-        toastr.warning('请先登录之后再观看比赛');
-        $('#goto_game_dialog').modal('hide');
-        $('#signin_dialog').modal();
-    }
+function gotoMatch(tableIndex) {
+    var table = tables[tableIndex];
+    var hostName = 'localhost:8081';
+    var gameURL = 'http://' + hostName + '/game.html?ticket='+table.ticket+
+        '&port='+table.port+'&table='+table.tableNumber;
+    window.open(gameURL);
 }
