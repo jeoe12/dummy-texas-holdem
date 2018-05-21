@@ -127,7 +127,7 @@ function onContestantsListed(success, kanbanContestants) {
 
 function gotoMatch(tableIndex) {
     var table = tables[tableIndex];
-    var hostName = 'localhost:8081';
+    var hostName = window.location.hostname + ':' + table.port;
     var gameURL = 'http://' + hostName + '/game.html?ticket='+table.ticket+
         '&port='+table.port+'&table='+table.tableNumber;
     window.open(gameURL);
