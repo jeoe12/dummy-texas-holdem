@@ -36,6 +36,40 @@ function listTheKanban() {
     });
 }
 
+function fetchPasscode() {
+    phoneNumber = localStorage.getItem('phoneNumber');
+    token = localStorage.getItem('token');
+
+    if (null === phoneNumber || null === token) {
+        toastr.error('您并没有登录，请返回主页并登录重试');
+        return;
+    }
+    $.ajax({
+        url: '/api/players/fetch_passcode',
+        headers: {'phone-number': phoneNumber, 'token': token},
+        type: 'POST',
+        data: JSON.stringify({phoneNumber: phoneNumber}),
+        contentType: 'application/json; charset=utf-8',
+        timeout: 20000,
+        success: function(response) {
+            if (response.status.code === 0) {
+                toastr.success('已确认参赛并已发送参赛用密码');
+            } else if (response.status.code === -3) {
+                toastr.error('您并没有登录，请返回主页并登录重试');
+            } else if (response.status.code === -9) {
+                toastr.error('已超过获取密码次数限制3次，如果遗失密码，请联系主办方工作人员');
+            } else if (response.status.code === -10) {
+                toastr.error('对不起，由于您在热身赛中并不活跃，所以并未能入选正式比赛');
+            } else {
+                toastr.error('消息发送失败，请确认已经登录，并重试');
+            }
+        },
+        error: function() {
+            toastr.error('消息发送失败，请确认已经登录，并重试');
+        }
+    });
+}
+
 function onKanbanListed(success) {
     if (success) {
         $('#kanban_empty').hide();
@@ -108,6 +142,7 @@ function onContestantsListed(success, kanbanContestants) {
                 '<tbody>';
         for (var i = 0; i < contestants.length; i++) {
             var contestant = contestants[i];
+            // TODO: add buttons for sms fetch and ack
             tableHtml +=
                 '<tr>' +
                 '<td>' + contestant.studentName + '</td>' +

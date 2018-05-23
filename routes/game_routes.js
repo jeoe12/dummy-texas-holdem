@@ -21,6 +21,7 @@ app.post("/api/players/validate_sign_in", gameService.validateSignIn);
 app.post("/api/players/get_player_by_token", gameService.getPlayerByToken);
 app.post("/api/players/reset_password", gameService.resetPassword);
 app.post("/api/players/get_random_dummy", gameService.getRandomDummy);
+app.post("/api/players/fetch_passcode", gameService.fetchPasscode);
 
 app.get("/api/players/get_contestants", gameService.getContestants);
 app.get("/api/players/get_kanban_contestants", gameService.getKanbanContestants);

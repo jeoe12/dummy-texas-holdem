@@ -192,6 +192,19 @@ exports.getRandomDummy = function (req, res) {
     });
 };
 
+exports.fetchPasscode = function (req, res) {
+    var phoneNumber = req.headers["phone-number"] || req.body.phoneNumber;
+    var token = req.headers["token"] || req.body.token;
+
+    var serviceResponse = new ServiceResponse();
+
+    playerLogic.fetchMatchPasscodeWorkUnit(phoneNumber, token, function(fetchPasscodeErr) {
+        serviceResponse.status = fetchPasscodeErr;
+        res.send(serviceResponse);
+        res.end();
+    });
+};
+
 exports.getContestants = function (req, res) {
     var playerResponse = new PlayerResponse();
 

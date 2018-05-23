@@ -19,6 +19,7 @@ var RESET_PASSWORD_SERVICE = '/players/reset_password';
 var GET_RANDOM_DUMMY_SERVICE = '/players/get_random_dummy';
 var GET_CONTESTANTS_SERVICE = '/players/get_contestants';
 var GET_KANBAN_CONTESTANTS_SERVICE = '/players/get_kanban_contestants';
+var FETCH_PASSCODE_SERVICE = '/players/fetch_passcode';
 
 
 exports.sendSmsForUpdateWorkUnit = function (phoneNumber, callback) {
@@ -226,6 +227,38 @@ exports.getRandomDummyWorkUnit = function (callback) {
                 callback(errorCode.FAILED, null);
             }
         });
+};
+
+exports.fetchMatchPasscodeWorkUnit = function (phoneNumber, token, callback) {
+    // send HTTP request to engine server to reset password
+    var queryParams = new Map();
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            FETCH_PASSCODE_SERVICE,
+            queryParams);
+
+    var headers = {
+        'Content-Type': 'application/json',
+        'phone-number': phoneNumber,
+        'token': token
+    };
+
+    var fetchPasscodeParameters = {
+        phoneNumber: phoneNumber,
+        token: token
+    };
+
+    requestSender.sendPostRequest(fetchPasscodeParameters, headers, function (fetchPasscodeErr, serviceResponse) {
+        if (errorCode.SUCCESS.code === fetchPasscodeErr &&
+            JSON.parse(serviceResponse).status.code === errorCode.SUCCESS.code) {
+            callback(errorCode.SUCCESS);
+        } else {
+            logger.error("fetch passcode failed");
+            var status = JSON.parse(serviceResponse).status;
+            callback(status);
+        }
+    });
 };
 
 exports.getContestantsWorkUnit = function (callback) {
