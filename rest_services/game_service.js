@@ -218,10 +218,12 @@ exports.getContestants = function (req, res) {
 
 exports.getKanbanContestants = function (req, res) {
     var tableNumber = req.query.table_number;
+    var adminPassword = req.query.password;
 
     var playerResponse = new PlayerResponse();
 
-    playerLogic.getKanbanContestantsWorkUnit(tableNumber, function(getContestantsErr, contestants) {
+    console.log('get kanban contestants with admin password = ' + adminPassword);
+    playerLogic.getKanbanContestantsWorkUnit(tableNumber, adminPassword, function(getContestantsErr, contestants) {
         playerResponse.status = getContestantsErr;
         playerResponse.entity = contestants;
         res.send(playerResponse);

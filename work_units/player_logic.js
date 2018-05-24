@@ -288,10 +288,13 @@ exports.getContestantsWorkUnit = function (callback) {
         });
 };
 
-exports.getKanbanContestantsWorkUnit = function (tableNumber, callback) {
+exports.getKanbanContestantsWorkUnit = function (tableNumber, adminPassword, callback) {
     // send HTTP request to engine server to list contestants for specific table
     var queryParams = new Map();
     queryParams.put("table_number", tableNumber);
+    if (undefined !== adminPassword && null !== adminPassword) {
+        queryParams.put("password", adminPassword);
+    }
     var requestSender =
         new RequestSender(APP_SERVER_ADDRESS,
             APP_SERVER_PORT,
