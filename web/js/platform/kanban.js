@@ -83,7 +83,7 @@ function onKanbanListed(success) {
         for (var i = 0; i < tables.length; i++) {
             tableHtml +=
                 '<div class="panel panel-primary">' +
-                '<div class="panel-heading"><a style="text-decoration: none; cursor:hand; color: #FFFFFF" href="#" onclick="gotoMatch('+i+')"><h4><b>第 ' + tables[i].tableNumber + ' 桌<b></h4></a></div>' +
+                '<div class="panel-heading"><a style="text-decoration: none; cursor:hand; color: #FFFFFF" href="#" onclick="gotoMatch('+i+')"><h4><b>第 ' + tables[i].tableNumber + ' 组<b></h4></a></div>' +
                 '<div class="panel-body" id="table_'+tables[i].tableNumber+'">' +
                 '</div>' +
                 '<div class="panel-footer">Ticket: '+tables[i].ticket+'&nbsp;&nbsp;Port: 8081</div>' +
