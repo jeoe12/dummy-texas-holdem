@@ -143,6 +143,7 @@ function onContestantsListed(success, kanbanContestants) {
             tableHtml +=
                 '<td>活跃度</td>' +
                 '<td>手机号码</td>' +
+                '<td>邮箱</td>' +
                 '<td>passcode</td>' +
                 '<td>是否确认</td>';
         }
@@ -162,6 +163,7 @@ function onContestantsListed(success, kanbanContestants) {
                 var isConfirmed = (contestant.passcodeFetched) ? 'yes' : 'no';
                 tableHtml +=
                     '<td>' + contestant.activeStats + '</td>' +
+                    '<td>' + contestant.email + '</td>' +
                     '<td>' + contestant.phoneNumber + '</td>' +
                     '<td>' + contestant.passwordPlain + '</td>' +
                     '<td>' + isConfirmed + '</td>';
