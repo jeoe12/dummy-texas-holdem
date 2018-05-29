@@ -163,8 +163,8 @@ function onContestantsListed(success, kanbanContestants) {
                 var isConfirmed = (contestant.passcodeFetched) ? 'yes' : 'no';
                 tableHtml +=
                     '<td>' + contestant.activeStats + '</td>' +
-                    '<td>' + contestant.email + '</td>' +
                     '<td>' + contestant.phoneNumber + '</td>' +
+                    '<td>' + contestant.mail + '</td>' +
                     '<td>' + contestant.passwordPlain + '</td>' +
                     '<td>' + isConfirmed + '</td>';
             }
