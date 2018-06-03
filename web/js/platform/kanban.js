@@ -10,7 +10,7 @@ $(document).ready(function () {
     adminPassword = getParameter('password');
     $('#dialogs').load('dialogs.html');
     validateSignIn();
-    listTheKanban();
+    // listTheKanban();
 });
 
 function fetchPasscode() {
