@@ -52,13 +52,118 @@
         </div>
         <h2><strong>决赛看板</strong></h2>
         <hr>
-        <h3 style="width: 100%; text-align: center;">获奖名单</h3>
-        <div class="cover-container game-list" style="margin-top: 40px; min-height: 400px; text-align: center;">
-            <div id="kanban_empty" style="display: block; width: 100%; text-align: center; margin-top: 100px;"><span><strong><h2>本次比赛已经全部结束，等待组委会做最后的技术和名次评定。</h2></strong></span></div>
-            <div id="kanban_list" style="display: none;">
-
-            </div>
-        </div>
+        <a style="text-decoration: none;"><h4><strong>决赛公告</strong></h4></a>
+        <p>激烈的趋势科技杯德州扑克AI程序大赛落下了帷幕！举办方在此感谢每一位选手的付出与参与，相信通过这次比赛，参赛选手充分感受了算法和代码的魅力，同时也增强了实战和实践能力！</p>
+        <br>
+        <p>通过层层角逐，大赛决赛排行榜如下：</p>
+        <table width="50%">
+            <tr>
+                <td>Rank</td>
+                <td>Player</td>
+                <td>Type</td>
+                <td>Score</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Dummy2</td>
+                <td>Dummy</td>
+                <td>21920</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Dummy4</td>
+                <td>Dummy</td>
+                <td>21390</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Liekkas</td>
+                <td>Student</td>
+                <td>11230</td>
+            </tr>
+        </table>
+        <br>
+        <p>恭喜liekkas选手获得本次比赛的三等奖！举办方将联系liekkas选手完成后续事宜。</p>
+        <p>相信大家比赛的目的并不只是为了奖品，所谓高手切磋，华山论剑，没有评论怎么行呢？</p>
+        <hr>
+        <a style="text-decoration: none;"><h4><strong>高级Dummy开发者有话要说</strong></h4></a>
+        <p>对于初次接触德州的同学，关注下面几个方面是非常重要的：</p>
+        <p>1. 规则，包括比牌规则，盲注规则，下注规则等等。</p>
+        <p>2. 模型，存在几个维度(人数，位置，盲注，手牌，桌牌，下注，筹码，底池)？每个维度都可以进行数据集的分析，它们的关系是什么？</p>
+        <p>3. 算法，包括概率算法，推测算法，止损算法，平衡算法。</p>
+        <p>如何合理的建立的你的规则模型很重要，这基于对一定数量有效数据集的深入分析。</p>
+        <p>本次比赛中的数据，可以做简单的分析，基本不能用作数据集来训练AI。</p>
+        <p>现在我就简单分析一下几位同学的数据日志（仅分析典型输牌日志，代码无关）：</p>
+        <p>*手牌Rank： 基于Sklansky Chart算法给出当前选手两张手牌的等级数（等级越小越好）。</p>
+        <p>*组合Rating: Rating与手牌/桌牌组合，当前剩余玩家数量，当前所处阶段(FLOP-TURN-RIVER)都有直接关系，趋势高级Dummy通过特定的算法，可以推测当前牌面组合所处阶段(FLOP-TURN-RIVER)的胜率高低。</p>
+        <p>*BB：Big Blind。</p>
+        <p>*SB：Small Blind。</p>
+        <hr>
+        <a style="text-decoration: none;"><h4><strong>决赛选手算法分析</strong></h4></a>
+        <p><b>选手i3157</b></p>
+        <p><img src="./res/images/final_analyse/al_i3157.png"></p>
+        <p>综上：</p>
+        <p>1. 选手的胜率算法在高概率的时候会主动弃牌，低概率会盲目跟注和All in。</p>
+        <p>2. 跟注未组合考虑自己筹码量和胜率，算法较激进。</p>
+        <p>3. 没有应用check/raise。（也许这局游戏中恰好没有）</p>
+        <p>该选手的输牌，同时也反映出，高级Dummy在高胜率情况下进行组合判断，抛出合适的注码钓鱼的优势。</p>
+        <br><br>
+        <p><b>选手落地98k</b></p>
+        <p><img src="./res/images/final_analyse/al_98k.png"></p>
+        <p><img src="./res/images/final_analyse/log_98k.png"></p>
+        <p>综上：</p>
+        <p>1. 该选手只有大盲注<80的时候根据手牌概率call牌，大盲注>80手牌再好也不玩了（除非身为大盲）。</p>
+        <p>2. 该选手也出现低概率跟大注的情况，胜率没有和注码相结合。</p>
+        <p>3. 没有考虑到后期完全不玩的话，盲注会导致慢慢全盘皆输。</p>
+        <p>4. 选手没有用到check逻辑。</p>
+        <p>另外在log中能看出选手尝试钓鱼，认为自己手牌大的时候，会先下小注后追加大注，只是该选手在自己分析底牌的时候输了两把，接下来就放弃机会了，这样就没有机会翻盘获胜了。</p>
+        <br><br>
+        <p><b>选手PKFace</b></p>
+        <p><img src="./res/images/final_analyse/al_pkface.png"></p>
+        <p><img src="./res/images/final_analyse/log_pkface.png"></p>
+        <p>综上：</p>
+        <p>1. 从日志中看出该选手会在牌面较大的时候一直跟注甚至All in来赢得筹码，但主动出击较少。</p>
+        <p>2. 选手会根据手牌大小选择是否进入Flop，但不够准确，多次在自己是Big Blind的时候弃牌，注码白白损失，丢失Flop机会比较可惜。</p>
+        <p>3. 选手没有用到check逻辑。</p>
+        <br><br>
+        <p><b>选手BRYAN</b></p>
+        <p><img src="./res/images/final_analyse/al_bryan.png"></p>
+        <p><img src="./res/images/final_analyse/log_bryan_1.png"></p>
+        <p><img src="./res/images/final_analyse/log_bryan_2.png"></p>
+        <p>综上：</p>
+        <p>1. 该选手没有在大盲时候跟默认的0注，比赛Round1，手牌很好，但无奈弃牌，丢失大杀四方的机会。</p>
+        <p>2. 手牌Rank算法对于同样的手牌，出现有时跟牌，有时弃牌。</p>
+        <p>3. 打法灵活，check应用不错，时而bet，时而call，时而raise，应用比较恰当，可惜胜率算法或用法有失误。</p>
+        <p>继续优化自己的Rank和Rating算法，阈值合理，AI合理判断当前局势，就会有更大机会。</p>
+        <br><br>
+        <p><b>选手liekkas</b></p>
+        <p>该选手基本没有输牌，原因是基本没有玩牌。</p>
+        <p>选手只有当自认为手牌足够大才会进入Flop，进入Flop获胜只有1次。</p>
+        <p>第2次赢取筹码是手牌较好，直接All in赢取。</p>
+        <p>第3次赢取筹码是手牌较好，Deal阶段赢取，PKFace已经无更多筹码，其他选手folds，这也是最后一个Round。</p>
+        <p><img src="./res/images/final_analyse/log_liekkas.png"></p>
+        <p>综上：</p>
+        <p>1. 该选手的手牌Rank算法可能只有几个自己设定的手牌组合。</p>
+        <p>2. 手牌大的时候All in保证了取胜，但没有更多筹码入账。</p>
+        <p>3. 也许是决赛选手，包括Dummy水平都比较高，所以避免入局也是一种办法。</p>
+        <p>4. 该选手check应用不错。</p>
+        <hr>
+        <a style="text-decoration: none;"><h4><strong>不只是一个纸牌游戏 —— 德州扑克AI的意义</strong></h4></a>
+        <p>和谷歌研究围棋AI一样，卡内基梅隆大学研究德州扑克AI，也是“志不在此”。因为德州扑克中存在很多和社会生活类似的普遍难题，此研究才有更加重要的意义。</p>
+        <p><img src="./res/images/final_analyse/table_1.png"></p>
+        <p>李开复等讲解德扑人机对抗：</p>
+        <p>德州扑克的AI算法根源上讲是数学的博弈论，目的是获取最优策略（GTO），著名的德州AI Libratus（冷扑，一对一人类无敌手）。冷扑之所以能获胜，就是找到了每一种局面下可以采取某种特定策略，使得可以不再关心对手采用何种策略；简单的说，就是有效避免了德州扑克里面猜来猜去的怪区。德州扑克里面很多局面下最优解的期望值是正数，这就是冷扑打败人类牌手的数学基本出发点。</p>
+        <p><img src="./res/images/final_analyse/table_2.png"></p>
+        <hr>
+        <a style="text-decoration: none;"><h4><strong>推荐的参考</strong></h4></a>
+        <p>《Superhuman AI for heads-up no-limit poker：Libratusbeats top professionals》</p>
+        <p>《Fundamental Theorem of Poker》</p>
+        <p>David Sklansky, Phil Gordon的一些决策理论对算法影响颇大。</p>
+        <hr>
+        <p style="width: 100%; text-align: right;">【趋势科技德州扑克AI程序】大赛组委会</p>
+        <br>
+        <br>
+        <br>
     </div>
     <!-- kanban join dialog -->
     <div id="dialogs"></div>
