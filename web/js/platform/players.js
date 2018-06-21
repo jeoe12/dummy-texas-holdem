@@ -47,11 +47,11 @@ function loadTables() {
                     loadPlayersByTable();
                 }
             } else {
-                popUpHintDialog('获取比赛列表失败');
+                popUpHintDialog('获取游戏列表失败');
             }
         },
         error: function () {
-            popUpHintDialog('获取比赛列表失败');
+            popUpHintDialog('获取游戏列表失败');
         }
     });
 }
@@ -111,7 +111,7 @@ function loadPlayersByTable() {
             sortable: true
         }, {
             field: 'tableNumber',
-            title: '比赛桌号',
+            title: '游戏桌号',
             align: 'left',
             valign: 'middle',
             sortable: true
@@ -171,7 +171,7 @@ function refreshTables(tablesList) {
     } else {
         tables.append($('<option>', {
             value: 0,
-            text: '请选择比赛桌号'
+            text: '请选择游戏桌号'
         }));
     }
 
@@ -191,7 +191,7 @@ function updatePlayer() {
         null === tableNumber ||
         '' === playerName ||
         '' === tableNumber) {
-        popUpHintDialog('玩家名或者比赛桌号为空');
+        popUpHintDialog('玩家名或者游戏桌号为空');
         return;
     }
 

@@ -35,7 +35,7 @@ function setBoard(canSetBoard, player) {
     if (canSetBoard && player) {
         $('#goto_game_dialog').modal();
     } else {
-        toastr.warning('请先登录之后再创建比赛');
+        toastr.warning('请先登录之后再创建游戏');
         $('#goto_game_dialog').modal('hide');
         $('#signin_dialog').modal();
     }
@@ -96,7 +96,8 @@ function gotoGame(boardTicket, instancePort) {
 }
 
 function gotoRegister() {
-    window.location = 'https://ai.cad-stg.trendmicro.com/reg/'
+    $('#signin_dialog').modal('hide');
+    $('#signup_dialog').modal();
 }
 
 function validateSignIn(callback) {
@@ -170,6 +171,59 @@ function signIn(callback) {
     });
 }
 
+function signUp(callback) {
+    var phoneNumber = $('#reg_phone_number').val();
+    var verificationCode = $('#verification_code').val();
+    var name = $('#name').val();
+    var password = $('#reg_password').val();
+    var passwordConfirm = $('#reg_confirm').val();
+    if (isEmpty(phoneNumber) || isEmpty(password) || !validatePhoneNumber(phoneNumber)) {
+        toastr.error('请输入正确的电话号码和密码');
+        return;
+    }
+
+    if (isEmpty(name)) {
+        toastr.error('请填写验证码');
+        return;
+    }
+
+    if (isEmpty(verificationCode)) {
+        toastr.error('请填写验证码');
+        return;
+    }
+
+    if (password !== passwordConfirm) {
+        toastr.error('两次输入的密码不一致');
+        return;
+    }
+    password = md5(password);
+    $.ajax({
+        url: '/api/players/sign_up',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            phoneNumber: phoneNumber,
+            password: password,
+            verificationCode: verificationCode,
+            name: name
+        },
+        timeout: 20000,
+        success: function (response) {
+            if (response.status.code === 0) {
+                var player = response.entity;
+                localStorage.setItem('password', password);
+                onSignedIn(true, player, callback);
+            } else {
+                onSignedIn(false, null, callback);
+            }
+        },
+        error: function () {
+            toastr.error('服务器暂时没有响应，请稍后重试');
+            onSignedIn(false, null, callback);
+        }
+    });
+}
+
 function onSignedIn(success, player, callback) {
     if (success) {
         if (callback) {
@@ -196,6 +250,7 @@ function showSignedIn(show, player) {
 function showWelcome(show, player) {
     if (show && player) {
         clearSignInModal();
+        clearSignUpModal();
         $('#player_name').html(player.name);
         $('#login_button').hide();
         $('#welcome').show();
@@ -213,6 +268,16 @@ function clearSignInModal() {
     $('#password').val('');
 
     $('#signin_dialog').modal('hide');
+}
+
+function clearSignUpModal() {
+    $('#reg_phone_number').val('');
+    $('#reg_password').val('');
+    $('#reg_confirm').val('');
+    $('#verification_code').val('');
+    $('#name').val('');
+
+    $('#signup_dialog').modal('hide');
 }
 
 function onResetPassword() {
@@ -281,7 +346,32 @@ function clearResetPasswordModal() {
     $('#reset_password_dialog').modal('hide');
 }
 
-function sendVerificationCode() {
+function sendSmsForSignup() {
+    var phoneNumber = $('#reg_phone_number').val();
+    if (null === phoneNumber || !validatePhoneNumber(phoneNumber)) {
+        toastr.error('手机号码格式不正确');
+        return;
+    }
+    $.ajax({
+        url: '/api/players/send_sms',
+        type: 'POST',
+        data: JSON.stringify({phoneNumber: phoneNumber}),
+        contentType: 'application/json; charset=utf-8',
+        timeout: 20000,
+        success: function(response) {
+            if (response.status.code === 0) {
+                toastr.success('短信验证码发送成功');
+            } else {
+                toastr.error('短信发送失败, 请检查手机号码是否正确');
+            }
+        },
+        error: function() {
+            toastr.error('短信发送失败, 请检查手机号码是否正确');
+        }
+    });
+}
+
+function sendSmsForUpdate() {
     var phoneNumber = $('#reset_password_phone_number').val();
     if (null === phoneNumber || !validatePhoneNumber(phoneNumber)) {
         toastr.error('手机号码格式不正确');

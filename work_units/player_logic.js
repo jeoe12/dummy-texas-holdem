@@ -10,7 +10,10 @@ var errorCode = new ErrorCode();
 var RequestSender = require('../poem/http/request.js');
 var Map = require('../poem/mem/map.js');
 
+
+var SEND_SMS_SERVICE = '/players/send_sms';
 var SEND_SMS_FOR_UPDATE_SERVICE = '/players/send_sms_for_update';
+var SIGN_UP_SERVICE = '/players/sign_up';
 var SIGN_IN_SERVICE = '/players/sign_in';
 var SIGN_OUT_SERVICE = '/players/sign_out';
 var VALIDATE_SIGN_IN_SERVICE = '/players/validate_sign_in';
@@ -21,6 +24,60 @@ var GET_CONTESTANTS_SERVICE = '/players/get_contestants';
 var GET_KANBAN_CONTESTANTS_SERVICE = '/players/get_kanban_contestants';
 var FETCH_PASSCODE_SERVICE = '/players/fetch_passcode';
 
+exports.registerWorkUnit = function (player, callback) {
+    // send HTTP request to engine server to sign up a new account
+    var queryParams = new Map();
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            SIGN_UP_SERVICE,
+            queryParams);
+    var headers = {
+        'Content-Type': 'application/json'
+    };
+
+    var signUpParameters = player;
+
+    requestSender.sendPostRequest(signUpParameters, headers, function (signUpErr, signUpResponse) {
+        logger.info('signUp response = ' + JSON.stringify(signUpResponse));
+
+        if (errorCode.SUCCESS.code === signUpErr &&
+            JSON.parse(signUpResponse).status.code === errorCode.SUCCESS.code) {
+            var player = JSON.parse(signUpResponse).entity;
+            logger.info('sign Up successfully, player = ' + JSON.stringify(player));
+            callback(errorCode.SUCCESS, player);
+        } else {
+            logger.error('sign up request failed');
+            callback(errorCode.FAILED, null);
+        }
+    });
+};
+
+exports.sendSmsWorkUnit = function (phoneNumber, callback) {
+    // send HTTP request to engine server to send verification code
+    var queryParams = new Map();
+    var requestSender =
+        new RequestSender(APP_SERVER_ADDRESS,
+            APP_SERVER_PORT,
+            SEND_SMS_SERVICE,
+            queryParams);
+    var headers = {
+        'Content-Type': 'application/json'
+    };
+
+    var sendSmsParameters = {
+        phoneNumber: phoneNumber
+    };
+
+    requestSender.sendPostRequest(sendSmsParameters, headers, function (sendSmsErr, sendSmsResponse) {
+        if (errorCode.SUCCESS.code === sendSmsErr) {
+            callback(JSON.parse(sendSmsResponse).status);
+        } else {
+            logger.error('send sms failed');
+            callback(errorCode.FAILED);
+        }
+    });
+};
 
 exports.sendSmsForUpdateWorkUnit = function (phoneNumber, callback) {
     // send HTTP request to engine server to send verification code
@@ -42,7 +99,7 @@ exports.sendSmsForUpdateWorkUnit = function (phoneNumber, callback) {
         if (errorCode.SUCCESS.code === sendSmsErr) {
             callback(JSON.parse(sendSmsResponse).status);
         } else {
-            logger.error("send sms failed");
+            logger.error('send sms failed');
             callback(errorCode.FAILED);
         }
     });
@@ -71,7 +128,7 @@ exports.signInWorkUnit = function (phoneNumber, password, callback) {
             var player = JSON.parse(signInResponse).entity;
             callback(errorCode.SUCCESS, player);
         } else {
-            logger.error("sign in failed");
+            logger.error('sign in request failed');
             callback(errorCode.FAILED, null);
         }
     });
@@ -99,10 +156,10 @@ exports.signOutWorkUnit = function (phoneNumber, token, callback) {
     requestSender.sendPostRequest(signOutParameters, headers, function (signOutErr, signOutResponse) {
         if (errorCode.SUCCESS.code === signOutErr &&
             JSON.parse(signOutResponse).status.code === errorCode.SUCCESS.code) {
-            logger.info("sign out successfully");
+            logger.info('sign out successfully');
             callback(errorCode.SUCCESS);
         } else {
-            logger.error("sign out failed");
+            logger.error('sign out failed');
             callback(errorCode.FAILED);
         }
     });
@@ -133,7 +190,7 @@ exports.validateUserTokenWorkUnit = function (phoneNumber, token, callback) {
             var player = JSON.parse(playerResponse).entity;
             callback(errorCode.SUCCESS, player);
         } else {
-            logger.error("get player failed");
+            logger.error('get player failed');
             callback(errorCode.FAILED, null);
         }
     });
@@ -160,12 +217,12 @@ exports.getPlayerByTokenWorkUnit = function (phoneNumber, token, callback) {
     requestSender.sendPostRequest(getPlayerParameters, headers, function (getPlayerErr, playerResponse) {
         if (errorCode.SUCCESS.code === getPlayerErr &&
             JSON.parse(playerResponse).status.code === errorCode.SUCCESS.code) {
-            logger.info("get player successfully");
+            logger.info('get player successfully');
             var player = JSON.parse(playerResponse).entity;
-            logger.info("response of player = " + JSON.stringify(player));
+            logger.info('response of player = ' + JSON.stringify(player));
             callback(errorCode.SUCCESS, player);
         } else {
-            logger.error("get player failed");
+            logger.error('get player failed');
             callback(errorCode.FAILED, null);
         }
     });
@@ -194,10 +251,10 @@ exports.resetPasswordWorkUnit = function (phoneNumber, verificationCode, passwor
         function (resetPasswordErr, resetPasswordResponse) {
         if (errorCode.SUCCESS.code === resetPasswordErr &&
             JSON.parse(resetPasswordResponse).status.code === errorCode.SUCCESS.code) {
-            logger.info("reset password successfully");
+            logger.info('reset password successfully');
             callback(errorCode.SUCCESS);
         } else {
-            logger.error("reset password failed");
+            logger.error('reset password failed');
             callback(errorCode.FAILED);
         }
     });
@@ -223,7 +280,7 @@ exports.getRandomDummyWorkUnit = function (callback) {
                 var player = JSON.parse(playerResponse).entity;
                 callback(errorCode.SUCCESS, player);
             } else {
-                logger.error("get dummy failed");
+                logger.error('get dummy failed');
                 callback(errorCode.FAILED, null);
             }
         });
@@ -254,7 +311,7 @@ exports.fetchMatchPasscodeWorkUnit = function (phoneNumber, token, callback) {
             JSON.parse(serviceResponse).status.code === errorCode.SUCCESS.code) {
             callback(errorCode.SUCCESS);
         } else {
-            logger.error("fetch passcode failed");
+            logger.error('fetch passcode failed');
             var status = JSON.parse(serviceResponse).status;
             callback(status);
         }
@@ -282,7 +339,7 @@ exports.getContestantsWorkUnit = function (callback) {
                 var contestants = JSON.parse(playerResponse).entity;
                 callback(errorCode.SUCCESS, contestants);
             } else {
-                logger.error("get contestants failed");
+                logger.error('get contestants failed');
                 callback(errorCode.FAILED, null);
             }
         });
@@ -291,9 +348,9 @@ exports.getContestantsWorkUnit = function (callback) {
 exports.getKanbanContestantsWorkUnit = function (tableNumber, adminPassword, callback) {
     // send HTTP request to engine server to list contestants for specific table
     var queryParams = new Map();
-    queryParams.put("table_number", tableNumber);
+    queryParams.put('table_number', tableNumber);
     if (undefined !== adminPassword && null !== adminPassword) {
-        queryParams.put("password", adminPassword);
+        queryParams.put('password', adminPassword);
     }
     var requestSender =
         new RequestSender(APP_SERVER_ADDRESS,
@@ -312,7 +369,7 @@ exports.getKanbanContestantsWorkUnit = function (tableNumber, adminPassword, cal
                 var kanbanContestants = JSON.parse(playerResponse).entity;
                 callback(errorCode.SUCCESS, kanbanContestants);
             } else {
-                logger.error("get contestants failed");
+                logger.error('get contestants failed');
                 callback(errorCode.FAILED, null);
             }
         });

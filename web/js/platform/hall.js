@@ -33,7 +33,7 @@ function nextPage() {
 function onSearch() {
     var searchName = $('#search_name').val();
     if (isEmpty(searchName)) {
-        toastr.error('请输入比赛创建者名称');
+        toastr.error('请输入游戏创建者名称');
         return;
     }
     searchBoards(searchName);
@@ -241,7 +241,7 @@ function joinLive(canJoinLive, player) {
         window.open(gameURL);
         $('#join_game_dialog').modal('hide');
     } else {
-        toastr.warning('请先登录之后再观看比赛');
+        toastr.warning('请先登录之后再观看游戏');
         $('#goto_game_dialog').modal('hide');
         $('#signin_dialog').modal();
     }
@@ -256,7 +256,7 @@ function joinGame(canJoinGame, player) {
         window.open(gameURL);
         $('#join_game_dialog').modal('hide');
     } else {
-        toastr.warning('请先登录之后再观看比赛');
+        toastr.warning('请先登录之后再观看游戏');
         $('#goto_game_dialog').modal('hide');
         $('#signin_dialog').modal();
     }

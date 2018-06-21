@@ -432,7 +432,7 @@ var BoardLayer = cc.Layer.extend({
 
         // initialize author text
         if (MODE_PLAYER !== playMode) {
-            this.authorLabel = new cc.LabelTTF('TrendMicro.',
+            this.authorLabel = new cc.LabelTTF('Dummy.',
                 this.authorTextFont, this.authorTextSize);
             this.authorLabel.setColor(cc.color(255, 255, 255, 255));
             this.authorLabel.setAnchorPoint(0, 0);

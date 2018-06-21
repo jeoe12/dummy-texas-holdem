@@ -128,6 +128,31 @@ exports.getPlayerByToken = function (req, res) {
     });
 };
 
+exports.sendSms = function (req, res) {
+    var phoneNumber = req.body.phoneNumber;
+
+    var serviceResponse = new ServiceResponse();
+    playerLogic.sendSmsWorkUnit(phoneNumber, function(sendSmsErr) {
+        serviceResponse.status = sendSmsErr;
+        res.send(serviceResponse);
+        res.end();
+    });
+};
+
+exports.signUp = function (req, res) {
+    var player = req.body;
+
+    var playerResponse = new PlayerResponse();
+
+    playerLogic.registerWorkUnit(player, function(registerPlayerErr, player) {
+        // record sms sent from this peer
+        playerResponse.status = registerPlayerErr;
+        playerResponse.entity = player;
+        res.send(playerResponse);
+        res.end();
+    });
+};
+
 exports.sendSmsForUpdate = function (req, res) {
     var phoneNumber = req.body.phoneNumber;
 
