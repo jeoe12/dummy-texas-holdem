@@ -104,6 +104,7 @@ function validateSignIn(callback) {
     phoneNumber = localStorage.getItem('phoneNumber');
     token = localStorage.getItem('token');
     password = localStorage.getItem('password');
+    console.log("validate signin, phoneNumber = " + phoneNumber + ", token = " + token + ", password = " + password);
     if (phoneNumber && token) {
         // get player information at client side
         $.ajax({
@@ -212,19 +213,31 @@ function signUp(callback) {
             if (response.status.code === 0) {
                 var player = response.entity;
                 localStorage.setItem('password', password);
-                onSignedIn(true, player, callback);
+                onSignedUp(true, player, callback);
             } else {
-                onSignedIn(false, null, callback);
+                onSignedUp(false, null, callback);
             }
         },
         error: function () {
             toastr.error('服务器暂时没有响应，请稍后重试');
-            onSignedIn(false, null, callback);
+            onSignedUp(false, null, callback);
         }
     });
 }
 
 function onSignedIn(success, player, callback) {
+    if (success) {
+        if (callback) {
+            callback(true, player);
+        }
+    } else {
+        if (callback) {
+            callback(false, null);
+        }
+    }
+}
+
+function onSignedUp(success, player, callback) {
     if (success) {
         if (callback) {
             callback(true, player);
@@ -244,6 +257,37 @@ function showSignedIn(show, player) {
     }
     if (showWelcome) {
         showWelcome(show, player);
+    }
+}
+
+function autoSignIn(success, player) {
+    if (success && player) {
+        toastr.success('注册成功，自动登录');
+        $.ajax({
+            url: '/api/players/sign_in',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                phoneNumber: player.phoneNumber,
+                password: player.password
+            },
+            timeout: 20000,
+            success: function (response) {
+                if (response.status.code === 0) {
+                    var player = response.entity;
+                    localStorage.setItem('password', password);
+                    onSignedIn(true, player, showSignedIn);
+                } else {
+                    onSignedIn(false, null, showSignedIn);
+                }
+            },
+            error: function () {
+                toastr.error('服务器暂时没有响应，请稍后重试');
+                onSignedIn(false, null, showSignedIn);
+            }
+        });
+    } else {
+        toastr.error('注册失败，电话号码或密码错误');
     }
 }
 
